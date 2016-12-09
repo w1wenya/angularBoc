@@ -1,0 +1,117 @@
+<div ng-controller="SourceCreateCtrl" class="clearfix detail">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>{{title}}</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form name="addForm">
+						<div class="search-box m-t-md">
+							<div class="legend">基本信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">数据源名称：</label>
+										<input type="text" name="name" class="form-control" ng-model="name" placeholder="请输入数据源名称" validator="required,name"/>
+									</div>
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">数据源类型：</label>
+										<input type="text" name="type" class="form-control" ng-model="type" placeholder="请输入插件类型" validator="required"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12 input-error-info">
+										<label class="control-label m-t-n-70">数据源描述：</label>
+										<textarea class="form-control" name="remark" placeholder="数据源描述" ng-model="remark" maxlength="256"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="search-box m-t-md">
+							<div class="legend">采集源</div>
+							<div class="search-content setting">
+								<div class="search-box m-t-md" ng-repeat="(key,row) in inputListData track by $index">
+									<i class="fa fa-times alarm-delete" ng-click="removeItem(key,inputListData)"></i>
+									<div class="legend">插件类型</div>
+									<div class="row search-content setting">
+										<div class="col-md-6 input-error-info m-b">
+												<label class="control-label">插件列表：</label>
+												<select class="form-control"  name="plugin{{key}}" ng-model="row.name" ng-change="getPlugin(row)" validator="required">
+													<option value="">--请选择--</option>
+													<option ng-repeat="(key,item) in pluginInputData" ng-selected="row.name==item.value" value="{{item.value}}" ng-bind="item.name"></option>
+												</select>
+											</div>
+										<div class="col-md-12" ng-repeat="item in row.beans track by $index">
+											<div class="form-group">
+												<div class="col-md-2">
+													<label class="control-label">{{item.desp}}：</label>
+												</div>
+												<div class="col-md-3">
+													<input type="text" class="form-control w-full" name="key{{$index}}"ng-model="item.key" disabled/>
+												</div>
+												<div class="col-md-6">
+													<input type="text" class="form-control w-full" name="value{{$index}}"ng-model="item.value" placeholder="请输入VALUE值" validator="required"/>
+												</div>
+												<div class="col-md-1" ng-if="item.require">
+													<span class="text-danger text-2x">*</span>
+												</div>
+												<div class="col-md-1">
+													<button class="btn btn-xs w-3x btn-danger m-t-xs" ng-if="!item.require" ng-click="removeSetting($index,row.beans)"><i class="fa fa-minus"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button class="btn w-md btn-info m-l m-b-sm m-t-sm" ng-click="addSetting()"><i class="fa fa-plus"></i></button>
+							</div>
+						</div>
+						<div class="search-box m-t-md">
+							<div class="legend">过滤器</div>
+							<div class="search-content setting">
+								<div class="search-box m-t-md" ng-repeat="(key,row) in filterListData track by $index">
+									<i class="fa fa-times alarm-delete" ng-click="removeItem(key,filterListData,1)"></i>
+									<div class="legend">插件类型</div>
+									<div class="row search-content setting">
+										<div class="col-md-6 input-error-info m-b">
+											<label class="control-label">插件列表：</label>
+											<select class="form-control"  name="plugin{{key}}" ng-model="row.name" ng-change="getPlugin(row,1)">
+												<option value="">--请选择--</option>
+												<option ng-repeat="(key,item) in pluginFilterData" ng-selected="row.name==item.value" value="{{item.value}}" ng-bind="item.name"></option>
+											</select>
+										</div>
+										<div class="col-md-12" ng-repeat="item in row.beans track by $index">
+											<div class="form-group">
+												<div class="col-md-2">
+													<label class="control-label">{{item.desp}}：</label>
+												</div>
+												<div class="col-md-3">
+													<input type="text" class="form-control w-full" name="key{{$index}}"ng-model="item.key" disabled/>
+												</div>
+												<div class="col-md-6">
+													<input type="text" class="form-control w-full" name="value{{$index}}"ng-model="item.value" placeholder="请输入VALUE值" validator="required"/>
+												</div>
+												<div class="col-md-1" ng-if="item.require">
+													<span class="text-danger text-2x">*</span>
+												</div>
+												<div class="col-md-1">
+													<button class="btn btn-xs w-3x btn-danger m-t-xs" ng-if="!item.require" ng-click="removeSetting($index,row.beans,1)"><i class="fa fa-minus"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button class="btn w-md btn-info m-l m-b-sm m-t-sm" ng-click="addSetting(1)"><i class="fa fa-plus"></i></button>
+								<textarea class="form-control m-b-xs" name="config" placeholder="配置信息" ng-model="filterValue"  rows="8" style="width: 100%"></textarea>
+							</div>
+						</div>
+					</form>
+					<div class="col-md-12 m-t-md m-b-sm btn-list" >
+						<div class="col-md-6"><button type="submit" class="btn btn-primary" validation-submit="addForm" ng-disabled="addForm.$invalid" ng-click="save()">确认</button></div>
+						<div class="col-md-6"><button class="btn btn-default" ng-click="goBack()">取消</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

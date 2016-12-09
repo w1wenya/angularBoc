@@ -1,0 +1,134 @@
+<div  ng-controller="DoScriptCtrl"class="wrapper-sm">
+		<div class="panel panel-default" ng-show="!showDetail">
+			<div class="row">
+				<div class="col-md-12">
+					<form novalidate name="scriptForm">
+						<div class="form-group">
+							<label class="control-label">脚本名称：</label>
+							<input type="text" ng-hide-popover="" class="form-control control-input" ng-model="scriptName" data-content="必填项"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">执行账户：</label>
+							<select class="form-control control-input" ng-model="identId" data-content="必填项">
+								<option value="">--请选择--</option>
+								<option ng-repeat="item in accountData" value="{{item.id}}" ng-bind="item.name"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label">目标机器：</label>
+							<div class="control-input">
+								<button class="btn btn-sm btn-success" ng-click="selectServer()" data-content="必填项" value="{{serverListData.length}}"><i class="fa fa-desktop"></i> 选择服务器</button>
+								<div class="pull-right" ng-show="isShowServer">
+									<button class="btn btn-sm btn-danger" ng-click="clearServer()">清空IP</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" ng-show="isShowServer">
+							<div class="server-list">
+								<table st-table="displayListData" st-safe-src="serverListData" class="table table-striped">
+									<thead>
+									<tr>
+										<th>IP</th>
+										<th>状态</th>
+										<th class="text-center" style="width: 180px">操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ng-if="(serverListData.length==0)">
+										<td class="text-center" colspan="3">请选择服务器</td>
+									</tr>
+									<tr ng-repeat="row in displayListData">
+										<td ng-bind="row.ip"></td>
+										<td ng-bind="row.status|cn:'status'"></td>
+										<td class="text-center">
+											<button class="btn btn-xs w-xxs btn-danger" ng-click="delServer($index)">删除</button>
+										</td>
+									</tr>
+									</tbody>
+									<tfoot>
+									<tr>
+										<td colspan="2" class="text-left">
+											<div>每页{{itemsByPage}}条，共选择{{totalSelect}}条</div>
+										</td>
+										<td colspan="3" class="text-right">
+											<div st-pagination="" st-item-data="serverListData" st-items-by-page="itemsByPage"
+											     st-displayed-pages="7" class="no-margin"></div>
+										</td>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">脚本来源：</label>
+							<div>
+								<label class="i-checks m-r m-t-xs" ng-click="selectSource()">
+									<input type="radio" name="type" value="1" ng-model="source"><i></i>手工录入
+								</label>
+								<label class=" i-checks m-r m-t-xs" ng-click="selectSource()">
+									<input type="radio" name="type" value="2" ng-model="source"><i></i>脚本克隆
+								</label>
+								<label class="i-checks m-t-xs" ng-click="selectSource()">
+									<input type="radio" name="type" value="3" ng-model="source"><i></i>本地脚本
+								</label>
+							</div>
+						</div>
+						<div class="form-group source-list" ng-if="(source == 2)">
+							<label>脚本名称：</label>
+							<div class="inline select-script-width">
+								<ui-select ng-model="scriptItem.selected" ng-change="getScriptValue()" theme="bootstrap">
+									<ui-select-match placeholder="选择或者从列表中搜索一个脚本">{{$select.selected.name}}</ui-select-match>
+									<ui-select-choices repeat="item in scriptListData | filter: $select.search">
+										<div ng-bind-html="item.name | highlight: $select.search"></div>
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+						<div class="form-group source-list" ng-show="(source == 3)">
+							<label>选择脚本：</label>
+							<div class="inline select-script-width">
+								<input type="file" class="form-control inline file"/>
+							</div>
+						</div>
+						<div class="form-group m-b" style="height: 340px" >
+							<label class="control-label">脚本内容：</label>
+							<div class="control-input" ng-code-mirror="" code-mirror="codeMirror" >
+								<div class="code-type" data-content="必填项">
+									<label class="i-checks i-checks-sm">
+										<input type="radio" ng-model="scriptType" name="codetype" value="SHELL" checked ><i></i> shell
+									</label>
+									<label class="i-checks i-checks-sm">
+										<input type="radio" ng-model="scriptType" name="codetype" value="BAT" ><i></i> bat
+									</label>
+									<label class="i-checks i-checks-sm">
+										<input type="radio" ng-model="scriptType" name="codetype" value="PERL"><i></i> perl
+									</label>
+									<label class="i-checks i-checks-sm">
+										<input type="radio" ng-model="scriptType" name="codetype" value="PYTHON"><i></i> python
+									</label>
+									<a href="">
+												<i class="icon-size-fullscreen pull-right m-t-sm m-r-sm" ></i>
+										</a>
+								</div>
+								<textarea class="textarea"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">脚本参数：</label>
+							<input type="text" class="form-control control-input" ng-model="params" placeholder="脚本参数"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">超时时间：</label>
+							<input type="number" class="form-control control-input" ng-model="timeout" placeholder="请输入超时时间，单位为秒，默认600秒"/>
+						</div>
+						<div class="form-group text-center">
+							<button class="btn btn-primary" ng-click="execute()" ng-validator-popover="scriptForm" $invalid="$invalid" ng-disabled="$invalid"><i class="fa fa-life-saver"></i> 执行脚本</button>
+						</div>
+						<div class="see-result" ng-click="seeResult()" ng-if="showSeeResult"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" ng-execute-job-detail="" ng-if="showDetail" ng-class="{true: 'bounceInRight', false: 'bounceOutRight'}[isActive]"></div>
+	</div>
+

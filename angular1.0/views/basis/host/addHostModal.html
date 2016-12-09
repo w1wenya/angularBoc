@@ -1,0 +1,47 @@
+<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+		<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+	</div>
+<div class="card-body card-padding">
+		<form class="form-horizontal form-validation" name="addServerForm">
+			<div class="input-group m-b-15">
+				<span class="input-group-addon">主机名称 ：</span>
+				<div class="fg-line">
+					<input type="text" class="form-control" placeholder="主机名称" name="name" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" >
+				</div>
+			</div>
+			<div class="input-group m-b-15">
+				<span class="input-group-addon f-500 c-black m-b-15">主机类型 ：</span>
+				<select  class="w-100 form-control">
+					<option value="0">SWARM</option>
+					<option value="1">DOCKER</option>
+					<option value="2">REGISTRY</option>
+					<option value="3">LOADBALANCE</option>
+					<option value="4">其他</option>
+				</select>
+			</div>
+
+			<div class="input-group m-b-15">
+				<span class="input-group-addon">登录账号 ：</span>
+				<div class="fg-line">
+					<input type="text" class="form-control" placeholder="登录账号" ng-model="osAccount" name="osAccount" validator="required" >
+				</div>
+			</div>
+			<div class="input-group m-b-15">
+				<span class="input-group-addon">登录密码 ：</span>
+				<div class="fg-line">
+					<input type="text" class="form-control" placeholder="登录密码" ng-model="osPassword" name="osPassword" validator="required,password" >
+				</div>
+			</div>
+			<div class="input-group m-b-15">
+				<span class="input-group-addon">主机描述 ：</span>
+				<div class="fg-line">
+					<textarea rows="3" class="form-control" ng-model="remark" maxlength="256" name="remark" maxlength-error-message="最多输入256个字符" ></textarea>
+				</div>
+			</div>
+		</form>
+	</div>
+<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" validation-submit="addServerForm" ng-disabled="(addServerForm.$invalid|| isFail)" ng-click="ok()">确认</button>
+		<button class="btn btn-default" ng-click="cancle()">取消</button>
+	</div>

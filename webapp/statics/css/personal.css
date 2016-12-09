@@ -1,0 +1,8 @@
+.message-detail {
+  padding: 15px;
+  border: 1px solid #eee;
+  background: #1C2026;
+  color: #fff;
+  height: 300px;
+  overflow: auto;
+}

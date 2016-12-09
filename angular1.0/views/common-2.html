@@ -1,0 +1,20 @@
+
+
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include src="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+  <div >
+      <div><i class="fa fa-home"></i> 当前页：<span ng-bind="moduleTitle"></span></div>
+      <div data-ui-view>
+
+      </div>
+  </div>
+
+</section>
+
+<footer id="footer" data-ng-include src="'template/footer.html'"></footer>
+
+
+

@@ -1,0 +1,58 @@
+{
+  "success" : true,
+  "data" :{
+    "rows": [
+      {
+        "id":1,
+        "name":"数据中心1",
+        "status":"NORMAL",
+        "remark":"haha",
+        "moreProp":"运行中运行中运行中",
+        "snapshotId":"1",
+        "volumeId":"1",
+        "volumeName":"1",
+        "uuid":"dlfa;l;d",
+        "size":"1"
+      },
+      {
+        "id":2,
+        "name":"数据中心2",
+        "status":"NORMAL",
+        "remark":"haha",
+        "moreProp":"运行中运行中运行中",
+        "snapshotId":"1",
+        "volumeId":"1",
+        "volumeName":"1",
+        "uuid":"dlfa;l;d",
+        "size":"1"
+      },
+      {
+        "id":3,
+        "name":"数据中心2",
+        "status":"NORMAL",
+        "remark":"haha",
+        "moreProp":"运行中运行中运行中",
+        "snapshotId":"1",
+        "volumeId":"1",
+        "volumeName":"1",
+        "uuid":"dlfa;l;d",
+        "size":"1"
+      },
+      {
+        "id":5,
+        "name":"数据中心4",
+        "status":"NORMAL",
+        "remark":"haha",
+        "moreProp":"运行中运行中运行中",
+        "snapshotId":"1",
+        "volumeId":"1",
+        "volumeName":"1",
+        "uuid":"dlfa;l;d",
+        "size":"1"
+      }],
+    "total":20
+  },
+  "message" : "信息",
+  "code" : 1111,
+  "solution" : " "
+}

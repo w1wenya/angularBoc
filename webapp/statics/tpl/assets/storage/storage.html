@@ -1,0 +1,43 @@
+<div ng-controller="storageCtrl" class="content-byc">
+    <div class="wrapper-md">
+        <div class="row">
+            <div class="list-byc">
+                <ul class="list-ul">
+                    <li class="list-li" ng-repeat="(key,row) in countData">
+                        <div class="list-li-div list-li-div1" ng-class="{true:'border-color',false:'normal-border-color'}[row.isChose]" ng-click="goVm(row)">
+                            <div class="name">{{row.type}}—{{row.name}}</div>
+                            <div class="text text2">
+                                <ul class="status-box">
+                                    <li class="run-status run-status-running">
+                                        <i class="fa fa-cloud"></i>
+                                        <span class="padding-l-10">Bucket： </span><span class="color-6">{{row.instance}}</span><span>个</span>
+                                    </li>
+                                    <li class="run-status run-status-stop">
+                                        <i class="fa fa-sitemap"></i>
+                                        <span class="padding-l-10">存储空间： </span><span class="color-6">{{row.space}}</span><span>MB</span>
+                                    </li>
+                                    <!--<li class="run-status run-status-active">-->
+                                        <!--<i class="fa fa-cogs"></i>-->
+                                        <!--<span class="padding-l-10">流量： </span><span class="color-6">{{row.online}}</span><span>MB</span>-->
+                                    <!--</li>-->
+                                    <!--<li class="run-status run-status-warning">-->
+                                        <!--<i class="fa fa-wifi"></i>-->
+                                        <!--<span class="padding-l-10">http请求： </span><span class="color-6">{{row.online}}</span><span>次</span>-->
+                                    <!--</li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="col-md-12 clearfix" ng-show="isEight">
+                    <div class="col-sm-6" style="padding:7px 15px;">
+                        <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <pagination boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="8" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

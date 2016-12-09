@@ -1,0 +1,131 @@
+<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+		<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+	</div>
+<div class="modal-body ">
+		<form class="form-horizontal form-validation" name="addServerForm">
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">数据中心：</label>
+					<div class="control-input">
+						<select class="form-control" name="centerId" ng-change="loadSelectData(0,dcId)" validator="required" ng-model="dcId" ng-disabled="disableSelect">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in dataCenterData" ng-selected="item.id == dcId" value="{{item.id}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">机房列表：</label>
+					<div class="control-input">
+						<select class="form-control" name="roomId" ng-change="loadSelectData(1,roomId)" validator="required" ng-model="roomId" ng-disabled="disableSelect">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in roomData" ng-selected="item.id == roomId"value="{{item.id}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">机柜列表：</label>
+					<div class="control-input">
+						<select class="form-control"  ng-change="rackChange(rackId)"  name="rackId" validator="required" ng-model="rackId" ng-disabled="disableSelect">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in cabinetData" ng-selected="item.id == rackId" value="{{item.id}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">服务器名称：</label>
+					<div class="control-input">
+						<input class="form-control" name="name" placeholder="服务器名称" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">用户账号：</label>
+					<div class="control-input">
+						<input class="form-control" name="osAccount" placeholder="用户账号" ng-model="osAccount" maxlength="64" maxlength-error-message="最多输入64个字符" validator="required,name" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">用户密码：</label>
+					<div class="control-input">
+						<input class="form-control" name="osPassword" placeholder="用户密码" maxlength="18" validator="required,password_opt" ng-model="osPassword" type="{{showPass_os?'text':'password'}}" />
+						<span class="eye" ng-class="{'eye-show':osPassword}" ng-click="showPassword('showPass_os')"></span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">IMPI账号：</label>
+					<div class="control-input">
+						<input class="form-control" name="ipmiAccount" placeholder="IPMI账号" maxlength="64" ng-model="ipmiAccount" validator="account_opt" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">IPMI密码：</label>
+					<div class="control-input">
+						<input class="form-control" name="ipmiPassword" placeholder="IPMI密码"  validator="password_opt" maxlength="18" ng-model="ipmiPassword" type="{{showPass_ipmp?'text':'password'}}" />
+						<span class="eye" ng-class="{'eye-show':ipmiPassword}"  ng-click="showPassword('showPass_ipmp')"></span>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">IPMI地址：</label>
+					<div class="control-input">
+						<input class="form-control" name="ipmiAddress" placeholder="IPMI地址" ng-model="ipmiAddress" validator="ip_opt" type="text" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">管理IP：</label>
+					<div class="control-input">
+						<input class="form-control" name="managerIp" placeholder="管理IP"  validator="required,ip" ng-model="managerIp"  type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">管理端口：</label>
+					<div class="control-input">
+						<input class="form-control" name="managerPort" placeholder="管理端口" ng-model="managerPort" validator="required,port" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">标签：</label>
+					<div class="control-input">
+						<input class="form-control" name="tag" placeholder="标签" ng-model="tags" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label" >U数：</label>
+					<div class="control-input">
+						<input class="form-control" name="unit" placeholder="U数" maxlength="4" maxlength-error-message="最多输入4个字符"  validator="required,positiveNumber" min="1" ng-model="units" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">卡槽起始点：</label>
+					<div class="control-input">
+						<input class="form-control col-md-10" name="slotStart" placeholder="卡槽起始点" ng-blur="outFouse(id)" validator="required,number" min="0" ng-model="slotStart" ng-disabled="solt_X" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label" >卡槽数量：</label>
+					<div class="control-input">
+						<input class="form-control col-md-10" name="slotNum" ng-blur="outFouse(id)" placeholder="卡槽数量" maxlength="8" maxlength-error-message="最多输入8个字符"  ng-model="slotNum" validator="required,positiveNumber" min="1" ng-disabled="solt_X" type="text" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-12">
+					<label class="control-label">服务器描述：</label>
+					<div class="control-input">
+						<textarea class="form-control" name="remark" placeholder="服务器描述" ng-model="remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" validation-submit="addServerForm" ng-disabled="(addServerForm.$invalid|| isFail)" ng-click="ok()">确认</button>
+		<button class="btn btn-default" ng-click="cancle()">取消</button>
+	</div>

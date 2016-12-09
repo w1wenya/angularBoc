@@ -1,0 +1,615 @@
+<div class="clearfix script-content" ng-task-main-router="">
+    <div class="wrapper-md" ng-controller="vmTabCtrl">
+        <div class="" >
+            <button class="btn btn-info pull-right" ng-click="goBack()" tabindex="0">
+                <i class="fa fa-reply icon-font"></i> 返回
+            </button>
+        </div>
+        <tabset class="tab-container">
+            <tab ng-controller="vmListCtrl" ng-click="getData(1)" ng-if="isShowvm" active="active1">
+                <tab-heading class="tab-heading-style" >
+                    虚机
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="">
+                        <div class="search-box m-b-md">
+                            <div class="legend">查询条件</div>
+                            <div class="search-content">
+                                <div class="form-group">
+                                    <label class="control-label">主机名称：</label>
+                                    <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">主机状态：</label>
+                                    <select class="form-control" ng-model="searchByStatus">
+                                        <option value="">--请选择--</option>
+                                        <option ng-repeat="row in statusData" ng-selected="row.value==searchByStatus" value="{{row.value}}" ng-bind="row.name"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="search-btn">
+                                <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                                <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                                <button class="btn btn-primary w-xs m-r" ng-click="add($event,'lg')"><i class="fa fa-plus-circle"></i> 新增</button>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="dataTables_wrapper form-inline">
+                                <div class="row">
+                                    <div class="col-sm-12" style="margin-top: -10px;">
+                                        <table class="table table-striped b-light m-b-xxs" ng-show="vmTable==1">
+                                            <thead class="table-header" style="background: #fefefe;">
+                                            <tr>
+                                                <th width="20%" class="font-15 text-center">主机名称</th>
+                                                <th width="15%" class="font-15 text-center">主机状态</th>
+                                                <th width="25%" class="font-15 text-center">平台名称</th>
+                                                <!--<th width="15%" class="font-15 text-center">OS名称</th>-->
+                                                <th width="15%" class="font-15 text-center">创建时间</th>
+                                                <th class="text-center td-operate font-15" width="25%">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="table-content" ng-repeat="row in vmList" ng-if="!isImageData">
+                                                <td width="20%" class="font-15 detail-href text-center text-overflow" style="max-width:210px;" title="{{row.name}}"  ng-bind="row.name" ng-click="detail(row.id)"></td>
+                                                <td width="15%" class="font-15 text-center">
+                                                    <button class="btn btn-xs disabled status-btn" ng-class="{'success':'btn-success','danger':'btn-danger','warning':'btn-warning','primary':'btn-primary','default':'btn-default','info':'btn-info'}[row.statusColor]" title="{{row.status|cn:'vmStatus'}}" ng-bind="row.status|cn:'vmStatus'"></button>
+                                                </td>
+                                                <td width="25%" class="font-15 text-center text-overflow" style="max-width:261px;" title="{{row.vendorName}}" ng-bind="row.vendorName"></td>
+                                                <!--<td width="15%" class="font-15 text-center text-overflow" style="max-width:161px;" title="{{row.osName}}" ng-bind="row.osName"></td>-->
+                                                <td width="15%" class="font-15 text-center text-overflow" style="max-width:156px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                                <td width="25%" class="td-operate text-center">
+                                                    <button class="btn btn-success btn-sm" ng-click="update($event,$index,row,key)">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                        <span class="">编辑</span>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm" ng-click="remove($event,row.id,6)">
+                                                        <i class="fa fa-trash-o"></i>
+                                                        <span class="">删除</span>
+                                                    </button>
+                                                    <div class="btn-group dropdown table-operation" dropdown="">
+                                                        <a class="btn btn-info btn-addon" dropdown-toggle=""><i class="fa fa-reorder" ></i>操作</a>
+                                                        <ul class="dropdown-menu">
+                                                            <!--<li ng-click="remove($event,row.id,0,row.isRecover)" ng-if="row.isShowRecover" ng-disabled="row.isRecover"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isRecover]">恢复</a></li>-->
+                                                            <!--<li ng-click="remove($event,row.id,7,row.isPaused)" ng-if="row.isShowPaused" ng-disabled="row.isPaused"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isPaused]">停止</a></li>-->
+                                                            <!--<li ng-click="remove($event,row.id,8,row.isSuspended)" ng-if="row.isShowSuspended" ng-disabled="row.isSuspended"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isSuspended]">挂起</a></li>-->
+                                                            <!--<li ng-click="remove($event,row.id,9,row.isActive)" ng-if="row.isShowActive" ng-disabled="row.isActive"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isActive]">激活</a></li>-->
+                                                            <li ng-click="remove($event,row.id,2,row.isStart)" ng-if="row.isShowStart" ng-disabled="row.isStart"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isStart]">开机</a></li>
+                                                            <li ng-click="remove($event,row.id,5,row.isStop)" ng-if="row.isShowStop" ng-disabled="row.isStop"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isStop]">关机</a></li>
+                                                            <li ng-click="remove($event,row.id,1,row.isRestart)" ng-if="row.isShowRestart" ng-disabled="row.isRestart"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isRestart]">重启</a></li>
+                                                            <!--<li ng-click="remove($event,row.id,3)"><a href="">备份</a></li>-->
+                                                            <!--<li ng-click="remove($event,row.id,4)"><a href="">快照</a></li>-->
+                                                            <!--<li ng-click="goMonitor(row.id)"><a href="">监控</a></li>-->
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="isImageData">
+                                                <td class="td-nodata" colspan="6">暂无数据</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-striped b-light m-b-xxs" ng-show="vmTable==2">
+                                            <thead class="table-header" style="background: #fefefe">
+                                            <tr>
+                                                <th width="16%" class="font-15 text-center">主机名称</th>
+                                                <th width="10%" class="font-15 text-center">主机状态</th>
+                                                <th width="10%" class="font-15 text-center">平台名称</th>
+                                                <th width="15%" class="font-15 text-center">OS名称</th>
+                                                <th width="15%" class="font-15 text-center">创建时间</th>
+                                                <th class="text-center td-operate font-15" width="25%">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="table-content" ng-repeat="row in vmList" ng-if="!isImageData">
+                                                <td width="16%" class="font-15 detail-href text-center text-overflow" style="max-width:162px;" title="{{row.name}}"  ng-bind="row.name" ng-click="detail(row.id)"></td>
+                                                <td width="10%" class="font-15 text-center">
+                                                    <button class="btn btn-xs disabled status-btn" ng-class="{'success':'btn-success','danger':'btn-danger','warning':'btn-warning','primary':'btn-primary','default':'btn-default','info':'btn-info'}[row.statusColor]" title="{{row.status|cn:'vmStatus'}}" ng-bind="row.status|cn:'vmStatus'"></button>
+                                                </td>
+                                                <td width="10%" class="font-15 text-center text-overflow" style="max-width:161px;" title="{{row.vendorName}}" ng-bind="row.vendorName"></td>
+                                                <td width="15%" class="font-15 text-center text-overflow" style="max-width:161px;" title="{{row.osName}}" ng-bind="row.osName"></td>
+                                                <td width="15%" class="font-15 text-center text-overflow" style="max-width:216px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                                <td width="25%" class="td-operate text-center">
+                                                    <button class="btn btn-success btn-sm" ng-click="update($event,$index,row,key)">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                        <span class="">编辑</span>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm" ng-click="remove($event,row.id,6)">
+                                                        <i class="fa fa-trash-o"></i>
+                                                        <span class="">删除</span>
+                                                    </button>
+                                                    <div class="btn-group dropdown table-operation" dropdown="">
+                                                        <a class="btn btn-info btn-addon" dropdown-toggle=""><i class="fa fa-reorder" ></i>操作</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li ng-click="remove($event,row.id,2,row.isStart)" ng-if="row.isShowStart" ng-disabled="row.isStart"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isStart]">开机</a></li>
+                                                            <li ng-click="remove($event,row.id,1,row.isRestart)" ng-if="row.isShowRestart" ng-disabled="row.isRestart"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isRestart]">重启</a></li>
+                                                            <li ng-click="remove($event,row.id,5,row.isStop)" ng-if="row.isShowStop" ng-disabled="row.isStop"><a href="" ng-class="{true:'btn btn-default disabled color-f1f1f1'}[row.isStop]">关机</a></li>
+                                                            <!--<li ng-click="goMonitor(row.id)"><a href="">监控</a></li>-->
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="isImageData">
+                                                <td class="td-nodata" colspan="6">暂无数据</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="clearfix">
+                                            <div class="col-sm-6" style="padding: 7px 15px;">
+                                                <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                            </div>
+                                            <div class="col-sm-6 text-right">
+                                                <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="accountCtrl" ng-click="getData(1)" ng-if="isShowaccount" active="active2">
+                <tab-heading class="tab-heading-style" >
+                    镜像
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">镜像名称：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="dataTables_wrapper form-inline">
+                            <div class="row">
+                                <div class="col-sm-12" style="margin-top: -10px;">
+                                    <table class="table table-striped b-light m-b-xxs" ng-show="imageTable==1">
+                                        <thead class="table-header">
+                                        <tr>
+                                            <th width="25%" class="text-center font-15">镜像名称</th>
+                                            <th width="10%" class="text-center font-15">状态</th>
+                                            <th width="15%" class="text-center font-15">操作系统</th>
+                                            <th width="20%" class="text-center font-15">系统版本</th>
+                                            <th width="15%" class="text-center font-15">所属区域</th>
+                                            <th width="15%" class="text-center font-15">创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="table-content" ng-repeat="row in imageList" ng-if="!isImageData">
+                                            <td width="25%" class="text-center font-15 detail-href text-overflow" style="max-width:250px;" title="{{row.name}}" ng-bind="row.name" ng-click="detail(row.id)"></td>
+                                            <td width="10%" class="text-center font-15 text-overflow" style="max-width:101px;" title="{{row.status}}" ng-bind="row.status"></td>
+                                            <td width="15%" class="text-center font-15 text-overflow" style="max-width:151px;" title="{{row.osName}}" ng-bind="row.osName"></td>
+                                            <td width="20%" class="text-center font-15 text-overflow" style="max-width:203px;" title="{{row.osVersion}}" ng-bind="row.osVersion"></td>
+                                            <td width="15%" class="text-center font-15 text-overflow" style="max-width:150px;" title="{{row.regionName}}" ng-bind="row.regionName"></td>
+                                            <td width="15%" class="text-center font-15 text-overflow" style="max-width:160px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                        </tr>
+                                        <tr ng-if="isImageData">
+                                            <td class="td-nodata" colspan="6">暂无数据</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-striped b-light m-b-xxs" ng-show="imageTable==2">
+                                        <thead class="table-header">
+                                        <tr>
+                                            <th width="25%" class="text-center font-15">镜像名称</th>
+                                            <th width="10%" class="text-center font-15">状态</th>
+                                            <!--<th width="20%" class="text-center font-15">系统名称</th>-->
+                                            <!--<th width="20%" class="text-center font-15">系统版本</th>-->
+                                            <th width="30%" class="text-center font-15">所属云平台</th>
+                                            <th width="20%" class="text-center font-15">所属区域</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="table-content" ng-repeat="row in imageList" ng-if="!isImageData">
+                                            <td width="25%" class="text-center font-15 detail-href text-overflow" style="max-width:298px;" title="{{row.name}}" ng-bind="row.name" ng-click="detail(row.id)"></td>
+                                            <td width="10%" class="text-center font-15 text-overflow" style="max-width:105px;" title="{{row.status}}" ng-bind="row.status"></td>
+                                            <!--<td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.osName}}" ng-bind="row.osName"></td>-->
+                                            <!--<td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.osVersion}}" ng-bind="row.osVersion"></td>-->
+                                            <td width="30%" class="text-center font-15 text-overflow" style="max-width:314px;" title="{{row.vendorName}}" ng-bind="row.vendorName"></td>
+                                            <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.regionName}}" ng-bind="row.regionName"></td>
+                                        </tr>
+                                        <tr ng-if="isImageData">
+                                            <td class="td-nodata" colspan="4">暂无数据</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix">
+                                        <div class="col-sm-6" style="padding:7px 15px;">
+                                            <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="volumeCtrl" ng-click="getData(1)" ng-if="isShowvolume" active="active3">
+                <tab-heading class="tab-heading-style" >
+                    云硬盘
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">云硬盘名：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                            <button class="btn btn-primary w-xs m-r" ng-click="add($event)"><i class="fa fa-plus-circle"></i> 新增</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs" ng-show="volumeTable==1">
+                                <thead class="table-header" style="background: #fefefe">
+                                    <tr>
+                                        <th width="25%" class="text-center font-15">云硬盘ID</th>
+                                        <th width="15%" class="text-center font-15">云硬盘名称</th>
+                                        <th width="10%" class="text-center font-15">状态</th>
+                                        <th width="10%" class="text-center font-15">大小</th>
+                                        <th width="20%" class="text-center font-15">创建时间</th>
+                                        <th class="text-center td-operate font-15" width="15%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-content" ng-repeat="row in volumeList" ng-if="!isImageData">
+                                        <td width="25%" class="text-center font-15 text-overflow detail-href" style="max-width:266px;" title="{{row.volumeId}}" ng-click="detail(row)" ng-bind="row.volumeId"></td>
+                                        <td width="15%" class="text-center font-15 text-overflow" style="max-width:210px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                        <td width="10%" class="text-center font-15 text-overflow" style="max-width:105px;" title="{{row.status1}}" ng-bind="row.status1"></td>
+                                        <td width="10%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.size}}" ng-bind="row.size"></td>
+                                        <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                        <td width="15%" class="td-operate text-center">
+                                            <button class="btn btn-danger btn-sm" ng-click="remove(row.id,$event,$index,key)">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span class="">删除</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="isImageData">
+                                        <td class="td-nodata" colspan="6">暂无数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped b-light m-b-xxs" ng-show="volumeTable==2">
+                                <thead class="table-header" style="background: #fefefe">
+                                <tr>
+                                    <th width="30%" class="text-center font-15">云硬盘ID</th>
+                                    <th width="15%" class="text-center font-15">云硬盘名称</th>
+                                    <th width="10%" class="text-center font-15">状态</th>
+                                    <th width="10%" class="text-center font-15">大小</th>
+                                    <th width="20%" class="text-center font-15">创建时间</th>
+                                    <th class="text-center td-operate font-15" width="10%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in volumeList" ng-if="!isImageData">
+                                    <td width="30%" class="text-center font-15 text-overflow detail-href" style="max-width:210px;" title="{{row.volumeId}}" ng-click="detail(row.id)" ng-bind="row.volumeId"></td>
+                                    <td width="15%" class="text-center font-15 text-overflow" style="max-width:210px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                    <td width="10%" class="text-center font-15 text-overflow" style="max-width:105px;" title="{{row.status}}" ng-bind="row.status"></td>
+                                    <td width="10%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.size}}" ng-bind="row.size"></td>
+                                    <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                    <td width="10%" class="td-operate text-center">
+                                        <button class="btn btn-danger btn-sm" ng-click="remove(row.id,$event,$index,key)">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span class="">删除</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="6">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped b-light m-b-xxs" ng-show="volumeTable==3">
+                                <thead class="table-header" style="background: #fefefe">
+                                <tr>
+                                    <th width="30%" class="text-center font-15">云硬盘ID</th>
+                                    <th width="15%" class="text-center font-15">云硬盘名称</th>
+                                    <th width="10%" class="text-center font-15">状态</th>
+                                    <th width="10%" class="text-center font-15">大小</th>
+                                    <th width="20%" class="text-center font-15">创建时间</th>
+                                    <th class="text-center td-operate font-15" width="10%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in volumeList" ng-if="!isImageData">
+                                    <td width="30%" class="text-center font-15 text-overflow detail-href" style="max-width:210px;" title="{{row.volumeId}}" ng-click="detail(row.id)" ng-bind="row.volumeId"></td>
+                                    <td width="15%" class="text-center font-15 text-overflow" style="max-width:210px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                    <td width="10%" class="text-center font-15 text-overflow" style="max-width:105px;" title="{{row.status}}" ng-bind="row.status"></td>
+                                    <td width="10%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.size}}" ng-bind="row.size"></td>
+                                    <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                    <td width="10%" class="td-operate text-center">
+                                        <button class="btn btn-danger btn-sm" ng-click="remove(row.id,$event,$index,key)">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span class="">删除</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="6">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="col-sm-6" style="padding:7px 15px;">
+                                    <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="snapshotCtrl" ng-click="getData(1)" ng-if="isShowsnapshot" active="active4">
+                <tab-heading class="tab-heading-style" >
+                    快照
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">快照名称：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                            <button class="btn btn-primary w-xs m-r" ng-click="add($event)"><i class="fa fa-plus-circle"></i> 新增</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs">
+                                <thead class="table-header" style="background: #fefefe">
+                                <tr>
+                                    <th width="20%" class="text-center font-15">快照ID</th>
+                                    <th width="20%" class="text-center font-15">快照名称</th>
+                                    <th width="10%" class="text-center font-15">状态</th>
+                                    <th width="10%" class="text-center font-15">云硬盘ID</th>
+                                    <th width="5%" class="text-center font-15">大小</th>
+                                    <th class="text-center td-operate font-15" width="10%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in snapshotList" ng-if="!isImageData">
+                                    <td width="10%" class="text-center font-15 detail-href text-overflow" style="max-width:116px;" title="{{row.snapshotId}}" ng-click="detail(row.id)" ng-bind="row.snapshotId"></td>
+                                    <td width="20%" class="text-center font-15 text-overflow" style="max-width:233px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                    <td width="10%" class="text-center font-15 text-overflow" style="max-width:116px;" title="{{row.status1}}" ng-bind="row.status1"></td>
+                                    <td width="10%" class="text-center font-15 text-overflow" style="max-width:116px;" title="{{row.volumeId}}" ng-bind="row.volumeId"></td>
+                                    <td width="5%" class="text-center font-15 text-overflow" style="max-width:116px;" title="{{row.size}}" ng-bind="row.size"></td>
+                                    <td width="10%" class="td-operate text-center">
+                                        <button class="btn btn-danger btn-sm" ng-click="remove(row.id,$event,$index,key)">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span class="">删除</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="7">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="col-sm-6" style="padding:7px 15px;">
+                                    <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="sizeCtrl" ng-click="getData(1)" ng-if="isShowsize" active="active5">
+                <tab-heading class="tab-heading-style" >
+                    配置
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">配置名称：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs">
+                                <thead class="table-header" style="background: #fefefe">
+                                <tr>
+                                    <th width="25%" class="text-center font-15">配置ID</th>
+                                    <th width="25%" class="text-center font-15">配置名称</th>
+                                    <th width="20%" class="text-center font-15">CPU核数</th>
+                                    <th width="15%" class="text-center font-15">内存</th>
+                                    <th width="15%" class="text-center font-15">磁盘</th>
+                                    <!--<th width="30%" class="text-center font-15">uuid</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in sizeList" ng-if="!isImageData">
+                                    <td width="25%" class="text-center detail-href font-15 text-overflow" style="max-width:254px;" title="{{row.flavorId}}" ng-click="detail(row.id)" ng-bind="row.flavorId"></td>
+                                    <td width="25%" class="text-center font-15 text-overflow" style="max-width:254px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                    <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.cpu}}" ng-bind="row.cpu"></td>
+                                    <td width="15%" class="text-center font-15 text-overflow" style="max-width:157px;" title="{{row.memory}}" ng-bind="row.memory"></td>
+                                    <td width="15%" class="text-center font-15 text-overflow" style="max-width:157px;" title="{{row.disk}}" ng-bind="row.disk"></td>
+                                    <!--<td width="30%" class="text-center font-15 text-overflow" style="max-width:105px;" title="{{row.uuid}}" ng-bind="row.uuid"></td>-->
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="5">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="col-sm-6" style="padding:7px 15px;">
+                                    <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="networkCtrl" ng-click="getData(1)" ng-if="isShownetwork" active="active6">
+                <tab-heading class="tab-heading-style" >
+                    网络
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">网络名称：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                            <!--<button class="btn btn-primary w-xs m-r" ng-click="add($event,'lg')"><i class="fa fa-plus-circle"></i> 新增</button>-->
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs" ng-show="openstackNetworkTable==1">
+                                <thead class="table-header" style="background: #fefefe">
+                                    <tr>
+                                        <th width="30%" class="text-center font-15">网络名称</th>
+                                        <th width="30%" class="text-center font-15">网络类型</th>
+                                        <th width="30%" class="text-center font-15">状态</th>
+                                        <th width="10%" class="text-center font-15">是否共享</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-content" ng-repeat="row in networkList" ng-if="!isImageData">
+                                        <td width="30%" class="text-center detail-href font-15 text-overflow" style="max-width:305px;" title="{{row.name}}" ng-click="detail(row.id)" ng-bind="row.name"></td>
+                                        <td width="30%" class="text-center font-15 text-overflow" style="max-width:305px;" title="{{row.type}}" ng-bind="row.type"></td>
+                                        <td width="30%" class="text-center font-15 text-overflow" style="max-width:304px;" title="{{row.status1}}" ng-bind="row.status1"></td>
+                                        <td width="10%" class="text-center font-15 text-overflow" style="max-width:101px;" title="{{row.shared1}}" ng-bind="row.shared1"></td>
+                                    </tr>
+                                    <tr ng-if="isImageData">
+                                        <td class="td-nodata" colspan="4">暂无数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped b-light m-b-xxs" ng-show="otherNetworkTable==1">
+                                <thead class="table-header" style="background: #fefefe">
+                                <tr>
+                                    <th width="30%" class="text-center font-15">网络名称</th>
+                                    <th width="70%" class="text-center font-15">网络ID</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in networkList" ng-if="!isImageData">
+                                    <td width="30%" class="text-center detail-href font-15 text-overflow" style="max-width:392px;" title="{{row.name}}" ng-click="detail(row.id)" ng-bind="row.name"></td>
+                                    <td width="70%" class="text-center font-15 text-overflow" style="max-width:655px;" title="{{row.networkId}}" ng-bind="row.networkId"></td>
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="2">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="col-sm-6" style="padding:7px 15px;">
+                                    <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="securityCtrl" ng-click="getData(1)" ng-if="isShowsecurity"  active="active7">
+                <tab-heading class="tab-heading-style">
+                    安全组
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">名称：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                            <button class="btn btn-primary w-xs m-r" ng-click="add($event,'lg')"><i class="fa fa-plus-circle"></i> 新增</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="dataTables_wrapper form-inline">
+                            <div class="row">
+                                <div class="col-sm-12" style="margin-top: -10px;">
+                                    <table class="table table-striped b-light m-b-xxs" ng-show="securityTable==1">
+                                        <thead class="table-header">
+                                        <tr>
+                                            <th width="50%" class="text-center font-15">名称</th>
+                                            <th width="40%" class="text-center font-15">创建时间</th>
+                                            <th width="10%" class="text-center td-operate font-15">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="table-content" ng-repeat="row in securityList" ng-if="!isImageData">
+                                            <td width="50%" class="text-center font-15 detail-href text-overflow" style="max-width:609px;" title="{{row.name}}" ng-bind="row.name" ng-click="detail(row.id)"></td>
+                                            <td width="40%" class="font-15 text-center text-overflow" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                            <td width="10%" class="td-operate text-center">
+                                                <button class="btn btn-danger btn-sm" ng-click="remove($event,row.id)">
+                                                    <i class="fa fa-trash-o"></i>
+                                                    <span class="">删除</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="isImageData">
+                                            <td class="td-nodata" colspan="3">暂无数据</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix">
+                                        <div class="col-sm-6" style="padding:7px 15px;">
+                                            <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

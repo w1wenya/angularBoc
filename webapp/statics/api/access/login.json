@@ -1,0 +1,586 @@
+{
+  "success": true,
+  "message": "用户登录成功",
+  "data": {
+    "apiKey": "1214546782",
+    "secKey": "1243538932",
+    "auths": [
+      {
+        "children": [
+          {
+            "name": "Dashboard",
+            "actionUrl": "app.graph.dashboard",
+            "icon": null,
+            "id": 109,
+            "priority": 1,
+            "parentId": 8
+          },
+          {
+            "name": "管理视图",
+            "actionUrl": "app.graph.manager",
+            "icon": null,
+            "id": 110,
+            "priority": 2,
+            "parentId": 8
+          },
+          {
+            "name": "基础设施",
+            "actionUrl": "app.graph.infrastructure",
+            "icon": null,
+            "id": 111,
+            "priority": 3,
+            "parentId": 8
+          },
+          {
+            "name": "平台视图",
+            "actionUrl": "app.graph.platform",
+            "icon": null,
+            "id": 112,
+            "priority": 3,
+            "parentId": 8
+          },
+          {
+            "name": "应用视图",
+            "actionUrl": "app.graph.app",
+            "icon": null,
+            "id": 113,
+            "priority": 5,
+            "parentId": 8
+          }
+        ],
+        "name": "数据纵览",
+        "actionUrl": "app.graph",
+        "icon": "glyphicon glyphicon-stats icon",
+        "id": 8,
+        "priority": 1
+      },
+      {
+        "children": [
+          {
+            "name": "基础设施",
+            "actionUrl": "app.assets.datacenter",
+            "icon": null,
+            "id": 10,
+            "priority": 1,
+            "parentId": 9
+          },
+          {
+            "name": "主机管理",
+            "actionUrl": "app.assets.server",
+            "icon": null,
+            "id": 13,
+            "priority": 2,
+            "parentId": 9
+          },
+          {
+            "name": "虚机管理",
+            "actionUrl": "app.assets.vm",
+            "icon": null,
+            "id": 56,
+            "priority": 3,
+            "parentId": 9
+          },
+          {
+            "name": "存储管理",
+            "actionUrl": "app.assets.storage ",
+            "icon": null,
+            "id": 108,
+            "priority": 4,
+            "parentId": 9
+          },
+          {
+            "name": "数据库管理",
+            "actionUrl": "app.assets.database ",
+            "icon": null,
+            "id": 108,
+            "priority": 4,
+            "parentId": 9
+          }
+        ],
+        "name": "资源管理",
+        "actionUrl": "app.assets",
+        "icon": "glyphicon glyphicon-dashboard icon",
+        "id": 9,
+        "priority": 2
+      },
+      {
+        "children": [
+          {
+            "name": "脚本执行",
+            "actionUrl": "app.operation.doscript",
+            "icon": null,
+            "id": 18,
+            "priority": 1,
+            "parentId": 17
+          },
+          {
+            "name": "作业管理",
+            "actionUrl": "app.operation.tasklist",
+            "icon": null,
+            "id": 21,
+            "priority": 1,
+            "parentId": 17
+          },
+          {
+            "name": "文件分发",
+            "actionUrl": "app.operation.publishfile",
+            "icon": null,
+            "id": 19,
+            "priority": 2,
+            "parentId": 17
+          },
+          {
+            "name": "定时作业",
+            "actionUrl": "app.operation.timedOperation",
+            "icon": null,
+            "id": 24,
+            "priority": 2,
+            "parentId": 17
+          },
+          {
+            "name": "作业模板",
+            "actionUrl": "app.operation.tasktpl",
+            "icon": null,
+            "id": 23,
+            "priority": 3,
+            "parentId": 17
+          },
+          {
+            "name": "执行历史",
+            "actionUrl": "app.operation.history",
+            "icon": null,
+            "id": 25,
+            "priority": 4,
+            "parentId": 17
+          },
+          {
+            "name": "备份恢复",
+            "actionUrl": "app.operation.backupRecovery",
+            "icon": null,
+            "id": 20,
+            "priority": 7,
+            "parentId": 17
+          },
+          {
+            "name": "认证管理",
+            "actionUrl": "app.operation.account",
+            "icon": null,
+            "id": 64,
+            "priority": 8,
+            "parentId": 17
+          }
+        ],
+        "name": "日常作业",
+        "actionUrl": "app.operation",
+        "icon": "glyphicon glyphicon-dashboard icon",
+        "id": 17,
+        "priority": 3
+      },
+      {
+        "children": [
+          {
+            "name": "脚本管理",
+            "actionUrl": "app.config.manageScript",
+            "icon": null,
+            "id": 27,
+            "priority": 1,
+            "parentId": 26
+          },
+          {
+            "name": "脚本分组",
+            "actionUrl": "app.config.groupManageScript",
+            "icon": null,
+            "id": 28,
+            "priority": 2,
+            "parentId": 26
+          },
+          {
+            "name": "软件管理",
+            "actionUrl": "app.config.manageSoftware",
+            "icon": null,
+            "id": 29,
+            "priority": 3,
+            "parentId": 26
+          },
+          {
+            "name": "软件分组",
+            "actionUrl": "app.config.groupManageSoftware",
+            "icon": null,
+            "id": 30,
+            "priority": 4,
+            "parentId": 26
+          },
+          {
+            "name": "平台管理",
+            "actionUrl": "app.config.cloudVendor",
+            "icon": null,
+            "id": 45,
+            "priority": 6,
+            "parentId": 26
+          },
+          {
+            "name": "命令审计",
+            "actionUrl": "app.config.command",
+            "icon": null,
+            "id": 55,
+            "priority": 7,
+            "parentId": 26
+          }
+        ],
+        "name": "参数管理",
+        "actionUrl": "app.config",
+        "icon": "glyphicon glyphicon-dashboard icon",
+        "id": 26,
+        "priority": 4
+      },
+      {
+        "children": [
+          {
+            "name": "数据中心",
+            "actionUrl": "app.monitor.datacenter",
+            "icon": null,
+            "id": 100,
+            "priority": 1,
+            "parentId": 34
+          },
+          {
+            "name": "机房监控",
+            "actionUrl": "app.monitor.room",
+            "icon": null,
+            "id": 101,
+            "priority": 2,
+            "parentId": 34
+          },
+          {
+            "name": "监控分析",
+            "actionUrl": "app.monitor.rack",
+            "icon": null,
+            "id": 102,
+            "priority": 3,
+            "parentId": 34
+          },
+          {
+            "name": "主机监控",
+            "actionUrl": "app.monitor.server",
+            "icon": null,
+            "id": 97,
+            "priority": 4,
+            "parentId": 34
+          },
+          {
+            "name": "虚机监控",
+            "actionUrl": "app.monitor.vm",
+            "icon": null,
+            "id": 98,
+            "priority": 5,
+            "parentId": 34
+          },
+          {
+            "name": "监控查询",
+            "actionUrl": "app.monitor.query",
+            "icon": null,
+            "id": 99,
+            "priority": 6,
+            "parentId": 34
+          },
+          {
+            "name": "指标管理",
+            "actionUrl": "app.monitor.measure",
+            "icon": null,
+            "id": 88,
+            "priority": 20,
+            "parentId": 34
+          }
+        ],
+        "name": "资源监控",
+        "actionUrl": "app.orders.list",
+        "icon": "glyphicon glyphicon-stats icon",
+        "id": 34,
+        "priority": 5
+      },
+      {
+        "children": [
+          {
+            "name": "告警管理",
+            "actionUrl": "app.alarm.manage",
+            "icon": null,
+            "id": 73,
+            "priority": 1,
+            "parentId": 35
+          },
+          {
+            "name": "告警策略",
+            "actionUrl": "app.alarm.alarm",
+            "icon": null,
+            "id": 74,
+            "priority": 2,
+            "parentId": 35
+          },
+          {
+            "name": "分派策略",
+            "actionUrl": "app.alarm.assign",
+            "icon": null,
+            "id": 75,
+            "priority": 3,
+            "parentId": 35
+          },
+          {
+            "name": "通知策略",
+            "actionUrl": "app.alarm.notice",
+            "icon": null,
+            "id": 76,
+            "priority": 4,
+            "parentId": 35
+          }
+        ],
+        "name": "告警中心",
+        "actionUrl": "app.alarm",
+        "icon": "glyphicon glyphicon-stats icon",
+        "id": 35,
+        "priority": 6
+      },
+      {
+        "children": [
+          {
+            "name": "应用管理",
+            "actionUrl": "app.application.manage",
+            "icon": null,
+            "id": 58,
+            "priority": 1,
+            "parentId": 57
+          },
+          {
+            "name": "应用部署",
+            "actionUrl": "app.application.deploy",
+            "icon": null,
+            "id": 59,
+            "priority": 2,
+            "parentId": 57
+          },
+          {
+            "name": "持续集成",
+            "actionUrl": "app.application.integrate",
+            "icon": null,
+            "id": 61,
+            "priority": 3,
+            "parentId": 57
+          }
+        ],
+        "name": "应用管理",
+        "actionUrl": "app.application",
+        "icon": "glyphicon glyphicon-stats icon",
+        "id": 57,
+        "priority": 7
+      },
+      {
+        "children": [
+          {
+            "name": "日志图表",
+            "actionUrl": "app.log.dashboard",
+            "icon": null,
+            "id": 91,
+            "priority": 1,
+            "parentId": 37
+          },
+          {
+            "name": "日志列表",
+            "actionUrl": "app.log.eslog",
+            "icon": null,
+            "id": 80,
+            "priority": 2,
+            "parentId": 37
+          },
+          {
+            "name": "索引管理",
+            "actionUrl": "app.log.indexmng",
+            "icon": null,
+            "id": 78,
+            "priority": 3,
+            "parentId": 37
+          },
+          {
+            "name": "ES集群节点",
+            "actionUrl": "app.log.esnode",
+            "icon": null,
+            "id": 79,
+            "priority": 4,
+            "parentId": 37
+          },
+          {
+            "name": "自定义查询",
+            "actionUrl": "app.log.customeslog",
+            "icon": null,
+            "id": 103,
+            "priority": 5,
+            "parentId": 37
+          },
+          {
+            "name": "插件管理",
+            "actionUrl": "app.log.plugin",
+            "icon": null,
+            "id": 81,
+            "priority": 6,
+            "parentId": 37
+          },
+          {
+            "name": "数据源管理",
+            "actionUrl": "app.log.source",
+            "icon": null,
+            "id": 82,
+            "priority": 7,
+            "parentId": 37
+          },
+          {
+            "name": "审计日志",
+            "actionUrl": "app.log.audit",
+            "icon": null,
+            "id": 39,
+            "priority": 8,
+            "parentId": 37
+          }
+        ],
+        "name": "日志管理",
+        "actionUrl": "app.log",
+        "icon": "glyphicon glyphicon-dashboard icon",
+        "id": 37,
+        "priority": 8
+      },
+      {
+        "children": [
+          {
+            "name": "组件管理",
+            "actionUrl": "app.measure.price",
+            "icon": null,
+            "id": 72,
+            "priority": 1,
+            "parentId": 33
+          },
+          {
+            "name": "资源计量",
+            "actionUrl": "app.measure.resources",
+            "icon": null,
+            "id": 71,
+            "priority": 2,
+            "parentId": 33
+          }
+        ],
+        "name": "计量计费",
+        "actionUrl": "app.measure",
+        "icon": "glyphicon glyphicon-stats icon",
+        "id": 33,
+        "priority": 9
+      },
+      {
+        "children": [
+          {
+            "name": "租户列表",
+            "actionUrl": "app.userCenter.tenant",
+            "icon": null,
+            "id": 106,
+            "priority": 1,
+            "parentId": 105
+          }
+        ],
+        "name": "租户管理",
+        "actionUrl": "app.tenant",
+        "icon": "glyphicon glyphicon-dashboard icon",
+        "id": 105,
+        "priority": 11
+      },
+      {
+        "children": [
+          {
+            "name": "分组管理",
+            "actionUrl": "app.userCenter.group",
+            "icon": null,
+            "id": 107,
+            "priority": 1,
+            "parentId": 40
+          },
+          {
+            "name": "组织机构",
+            "actionUrl": "app.userCenter.department",
+            "icon": null,
+            "id": 69,
+            "priority": 2,
+            "parentId": 40
+          },
+          {
+            "name": "用户管理",
+            "actionUrl": "app.userCenter.user",
+            "icon": null,
+            "id": 42,
+            "priority": 3,
+            "parentId": 40
+          },
+          {
+            "name": "角色管理",
+            "actionUrl": "app.userCenter.role",
+            "icon": null,
+            "id": 43,
+            "priority": 4,
+            "parentId": 40
+          },
+          {
+            "name": "权限管理",
+            "actionUrl": "app.userCenter.permission",
+            "icon": null,
+            "id": 44,
+            "priority": 5,
+            "parentId": 40
+          }
+        ],
+        "name": "系统管理",
+        "actionUrl": "app.userCenter",
+        "icon": "fa fa-desktop icon",
+        "id": 40,
+        "priority": 12
+      }
+    ],
+    "roles": [
+      {
+        "gmtModify": "2016-09-08 11:34:20",
+        "moreProp": null,
+        "remark": "超级管理员",
+        "gmtCreate": "2016-05-31 16:46:20",
+        "ownerId": null,
+        "menderId": 1,
+        "isDeleted": false,
+        "isLocked": false,
+        "name": "张海君",
+        "tenantId": null,
+        "createrId": 1,
+        "id": 1,
+        "status": null
+      }
+    ],
+    "user": {
+      "gmtModify": "2016-09-09 11:37:16",
+      "mobile": "18330033981",
+      "moreProp": null,
+      "remark": "超级管理员",
+      "sessionId": "D578CE33CE4C5D3ABED05672BE18CE93",
+      "gmtCreate": "2016-03-23 17:48:53",
+      "ownerId": null,
+      "loginStatus": true,
+      "menderId": 1,
+      "password": "-2cc3fe75eb672eeb60a6a80aa0565466506d9d1e",
+      "isDeleted": false,
+      "tenantName": null,
+      "phone": "010-1313131",
+      "isTenant": false,
+      "isLocked": false,
+      "name": "张海君",
+      "tenantId": null,
+      "company": null,
+      "createrId": 1,
+      "id": 1,
+      "roleNames": null,
+      "email": "admin@qq.com",
+      "status": "NORMAL",
+      "username": "admin"
+    }
+  },
+  "status": "200",
+  "solution": ""
+}

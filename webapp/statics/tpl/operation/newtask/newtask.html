@@ -1,0 +1,53 @@
+<div class="clearfix script-content" ng-task-main-router="">
+	<div class="wrapper-md">
+		<div class="row panel panel-default"  ng-if="(routerStatus==1)" ng-controller="NewTaskCtrl">
+			<form name="taskForm">
+				<div class="col-md-12">
+					<div class="form-group" ng-show="showTpl">
+						<label class="control-label">模板列表：</label>
+						<select class="form-control task-name-input" ng-model="tplId" ng-change="selectTpl()">
+							<option value="">--请选择--</option>
+							<option value="{{item.id}}" ng-repeat="item in tplListData" ng-bind="item.name"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label" ng-if="!isTpl">作业名称：</label>
+						<label class="control-label" ng-if="isTpl">模板名称：</label>
+						<input type="text" name="taskname" data-content="必填项" class="form-control task-name-input" ng-model="name" validator="required"/>
+						<button class="btn btn-info pull-right" ng-click="goList()"><i class="fa fa-reply icon-font"></i> 返回</button>
+					</div>
+					<div class="form-group">
+						<label class="control-label">应用场景：</label>
+						<input type="text" name="scenne" class="form-control task-name-input" ng-model="remark" />
+					</div>
+				</div>
+				<div class="step-content" ng-class="{true:'tpl'}[isTpl]" ng-handle-dom="">
+					<div ng-if="(taskFlag == 1)" class="col-md-12 step" ng-script-task="" type="script"></div>
+					<div ng-if="(taskFlag == 4)" class="col-md-12 step" ng-backup-task="" type="backup"></div>
+					<div ng-if="(taskFlag == 8)" class="col-md-12 step" ng-file-task="" type="file"></div>
+				</div>
+				<div class="col-md-12 btn-add-step">
+					<div class="btn-group dropdown" dropdown="">
+						<button class="btn btn-primary btn-addon" dropdown-toggle=""><i class="fa fa-plus"></i>添加步骤</button>
+						<ul class="dropdown-menu">
+							<li ng-if="!hideFun" ng-click="addStep(1)"><a href="">脚本执行</a></li>
+							<li ng-if="!hideFun " ng-click="addStep(2)"><a href="">文件分发</a></li>
+							<li ng-click="addStep(3)"><a href="">创建备份</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-12 text-center m-t-md action-button">
+					<button class="btn btn-info w-xs m-r-md" ng-click="execute(1)" ng-validator-popover="taskForm" $invalid="$invalid" ng-show="!isHideSave"><i class="fa fa-save"></i>&nbsp;保存</button>
+					<button class="btn btn-danger w-xs" ng-click="execute()" ng-validator-popover="taskForm" $invalid="$invalid" ng-show="!isHideExecute"><i class="fa fa-life-saver"></i>&nbsp;去执行</button>
+				</div>
+			</form>
+		</div>
+		<div class="panel panel-default" ng-excute-detail="" ng-if="(routerStatus == 2)"></div>
+		<div class="panel panel-default" ng-excute-result-detail="" ng-if="(routerStatus == 3)"></div>
+		<div class="panel panel-default" ng-execute-job-detail="" ng-if="(routerStatus == 4)"></div>
+	</div>
+</div>
+<div class="drag-container">
+	<div class="drag-step-list">
+	</div>
+</div>

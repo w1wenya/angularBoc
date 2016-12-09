@@ -1,0 +1,70 @@
+<div ng-controller="PlatformCtrl" class="clearfix script-content">
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12 search-box m-b-md">
+					<div class="legend">查询条件</div>
+					<div class="search-content">
+						<div class="form-group">
+							<label class="control-label">所属模块：</label>
+							<input type="text" class="form-control" ng-model="module" placeholder="请输入所属模块"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">IP地址：</label>
+							<input type="text" class="form-control" ng-model="ip" placeholder="请输入IP地址"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">级别：</label>
+							<input type="text" class="form-control" ng-model="level" placeholder="请输入级别"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">时间范围：</label>
+							<input ng-model="date" class="form-control w-md" ui-jq="daterangepicker"
+							       ui-options="{format: 'YYYY-MM-DD hh:mm:ss'}" placeholder="请选择时间" />
+						</div>
+					</div>
+					<div class="search-btn">
+						<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+						<button class="btn btn-success w-xs" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+					</div>
+				</div>
+			<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-striped b-light m-b-xxs table-navy">
+							<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center">模块</th>
+								<th class="text-center">IP</th>
+								<th class="text-center">类型</th>
+								<th class="text-center">线程</th>
+								<th class="text-center">级别</th>
+								<th class="text-center">位置</th>
+								<th class="text-center">时间</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="(key,row) in listData">
+								<td class="text-center" title="{{row.module}}"><div ng-bind="row.module"></div></td>
+								<td class="text-center" title="{{row.ip}}"><div  ng-bind="row.ip">></div></td>
+								<td class="text-center" title="{{row.category}}"><div ng-bind="row.category"></div></td>
+								<td class="text-center" title="{{row.thread}}"><div ng-bind="row.thread"></div></td>
+								<td class="text-center" title="{{row.level}}"><div ng-bind="row.level"></div></td>
+								<td class="text-center" title="{{row.location}}"> <div ng-bind="row.location"></div></td>
+								<td class="text-center" title="{{row.time}}"><div ng-bind="row.time"></div></td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<div class="col-sm-6">
+								<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+								</div>
+							</div>
+							<div class="col-sm-6 text-right">
+								<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+								            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

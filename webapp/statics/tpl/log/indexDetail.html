@@ -1,0 +1,73 @@
+<div ng-controller="indexDetailCtrl" class="clearfix script-content">
+	<div class="wrapper-md">
+		<div class="row panel panel-default" style="padding:0;">
+ <div class="panel-heading font-bold">
+							<!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+							<span class="p-l-6">用户详情</span>
+							<button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+								<i class="fa fa-reply icon-font"></i> 返回
+							</button>
+						</div>
+						<div class="panel-body pmb-block" style="border:none;">
+							<div class="form-horizontal">
+								<div class="col-md-6">
+									<!-- <div class="pmbb-header">
+										<h5><i class="glyphicon glyphicon-user icon m-r-10"></i>基本信息</h5>
+									</div> -->
+									<div class="pmbb-body p-l-30">
+										<div class="form-group">
+											<dl class="dl-horizontal">
+												<dt>索引名称：</dt>
+												<dd ng-bind="indexName"></dd>
+											</dl>
+										</div>
+									   <div class="form-group">
+											<dl class="dl-horizontal">
+												<dt>索引状态：</dt>
+												<!-- <dd ng-bind="status"></dd>   -->
+											   <dd>						
+													<button class="btn btn-xs disabled"  style="width:80px;" ng-class="{'open':'btn-success','close':'btn-warning','NOTEXIST':'btn-warning'}[status]"   title="{{indexDetail.status}}" ng-bind="status"></button>
+												</dd> 
+											</dl>
+										</div>  
+										<div class="form-group">
+											<dl class="dl-horizontal">
+												<dt>刷新间隔：</dt>
+												<dd ng-bind="indexDetail.refreshTime"></dd>
+											</dl>
+										</div>
+									 
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<!-- <div class="pmbb-header">
+										<h5><i class="glyphicon glyphicon-stats icon m-r-10"></i>联系方式</h5>
+									</div> -->
+									<div class="pmbb-body p-l-30">
+										<div class="form-group">
+											<dl class="dl-horizontal">
+												<dt>分片数量：</dt>
+												<dd ng-bind="indexDetail.shardsNumbers"></dd>
+											</dl>
+										</div>
+										<div class="form-group">
+											<dl class="dl-horizontal">
+												<dt>副本数量：</dt>
+												<dd ng-bind="indexDetail.replicasNumbers"></dd>
+											</dl>
+										</div>
+										<!-- <div class="form-group">
+											<dl class="dl-horizontal">
+												<dt>用户邮箱：</dt>
+												<dd ng-bind="userDetail.email"></dd>
+											</dl>
+										</div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					
+		</div>
+	</div>
+</div>

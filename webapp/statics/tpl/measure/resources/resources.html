@@ -1,0 +1,294 @@
+<div class="clearfix script-content">
+	<div class="wrapper-md">
+		<tabset class="tab-container"> <tab
+			ng-controller="resourcesCtrl" select="initPage()"> <tab-heading>
+		组织结构 </tab-heading>
+		<div class="panel panel-default" style="overflow: hidden; padding: 15px;">
+			<!--<div class="col-md-2 parentnode">-->
+			<div class="col-md-12 search-box m-b-md">
+				<div class="legends">选择一段时间来查询其用量</div>
+				<div class="search-content">
+					<div class="col-md-4 floatLeft">
+						<label class="control-label">组织机构：</label>
+						<!--<select
+							class="form-control" ng-model="selectDepartment" ng-change="loadUsers()">
+							<option value="">--请选择--</option>
+							<option ng-repeat="row in departments" value="{{row.id}}"
+								ng-bind="row.name"></option>
+						</select>-->
+						<div easyui-combotree id="mydata" tree-data="treeData" class="easyui-combotree control-input"></div>
+					</div>
+					<div class="col-md-4 floatLeft user">
+						<label class="control-label">用户：</label>
+						<select
+							class="form-control" ng-model="selectUser">
+							<option value="">--请选择--</option>
+							<option ng-repeat="row in users" value="{{row.id}}"
+								ng-bind="row.name"></option>
+						</select>
+					</div>
+					<div class="col-md-4 starttime">
+						<label class="control-label">开始时间：</label> 
+						<input id='datapicker' readonly="readonly" class="form-control w-md" placeholder="请选择时间" />
+					</div>
+					<div class="col-md-4 endtime">
+						<label class="control-label">结束时间：</label> 
+						<input id='datapicker0' readonly="readonly" class="form-control w-md" placeholder="请选择时间" />
+					</div>
+				</div>
+				<div class="search-btn">
+					<button class="btn btn-primary w-xs m-r" ng-click="submit()"><i class="fa fa-search"></i> 查询</button>
+					<button class="btn btn-info w-xs m-r" ng-model="export" ng-click="exportDepart()">
+						<i class="fa fa-plus"></i>导出
+					</button>
+					<div id="switchButton" class="btn-show">
+						<button type="button" class="btn btn-default"
+							ng-class="{true: 'btn-success'}[departRender==1]" style='float: left;' ng-click="departList()">列表展示</button>
+						<button type="button" class="btn btn-default"
+							ng-class="{true: 'btn-success'}[departRender==2]" style='float: left;' ng-click="departChart()">图表展示</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div ng-show="(departRender == 1)">
+					<table class="table table-striped b-light m-b-xxs">
+						<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center" ng-show="(departGroup == 0)">平台名称</th>
+								<th class="text-center" ng-show="(departGroup == 0)">实例名称</th>
+								<th class="text-center" ng-show="(departGroup == 1)">名称</th>
+								<th class="text-center">实例数量</th>
+								<th class="text-center">账单</th>
+								<th class="text-center">CPU数量</th>
+								<th class="text-center">CPU %</th>
+								<th class="text-center">内存容量</th>
+								<th class="text-center">内存 %</th>
+								<th class="text-center">云存储容量</th>
+								<th class="text-center">云存储 %</th>
+								<th class="text-center">计量日期</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key,row) in departmentsResourceList">
+								<td class="text-center" ng-bind="row.vendorName" ng-show="(departGroup == 0)"></td>
+								<td class="text-center" ng-bind="row.instanceName" ng-show="(departGroup == 0)"></td>
+								<td class="text-center" ng-bind="row.name" ng-show="(departGroup == 1)"></td>
+								<td class="text-center" ng-bind="row.instanceNum"></td>
+								<td class="text-center" ng-bind="row.fee"></td>
+								<td class="text-center" ng-bind="row.cpuNum"></td>
+								<td class="text-center" ng-bind="row.cpuPer"></td>
+								<td class="text-center" ng-bind="row.memoryDrp"></td>
+								<td class="text-center" ng-bind="row.memoryPer"></td>
+								<td class="text-center" ng-bind="row.diskDrp"></td>
+								<td class="text-center" ng-bind="row.diskPer"></td>
+								<td class="text-center" ng-bind="row.meterDate|formatDateYM"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="clearfix">
+						<div class="col-sm-6">
+							<div class="paginationTables_info">
+								共有<span ng-bind="totalRows"></span>条记录，每页显示<span
+									ng-bind="param.rows"></span>条
+							</div>
+						</div>
+						<div class="col-sm-6 text-right">
+							<pagination boundary-links="true" total-items="totalRows"
+								items-per-page="param.rows" max-size="10" ng-model="param.page"
+								ng-change="getPageList(param.page)" previous-text="&lsaquo;"
+								next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>
+					</div>
+				</div>
+				<div ng-show="(departRender == 2)" class="styleset">
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">实例使用情况</div>
+							<div class="panel-detail">
+								<div id="depart0" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">费用使用情况</div>
+							<div class="panel-detail">
+								<div id="depart1" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">cpu使用情况</div>
+							<div class="panel-detail">
+								<div id="depart2" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">内存使用情况</div>
+							<div class="panel-detail">
+								<div id="depart3" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">存储使用情况</div>
+							<div class="panel-detail">
+								<div id="depart4" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+						
+						<!--<div id="depart1" class="test1 testCC"
+							style="width: 400px; height: 400px; float: left;"></div>
+						<div id="depart2" class="test2 testCC"
+							style="width: 400px; height: 400px; float: left;"></div>
+						<div id="depart3" class="test3 testCC"
+							style="width: 400px; height: 400px; float: left;"></div>
+						<div id="depart4" class="test4 testCC"
+							style="width: 400px; height: 400px; float: left;"></div>-->
+					</div>
+
+			</div>
+		</div>
+		</tab> <tab ng-controller="tenantsCtrl" select="initPage()" ng-show="tnantshow"> <tab-heading>
+		租户 </tab-heading>
+		<div class="panel panel-default"
+			style="overflow: hidden; padding: 15px;">
+			<!--<div class="col-md-2 parentnode">-->
+			<div class="col-md-12 search-box m-b-md">
+				<div class="legends">选择一段时间来查询其用量</div>
+				<div class="search-content">
+					<div class="col-md-4 floatLeft">
+						<label class="control-label">租户：</label> 
+						<select
+							class="form-control" ng-model="selectTenant">
+							<option value="">--请选择--</option>
+							<option ng-repeat="row in tenants" value="{{row.id}}"
+								ng-bind="row.name"></option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<label class="control-label">开始时间：</label> 
+						<input id='from' class="form-control w-md" readonly="readonly" placeholder="请选择时间" />
+					</div>
+					<div class="col-md-4">
+						<label class="control-label">结束时间：</label> 
+						<input id='to' class="form-control w-md" readonly="readonly" placeholder="请选择时间" />
+					</div>
+				</div>
+				<div class="search-btn">
+					<button class="btn btn-primary w-xs m-r" ng-click="submit()"><i class="fa fa-search"></i> 查询</button>
+					<button class="btn btn-info w-xs m-r" ng-model="export" ng-click="exportTenant()">
+						<i class="fa fa-plus"></i>导出
+					</button>
+					<div id="switchButton" class="btn-show">
+						<button type="button" class="btn btn-default"
+							ng-class="{true: 'btn-success'}[tenantRender ==1]"
+							ng-click="tenantList()" style='float: left;'>列表展示</button>
+						<button type="button" class="btn btn-default"
+							ng-class="{true: 'btn-success'}[tenantRender ==2]"
+							ng-click="tenantChart()" style='float: left;'>图表展示</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div ng-show="(tenantRender == 1)">
+					<table class="table table-striped b-light m-b-xxs">
+						<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center">名称</th>
+								<th class="text-center">实例数量</th>
+								<th class="text-center">账单</th>
+								<th class="text-center">CPU数量</th>
+								<th class="text-center">CPU %</th>
+								<th class="text-center">内存容量</th>
+								<th class="text-center">内存 %</th>
+								<th class="text-center">云存储容量</th>
+								<th class="text-center">云存储 %</th>
+								<th class="text-center">计量日期</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key,row) in tenantResourceList">
+								<td class="text-center" ng-bind="row.name"></td>
+								<td class="text-center" ng-bind="row.instanceNum"></td>
+								<td class="text-center" ng-bind="row.fee"></td>
+								<td class="text-center" ng-bind="row.cpuNum"></td>
+								<td class="text-center" ng-bind="row.cpuPer"></td>
+								<td class="text-center" ng-bind="row.memoryDrp"></td>
+								<td class="text-center" ng-bind="row.memoryPer"></td>
+								<td class="text-center" ng-bind="row.diskDrp"></td>
+								<td class="text-center" ng-bind="row.diskPer"></td>
+								<td class="text-center" ng-bind="row.meterDate|formatDateYM"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="clearfix">
+						<div class="col-sm-6">
+							<div class="paginationTables_info">
+								共有<span ng-bind="totalRows"></span>条记录，每页显示<span
+									ng-bind="param.rows"></span>条
+							</div>
+						</div>
+						<div class="col-sm-6 text-right">
+							<pagination boundary-links="true" total-items="totalRows"
+								items-per-page="param.rows" max-size="10" ng-model="param.page"
+								ng-change="getPageList(param.page)" previous-text="&lsaquo;"
+								next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>
+					</div>
+				</div>
+				<div ng-show="(tenantRender  == 2)" class="styleset">
+					<div class="groupChart">
+						<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">实例使用情况</div>
+							<div class="panel-detail">
+								<div id="tanant0" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">费用使用情况</div>
+							<div class="panel-detail">
+								<div id="tanant1" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">cpu使用情况</div>
+							<div class="panel-detail">
+								<div id="tanant2" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">内存使用情况</div>
+							<div class="panel-detail">
+								<div id="tanant3" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">存储使用情况</div>
+							<div class="panel-detail">
+								<div id="tanant4" class="testCC" style="width: 400px; height: 400px;margin: 0 auto;"></div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</tab> </tabset>
+	</div>
+</div>
+<iframe id="testExport" style="display: none;"></iframe>

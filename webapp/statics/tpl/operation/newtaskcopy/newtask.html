@@ -1,0 +1,74 @@
+<div class="clearfix task-graph-content" ng-task-main-router-copy="">
+	<div class="wrapper-md">
+		<div class="row panel panel-default" ng-if="(routerStatus == 1)" ng-controller="NewTaskCopyCtrl" >
+			<form class="form-horizontal form-validation" name="taskForm">
+				<div class="search-box m-t-md">
+					<div class="legend">基本信息</div>
+					<div class="search-content">
+						<div class="form-group" ng-show="showTpl">
+							<div class="col-lg-6 input-error-info">
+								<label class="control-label">模板列表：</label>
+								<select class="form-control task-name-input" ng-model="tplId" ng-change="selectTpl()">
+									<option value="">--请选择--</option>
+									<option value="{{item.id}}" ng-repeat="item in tplListData" ng-bind="item.name"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-6 input-error-info">
+								<label class="control-label" ng-if="!isTpl">作业名称：</label>
+								<label class="control-label" ng-if="isTpl">模板名称：</label>
+								<input type="text" name="taskname"  class="form-control task-name-input" ng-model="name" validator="required,name" />
+							</div>
+							<div class="col-md-6  ">
+								<label class="control-label">应用场景：</label>
+								<input type="text" name="scenne" class="form-control task-name-input" ng-model="remark" />
+							</div>
+						</div>
+					</div>
+					<div class="search-btn m-t-sm">
+						<button class="btn btn-info w-sm m-r-md" validation-submit="taskForm" ng-disabled="taskForm.$invalid" ng-click="execute(1)"ng-show="!isHideSave"><i class="fa fa-save"></i>&nbsp;保存</button>
+						<button class="btn btn-danger w-sm m-r-md" validation-submit="taskForm" ng-disabled="taskForm.$invalid" ng-click="execute()" ng-show="!isHideExecute"><i class="fa fa-life-saver"></i>&nbsp;去执行</button>
+						<button class="btn btn-success w-sm" ng-click="goList()"><i class="fa fa-reply icon-font"></i> 返回</button>
+					</div>
+				</div>
+			</form>
+			<div class="search-box m-t-md">
+				<div class="legend">节点信息</div>
+				<div class="search-content" style="border-bottom: none">
+					<div class="col-md-12 task-tab">
+						<div  class="item" ng-repeat="item in nodeData" type="{{item.nodeType}}">
+							<img class="node-img" ng-src="/statics/img/topology/{{item.Image}}" />
+							<span>{{item.text}}</span>
+						</div>
+					</div>
+					<div class="panel">
+						<div id="content">
+							<canvas id="canvas">sorry,your browser do not support canvas label</canvas>
+						</div>
+						<ul class="node-menu" id="contextmenu" style="display:none;">
+							<li><a tip="1">编辑</a></li>
+							<li><a tip="6">连线</a></li>
+							<li><a tip="2">顺时针旋转</a></li>
+							<li><a tip="3">逆时针旋转</a></li>
+							<li><a tip="4">删除该节点</a></li>
+							<li><a tip="5">取消</a></li>
+						</ul>
+						<ul class="node-menu" id="contextmenustart" style="display:none;">
+							<li><a tip="6">连线</a></li>
+							<li><a tip="2">顺时针旋转</a></li>
+							<li><a tip="3">逆时针旋转</a></li>
+							<li><a tip="5">取消</a></li>
+						</ul>
+						<ul class="node-menu" id="linkmenu" style="display:none;">
+							<li><a tip="1">删除连线</a></li>
+							<li><a tip="2">取消</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" ng-task-preview-detail="" ng-if="(routerStatus == 2)"></div>
+		<div class="panel panel-default" ng-task-execute-detail="" ng-if="(routerStatus == 3)"></div>
+	</div>
+</div>

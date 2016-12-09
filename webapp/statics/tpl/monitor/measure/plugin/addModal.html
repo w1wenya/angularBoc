@@ -1,0 +1,57 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size">配置项操作</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">类型：</label>
+				<div class="control-input">
+					<label class="i-checks i-checks-sm m-t-xs">
+						<input type="radio" name="type" ng-model="itemData.type" value="beans" ng-disabled="isDisabled">
+						<i></i> 属性
+					</label>
+					<label class="i-checks i-checks-sm m-t-xs">
+						<input type="radio" name="type" ng-model="itemData.type" value="configs" ng-disabled="isDisabled">
+						<i></i> 标签
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">配置项：</label>
+				<div class="control-input">
+					<input class="form-control" name="key" placeholder="配置项" ng-model="itemData.key" validator="required"  type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">描述：</label>
+				<div class="control-input">
+					<input class="form-control" name="desp" placeholder="描述" ng-model="itemData.desp" validator="required" type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-10">
+				<label class="control-label">默认值：</label>
+				<div class="control-input" ng-if="itemData.type == 'beans'">
+					<input class="form-control" name="value" placeholder="默认值" ng-model="itemData.value" validator="required"  type="text" />
+				</div>
+				<div class="control-input" ng-if="itemData.type == 'configs'">
+					<input class="form-control" name="value" placeholder="默认值" ng-model="itemData.value"  type="text" />
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<label class="checkbox-inline i-checks">
+						<input type="checkbox" ng-model="itemData.require"><i></i> 是否必须
+					</label>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

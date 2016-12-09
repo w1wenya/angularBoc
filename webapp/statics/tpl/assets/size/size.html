@@ -1,0 +1,63 @@
+<div ng-controller="sizeCtrl" class="clearfix script-content">
+    <div class="wrapper-md">
+        <div class="panel panel-default" ng-show="!showDetail">
+            <div class="">
+                <div class="col-md-12 search-box m-b-md" style="float:none;">
+                    <div class="legend">查询条件</div>
+                    <div class="search-content">
+                        <div class="form-group">
+                            <label class="control-label">配置名称：</label>
+                            <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                        </div>
+                    </div>
+                    <div class="search-btn">
+                        <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                        <button class="btn btn-success w-xs m-r" ng-click="sync($event,row,'lg')"><i class="fa fa-hourglass-start"></i> 同步</button>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="float:none;">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-top: -10px;">
+                                <table class="table table-striped b-light m-b-xxs">
+                                    <thead class="table-header">
+                                    <tr>
+                                        <th width="30%" class="text-center font-15">配置ID</th>
+                                        <th width="20%" class="text-center font-15">配置名称</th>
+                                        <th width="20%" class="text-center font-15">CPU核数</th>
+                                        <th width="15%" class="text-center font-15">内存</th>
+                                        <th width="15%" class="text-center font-15">磁盘</th>
+                                        <!--<th width="30%" class="text-center font-15">uuid</th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="table-content" ng-repeat="row in sizeList" ng-if="!isImageData">
+                                        <td width="30%" class="text-center detail-href font-15 text-overflow" style="max-width:315px;" title="{{row.flavorId}}" ng-click="detail(row.id)" ng-bind="row.flavorId"></td>
+                                        <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                        <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.cpu}}" ng-bind="row.cpu"></td>
+                                        <td width="15%" class="text-center font-15 text-overflow" style="max-width:157px;" title="{{row.memory}}" ng-bind="row.memory"></td>
+                                        <td width="15%" class="text-center font-15 text-overflow" style="max-width:157px;" title="{{row.disk}}" ng-bind="row.disk"></td>
+                                        <!--<td width="30%" class="text-center font-15 text-overflow" style="max-width:105px;" title="{{row.uuid}}" ng-bind="row.uuid"></td>-->
+                                    </tr>
+                                    <tr ng-if="isImageData">
+                                        <td class="td-nodata" colspan="5">暂无数据</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="clearfix">
+                                    <div class="col-sm-6" style="padding:7px 15px;">
+                                        <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="clearfix script-content" ng-controller="MonitorRecordListCtrl" >
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12">
+				<button class="btn btn-info m-b pull-right" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+			</div>
+			<div class="col-md-12 search-box m-b-md">
+					<div class="legend">查询条件</div>
+					<div class="search-content">
+						<div class="form-group">
+							<label class="control-label">名称：</label>
+							<input type="text" class="form-control" ng-model="name" placeholder="请输入名称"/>
+						</div>
+					</div>
+					<div class="search-btn m-t">
+						<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+						<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+					</div>
+				</div>
+			<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-striped b-light m-b-xxs">
+							<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center">名称</th>
+								<th class="text-center">创建者</th>
+								<th class="text-center">创建时间</th>
+								<th class="text-center">操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="(key,row) in listData">
+								<td class="text-center" ng-bind="row.name"></td>
+								<td class="text-center" ng-bind="row.creator"></td>
+								<td class="text-center" ng-bind="row.gmtCreate"></td>
+								<td class="text-center">
+									<button class="btn btn-sm btn-danger" ng-click="remove(row.id)"><i class="fa fa-trash-o"></i> 删除</button>
+									<button class="btn btn-sm btn-info" ng-click="goDetail(row.id)"><i class="fa fa-info"></i> 详情</button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<div class="col-sm-6">
+								<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+								</div>
+							</div>
+							<div class="col-sm-6 text-right">
+								<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

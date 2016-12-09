@@ -1,0 +1,131 @@
+<div ng-controller="RackDetailCtrl" class="clearfix detail" >
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<button class="btn btn-info m-b pull-right" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">基本信息</div>
+				<div class="panel-body">
+					<p class="detail-line">
+						<span class="detail-title">机柜名称：</span>
+						<span class="detail-content" ng-bind="rackDetail.name"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜类型：</span>
+						<span class="detail-content" ng-bind="rackDetail.typeName"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜规格：</span>
+						<span class="detail-content" ng-bind="rackDetail.specs"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">供应厂商：</span>
+						<span class="detail-content" ng-bind="rackDetail.vendor"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">出厂编号：</span>
+						<span class="detail-content" ng-bind="rackDetail.productSn"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">生产日期：</span>
+						<span class="detail-content" ng-bind="rackDetail.productDate"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">质保期：</span>
+						<span class="detail-content" ng-bind="rackDetail.warranty"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜材质：</span>
+						<span class="detail-content" ng-bind="rackDetail.materialName"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">描述：</span>
+						<span class="detail-content" ng-bind="rackDetail.remark"></span>
+					</p>
+				</div>
+		</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">配置信息</div>
+				<div class="panel-body" style="height: 290px">
+					<p class="detail-line">
+						<span class="detail-title">所属数据中心：</span>
+						<span class="detail-content" ng-bind="rackDetail.dcname"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">所属机房：</span>
+						<span class="detail-content" ng-bind="rackDetail.roomname"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜状态：</span>
+						<span class="detail-content" ng-bind="rackDetail.status|cn:'status'"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜U数：</span>
+						<span class="detail-content" ng-bind="rackDetail.unit"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">卡槽数量：</span>
+						<span class="detail-content" ng-bind="rackDetail.slotAmount"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜行位：</span>
+						<span class="detail-content" ng-bind="rackDetail.axisX"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">机柜列位：</span>
+						<span class="detail-content" ng-bind="rackDetail.axisX"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">统计信息</div>
+				<div class="panel-body" style="height: 290px">
+					<p class="col-md-12 detail-line">
+						<img src="/statics/img/dashborad/dashboard_host.png" alt="">
+						<span class="detail-content">{{rackDetail.servers}}个服务器</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 m-t">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">设备列表</div>
+				<div class="panel-body" style="padding: 0" data-ng-include="'/statics/tpl/assets/server/list.html'" >
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 m-t">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">告警服务器</div>
+				<div class="panel-body">
+					<table class="table table-striped b-light m-b-xxs">
+						<thead style="background: #fefefe">
+						<tr>
+							<th class="text-center">名称</th>
+							<th class="text-center">IP</th>
+							<th class="text-center">状态</th>
+							<th class="text-center">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="(key,row) in alarmData">
+							<td class="text-center" ng-bind="row.name"></td>
+							<td class="text-center" ng-bind="row.managerIp"></td>
+							<td class="text-center" ng-bind="row.status"></td>
+							<td class="text-center">
+								<button class="btn btn-sm btn-info m-r-sm" ng-click="goDetail(row.id)"><i
+										class="fa fa-info-circle fa-fw"></i> 详情</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

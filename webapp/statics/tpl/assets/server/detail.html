@@ -1,0 +1,73 @@
+<div ng-controller="ServerDetailCtrl" class="clearfix detail" >
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<button class="btn btn-info m-b pull-right" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">基本信息</div>
+				<div class="panel-body">
+					<p class="detail-line">
+						<span class="detail-title">服务器名称：</span>
+						<span class="detail-content" ng-bind="serverDetail.name"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">所属数据中心：</span>
+						<span class="detail-content" ng-bind="serverDetail.dcname"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">所属机房：</span>
+						<span class="detail-content" ng-bind="serverDetail.roomname"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">所属机柜：</span>
+						<span class="detail-content" ng-bind="serverDetail.rackname"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">服务器状态：</span>
+						<span class="detail-content" ng-bind="serverDetail.status|cn:'status'"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">标签：</span>
+						<span class="detail-content" ng-bind="serverDetail.tags"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">描述：</span>
+						<span class="detail-content" ng-bind="serverDetail.remark"></span>
+					</p>
+				</div>
+		</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">配置信息</div>
+				<div class="panel-body">
+					<p class="detail-line">
+						<span class="detail-title">所属平台：</span>
+						<span class="detail-content" ng-bind="serverDetail.platform"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">管理IP：</span>
+						<span class="detail-content" ng-bind="serverDetail.managerIp"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">管理端口：</span>
+						<span class="detail-content" ng-bind="serverDetail.managerPort"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">用户账号：</span>
+						<span class="detail-content" ng-bind="serverDetail.osAccount"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">卡槽数量：</span>
+						<span class="detail-content" ng-bind="serverDetail.slotNum"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">U数：</span>
+						<span class="detail-content" ng-bind="serverDetail.units"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

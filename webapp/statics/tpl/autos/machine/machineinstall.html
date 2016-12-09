@@ -1,0 +1,180 @@
+<div class="clearfix script-content" ng-controller="MachineInstallCtrl" >
+    <div class="wrapper-md">
+        <div class="row panel panel-default">
+            <div id="example-basic" style="" role="application" class="wizard clearfix"><div class="steps clearfix">
+                <ul role="tablist">
+                    <li role="tab" class="first disabled" ng-class="{true:'current'}[showWizardtype==1]">
+                        <a id="example-basic-t-0" href="" aria-controls="example-basic-p-0">
+                            <span class="current-info audible">current step: </span>
+                            <span class="number">1.</span> 网络配置
+                        </a>
+                    </li>
+                    <li role="tab" class="disabled" ng-class="{true:'current'}[showWizardtype==2]">
+                        <a id="example-basic-t-1" href="" aria-controls="example-basic-p-1">
+                            <span class="number">2.</span> 磁盘配置界面
+                        </a>
+                    </li>
+                    <li role="tab" class="disabled last" ng-class="{true:'current'}[showWizardtype==3]">
+                        <a id="example-basic-t-2" href="" aria-controls="example-basic-p-2">
+                            <span class="number">3.</span> 操作系统版本
+                        </a>
+                    </li>
+                    <li role="tab" class="disabled last" ng-class="{true:'current'}[showWizardtype==4]">
+                        <a id="example-basic-t-3" href="" aria-controls="example-basic-p-2">
+                            <span class="number">4.</span> 信息汇总
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                <div class="content clearfix">
+                <h3 id="example-basic-h-0" tabindex="-1" class="title current">网络配置</h3>
+                <section id="example-basic-p-0" role="tabpanel" aria-labelledby="example-basic-h-0" class="body" ng-class="{true:'body_show',false: 'body_none'}[showWizardtype==1]" aria-hidden="false">
+                    <div class="col-md-12" >
+                        <div>
+                            <p class="title_name"> <span>您选择了</span>
+                                <span  ng-repeat="(key,row) in selectArr" ng-bind="row.name"></span>
+                                <span>等主机</span>
+                            </p>
+                        </div>
+                        <div class="table-responsive">
+
+                            <table class="table table-striped b-light m-b-xxs">
+                                <thead style="background: #fefefe">
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key,row) in listData">
+                                    <td class="text-center">
+                                        <label class="i-checks m-b-none"><input type="checkbox" ng-model="row.isSelected"><i></i></label>
+                                    </td>
+                                    <td class="text-center" width="100px"><input type="text" class="btn btn-success w-xs" ng-model="row.measurementValue" /></td>
+                                    <td class="text-center"><input type="text" ng-model="row.names" disabled/></td>
+                                    <td class="text-center"><input type="text" ng-model="row.measurement" /></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div  class="title_name col-md-12">
+                                <label class="col-md-1"><span>bond</span></label>
+                                <div class="col-md-5">
+                                    <select class="form-control ng-pristine ng-valid ng-touched">
+                                        <option value ="0">0</option>
+                                        <option value ="1">1</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <h3 id="example-basic-h-1" tabindex="-1" class="title">磁盘配置界面</h3>
+                <section id="example-basic-p-1" role="tabpanel" aria-labelledby="example-basic-h-1" class="body" ng-class="{true:'body_show',false: 'body_none'}[showWizardtype==2]" aria-hidden="true" >
+                    <div class="col-md-12" >
+                        <div>
+                            <p class="title_name"> <span>您选择了</span>
+                                <span  ng-repeat="(key,row) in selectArr" ng-bind="row.name"></span>
+                                <span>等主机</span>
+                            </p>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs">
+                                <thead style="background: #fefefe">
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key,row) in listData">
+                                    <td class="text-center">
+                                        <label class="i-checks m-b-none"><input type="checkbox" ng-model="row.isSelected"><i></i></label>
+                                    </td>
+                                    <td class="text-center" width="100px"><input type="text" class="btn btn-success w-xs" ng-model="row.addres" /></td>
+                                    <td class="text-center"><input type="text" ng-model="row.remark" disabled /></td>
+                                    <td class="text-center" width="100px"><input type="text" class="btn btn-success w-xs" ng-model="row.raid"  n/></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div  class="title_name col-md-12">
+                                <label class="col-md-1"><span>Raid</span></label>
+                                <div class="col-md-5">
+                                    <select class="form-control ng-pristine ng-valid ng-touched" ng-change="changeRaid(x)" ng-model="x">
+                                        <option value ="raid0" >raid0</option>
+                                        <option value ="raid1" >raid1</option>
+                                        <option value="raid5" >raid5</option>
+                                        <option value="raid10">raid10</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                       </div>
+                    </div>
+                </section>
+
+                <h3 id="example-basic-h-2" tabindex="-1" class="title">操作系统版本</h3>
+                <section id="example-basic-p-2" role="tabpanel" aria-labelledby="example-basic-h-2" class="body " aria-hidden="true" ng-class="{true:'body_show',false: 'body_none'}[showWizardtype==3]" >
+                   <div >
+                       <div>
+                           <p class="title_name"> <span>您选择了</span>
+                               <span  ng-repeat="(key,row) in selectArr" ng-bind="row.name"></span>
+                               <span>等主机</span>
+                           </p>
+                       </div>
+                       <div  class="title_nams col-md-12">
+                           <label class="col-md-2"><span>系统</span></label>
+                           <div class="col-md-5">
+                               <select class="form-control ng-pristine ng-valid ng-touched">
+                                   <option value ="0">Redhat</option>
+                                   <option value ="1">Ubuntu</option>>
+                               </select>
+                           </div>
+                       </div>
+                           <div  class="title_nams col-md-12">
+
+                           <label class="col-md-2"><span>版本</span></label>
+                           <div class="col-md-5">
+                               <select class="form-control ng-pristine ng-valid ng-touched">
+                                   <option value ="0">8.0</option>
+                                   <option value ="1">9.0</option>
+                               </select>
+                           </div>
+                       </div>
+
+                   </div>
+
+                </section>
+                    <h3 id="example-basic-h-3" tabindex="-1" class="title">信息汇总</h3>
+                    <section id="example-basic-p-3" role="tabpanel" aria-labelledby="example-basic-h-2" class="body " aria-hidden="true" ng-class="{true:'body_show',false: 'body_none'}[showWizardtype==4]" >
+                        <div >
+                            <div class="form-group col-md-12"  ng-repeat="(key,row) in selectArr">
+                                <label class="control-label col-md-3" ng-bind="row.name">：</label>
+                                <div id="apprelease_pro" style="    margin-top: 17px;">
+                                    <div style="" id="apprelease_msg"></div>
+                                    <div class="progress" style="    background-color: #ccc;">
+                                        <div id="progress_ar"  class="progress-bar progress-bar-success progress-bar-striped active" style="    background-color: #ccc;"
+                                             role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                                             aria-valuemax="100" style="width: 0%;">
+                                            <span id="prog_span"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </section>
+            </div>
+                <div class="actions clearfix">
+                    <ul role="menu" aria-label="Pagination">
+                        <li class="disabled" ng-disabled="showWizardtype==1" ng-click="flag_install(0)" ng-class="{true:'body_show',false: 'body_none'}[showWizardtype==1]">
+                            <a  role="menuitem">上一步</a></li>
+                        <li aria-hidden="false" aria-disabled="false">
+                            <a  role="menuitem" ng-disabled="showWizardtype==4"  ng-click="flag_install(1)">下一步</a></li>
+                        <li aria-hidden="true" ng-class="{true:'body_show',false: 'body_none'}[showWizardtype==3]">
+                            <a  role="menuitem"  ng-click="finish_install()">完成</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

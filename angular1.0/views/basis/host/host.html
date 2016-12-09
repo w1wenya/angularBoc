@@ -1,0 +1,101 @@
+<section id="content" ng-controller="HostCtrl">
+    <div class="container c-alt">
+        <div class="block-header">
+            <h2>欢迎来到应用发布<small>应用发布是平台的核心功能，通过选择应用基础环境，应用模板以及一些基础信息，能够快速方便的提供对外服务的应用。</small></h2>
+        </div>
+        <!--操作 -->
+
+        <div class="card">
+            <br/>
+            <div class="col-sm-12 col-xs-12btn-demo card-header">
+                <div class="col-sm-2 col-xs-6 operation-icon" ng-click="add($event)">
+                    <button  class="btn btn-info "> <i class="zmdi zmdi-compass"></i> 新建主机</button>
+                </div>
+                <div class="col-sm-2 col-xs-6 dropdown" uib-dropdown>
+                    <button class="dropdown-toggle btn btn-primary" uib-dropdown-toggle>更多操作</button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="">移入集群</a></li>
+                        <li><a href="">移出集群</a> </li>
+                        <li><a href="">批量删除</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-xs-6 operation-icon" ng-click="refrsh($event)">
+                    <button  class="btn btn-primary">显示全部</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div>
+
+                <div class="card-body table-responsive">
+                    <table class="table center">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>主机名称</th>
+                            <th>主机类型</th>
+                            <th>状态</th>
+                            <th>IP地址</th>
+                            <th>CPU（核）</th>
+                            <th>内存（M）</th>
+                            <th>所在集群</th>
+                            <th>内核版本</th>
+
+                            <th>创建时间</th>
+                            <th>租户</th>
+                            <th style="min-width: 130px">操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="table-content" ng-repeat="row in hostListData" >
+                            <td width="2%" >
+                                <div class="media-body">
+                                    <label>
+                                        <input type="checkbox">
+                                        <i class="input-helper"></i>
+
+                                    </label>
+                                </div>
+                           </td>
+                            <td title="{{row.hostName}}" ng-bind="row.hostName"> </td>
+                            <td title="{{row.hostType}}" ng-bind="row.hostType"> </td>
+                            <td title="{{row.hostStatus}}" ng-bind="row.hostStatus"> </td>
+                            <td title="{{row.hostIp}}" ng-bind="row.hostIp"> </td>
+                            <td title="{{row.hostCpu}}" ng-bind="row.hostCpu"> </td>
+                            <td title="{{row.hostMem}}" ng-bind="row.hostMem"> </td>
+                            <td title="{{row.clusterName}}" ng-bind="row.clusterName"> </td>
+                            <td title="{{row.hostKernelVersion}}" ng-bind="row.hostKernelVersion"> </td>
+
+                            <td title="{{row.hostCreatetime}}" ng-bind="row.hostCreatetime"> </td>
+                            <td title="{{row.tenantName}}" ng-bind="row.tenantName"> </td>
+
+
+                            <td class="td-operate text-center">
+                                <!--<button class="btn btn-default" ng-click="detail(row.id)">
+                                    <i class="fa fa-info-circle icon-font"></i>
+                                    <span class="icon-txt">详情</span>
+                                </button>-->
+                                <button class="btn btn-info btn-sm" ng-click="add($event,row.hostId)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    <span class="">编辑</span>
+                                </button>
+                                <button class="btn btn-inverse btn-sm" ng-click="remove(row.hostId)">
+                                    <i class="fa fa-trash-o"></i>
+                                    <span class="">删除</span>
+                                </button>
+
+                            </td>
+                        </tr>
+                        <tr ng-if="isImageData">
+                            <td class="td-nodata" colspan="7">暂无数据</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+

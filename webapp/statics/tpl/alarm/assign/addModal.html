@@ -1,0 +1,39 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+</div>
+<div class="modal-body panel-body" style="min-height: 300px">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">策略名称：</label>
+				<div class="control-input">
+					<input class="form-control" name="name" placeholder="策略名称" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-12 assign-cell" ng-repeat="(key,item) in userList">
+				<i class="fa icon bg-blue" ng-bind="(key+1)"></i>
+				<div class="text-success" style="width: 70%">告警分发给以下用户 <a href="" ng-click="removeGroup(key)"><i class="fa fa-times close pull-right"></i></a></div>
+				<div>
+					<div class="assign-user-list" ng-repeat="row in item.userData" ng-if="row.flag">
+						<i class="glyphicon glyphicon-user"></i>   {{row.name}}
+						<a href="" ng-click="removeUser(row,item)"><i class="fa fa-times pull-right"></i></a>
+					</div>
+					<div class="select_mu" ng-muselect mu-select-data="item.userData" item-data="item" select-name="name" change-mu-option="changeMuOption(item)"></div>
+					<div class="m-t">如果告警<input type="number" min="1" ng-model="item.delay" />分钟没有处理，则分派给<i class="fa fa-long-arrow-down"></i></div>
+				</div>
+			</div>
+			<div class="col-md-12 assign-cell">
+				<a href="" ng-click="addGroup()">
+					<i class="fa icon fa-plus bg-green m-t-sm"></i>
+				</a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

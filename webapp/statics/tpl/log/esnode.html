@@ -1,0 +1,40 @@
+<div ng-controller="EsNodeCtrl" class="clearfix script-content">
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-striped b-light m-b-xxs table-navy">
+							<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center">集群名称</th>
+								<th class="text-center">节点名称</th>
+								<th class="text-center">主机名</th>
+								<th class="text-center">主机IP</th>
+								<th class="text-center">节点标记</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="(key,row) in listData">
+								<td class="text-center" title="{{row.esName}}"><div ng-bind="row.esName"></div></td>
+								<td class="text-center" title="{{row.nodeName}}"><div  ng-bind="row.nodeName"></div></td>
+								<td class="text-center" title="{{row.hostName}}"><div  ng-bind="row.hostName"></div></td>
+								<td class="text-center" title="{{row.hostIp}}"><div ng-bind="row.hostIp"></div></td>
+								<td class="text-center" title="{{row.nodeMaster}}"><div ng-bind="row.nodeMaster"></div></td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<div class="col-sm-5">
+								<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+								</div>
+							</div>
+							<div class="col-sm-5 text-right">
+								<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+								            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+							</div>
+						</div>  
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

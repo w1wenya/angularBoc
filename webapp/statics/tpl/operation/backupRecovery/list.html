@@ -1,0 +1,308 @@
+<div class="clearfix script-content" ng-task-main-router-copy="">
+	<div class="wrapper-md">
+		<tabset ng-show="(routerStatus == 1)" class="tab-container">
+			<tab ng-controller="ImmediatelyBackupCtrl" select="getList(1)">
+				<tab-heading>
+					备份任务
+				</tab-heading>
+				<div class="row panel" style="padding-top: 10px">
+					<div class="col-md-12 search-box m-b-md">
+						<div class="legend">查询条件</div>
+						<div class="search-content">
+							<div class="form-group">
+								<label class="control-label">任务名称：</label>
+								<input type="text" class="form-control" ng-model="name" placeholder="请输入任务名称"/>
+							</div>
+						</div>
+						<div class="search-btn">
+							<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+							<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+							<button class="btn btn-info" ng-click="goEdit('',4)" tabindex="0"><i class="fa fa-plus"></i> 新建备份</button>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-striped b-light m-b-xxs">
+								<thead style="background: #fefefe">
+								<tr>
+									<th class="text-center">作业名称</th>
+									<th class="text-center">创建人</th>
+									<th class="text-center">最后修改人</th>
+									<th class="text-center">创建时间</th>
+									<th class="text-center">最后修改时间</th>
+									<th class="text-center" style="width: 300px">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="(key,row) in listData">
+									<td class="text-center" ng-bind="row.name"></td>
+									<td class="text-center" ng-bind="row.creator"></td>
+									<td class="text-center" ng-bind="row.mender"></td>
+									<td class="text-center" ng-bind="row.gmtCreate"></td>
+									<td class="text-center" ng-bind="row.gmtModify"></td>
+									<td class="text-center">
+										<button class="btn btn-sm btn-primary" ng-click="goEdit(row.id,5)"><i class="fa fa-pencil"></i> 编辑</button>
+										<button class="btn btn-sm btn-danger" ng-click="remove(row.id)"><i class="fa fa-trash-o icon-font"></i> 删除</button>
+										<div class="btn-group dropdown table-operation" dropdown="">
+											<a class="btn btn-info btn-addon" dropdown-toggle=""><i class="fa fa-reorder" ></i>操作</a>
+											<ul class="dropdown-menu">
+												<li ng-click="goPreviewTask(row.id)"><a href="">执行</a></li>
+												<li ng-click="createTimeTask(row)" ><a href="">定时启动</a></li>
+												<li ng-click="goEdit(row.id,6)"><a href="">克隆</a></li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="clearfix">
+								<div class="col-sm-6">
+									<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+									</div>
+								</div>
+								<div class="col-sm-6 text-right">
+									<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+									            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</tab>
+			<tab ng-controller="TimedBackupCtrl" select="getData(1)">
+				<tab-heading>
+					定时备份
+				</tab-heading>
+				<div class="row panel" style="padding-top: 10px">
+					<div class="col-md-12 search-box m-b-md">
+								<div class="legend">查询条件</div>
+								<div class="search-content">
+									<div class="form-group">
+										<label class="control-label">定时任务：</label>
+										<input type="text" class="form-control" ng-model="name" placeholder="请输入任务名称"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">状态：</label>
+										<select class="form-control" ng-model="status">
+											<option value="">全部</option>
+											<option ng-repeat="row in statusData" ng-selected="row.value==status" value="{{row.value}}" ng-bind="row.name"></option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="control-label">创建时间：</label>
+										<input ng-model="gmtCreate" class="form-control w-md" ui-jq="daterangepicker" ui-options="{format: 'YYYY/MM/DD'}" placeholder="请选择创建时间" />
+									</div>
+								</div>
+								<div class="search-btn">
+									<button class="btn btn-info w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+									<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+									<button class="btn btn-primary w-xs m-r" ng-click="add($event)"><i class="fa fa-plus-circle"></i> 新增</button>
+								</div>
+							</div>
+					<div class="col-md-12">
+								<div class="dataTables_wrapper form-inline">
+									<div class="row">
+										<div class="col-sm-12" style="margin-top: -10px;">
+											<table class="table table-striped b-light m-b-xxs">
+												<thead class="table-header">
+												<tr>
+													<th class="text-center">定时任务</th>
+													<th class="text-center ">任务名称</th>
+													<th class="text-center">状态</th>
+													<th class="text-center">执行计划</th>
+													<th class="text-center">创建人</th>
+													<th class="text-center">修改时间</th>
+													<th class="text-center">操作</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr class="table-content" ng-repeat="row in timedOperationList" ng-if="!isImageData">
+													<td class="text-center" title="{{row.name}}" ng-bind="row.name"></td>
+													<td class="text-center" title="{{row.task.name}}" ng-bind="row.task.name"></td>
+													<td class="text-center">
+														<button class="btn btn-xs disabled" style="width:50px;" ng-class="{'UNEXECUTE':'btn-success','WAITING':'btn-warning','RUNNING':'btn-info','PAUSED':'btn-danger'}[row.status]" title="{{row.status|cn:'timeTaskStatus'}}" ng-bind="row.status|cn:'timeTaskStatus'"></button>
+													</td>
+													<td class="text-center" title="{{row.crons}}" ng-bind="row.crons"></td>
+													<td class="text-center" title="{{row.creator}}" ng-bind="row.creator"></td>
+													<td class="text-center" title="{{row.gmtModify}}" ng-bind="row.gmtModify"></td>
+													<td class=" text-center">
+														<button class="btn btn-success btn-sm" style="margin-right:5px;" ng-click="update($event,$index,row,key)">
+															<i class="fa fa-pencil-square-o icon-font"></i>
+															<span class="icon-txt">编辑</span>
+														</button>
+														<button class="btn btn-danger btn-sm" style="margin-right:5px;" ng-click="remove(row.id,$event,$index,key)">
+															<i class="fa fa-trash-o icon-font"></i>
+															<span class="icon-txt">删除</span>
+														</button>
+														<button class="btn btn-info btn-sm" ng-click="start(row.id,row.name,$event,$index)" ng-show="row.operateName == '激活'">
+															<i class="fa fa-play-circle icon-font" aria-hidden="true"></i>
+															<span class="icon-txt">激活</span>
+														</button>
+														<button class="btn btn-warning btn-sm" ng-click="stop(row.id,row.name,$event,$index)" ng-show="row.operateName == '挂起'">
+															<i class="fa fa-pause-circle icon-font" aria-hidden="true"></i>
+															<span class="icon-txt">挂起</span>
+														</button>
+													</td>
+												</tr>
+												<tr ng-if="isImageData">
+													<td class="td-nodata"></td>
+													<td class="td-nodata">暂无数据</td>
+													<td class="td-nodata"></td>
+													<td class="td-nodata"></td>
+													<td class="td-nodata"></td>
+													<td class="td-nodata"></td>
+													<td class="td-nodata"></td>
+													<td class="td-nodata"></td>
+													<td class="td-nodata"></td>
+												</tr>
+												</tbody>
+											</table>
+											<div class="clearfix">
+												<div class="col-sm-6">
+													<div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="params.rows"></span>条</div>
+												</div>
+												<div class="col-sm-6 text-right" style="margin-top: 13px;">
+													<pagination style="" boundary-links="true" total-items="totalCount" items-per-page="params.rows" max-size="10" ng-model="params.page" ng-change="getData(params.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+				</div>
+			</tab>
+			<tab ng-controller="BackupHistoryCtrl" select="getList(1)">
+				<tab-heading>
+					备份记录
+				</tab-heading>
+				<div class="row panel" style="padding-top: 10px">
+					<div class="col-md-12 search-box m-b-md">
+						<div class="legend">查询条件</div>
+						<div class="search-content">
+							<div class="form-group">
+								<label class="control-label">任务名称：</label>
+								<input type="text" class="form-control" ng-model="name" placeholder="请输入任务名称"/>
+							</div>
+						</div>
+						<div class="search-btn">
+							<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+							<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-striped b-light m-b-xxs">
+								<thead style="background: #fefefe">
+								<tr>
+									<th class="text-center">任务名称</th>
+									<th class="text-center">启动人</th>
+									<th class="text-center">任务状态</th>
+									<th class="text-center">开始时间</th>
+									<th class="text-center">结束时间</th>
+									<th class="text-center">启动方式</th>
+									<th class="text-center">总耗时（s）</th>
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="(key,row) in listData">
+									<td class="text-center" ng-bind="row.name"></td>
+									<td class="text-center" ng-bind="row.operator"></td>
+									<td class="text-center" >
+										<button class="btn btn-primary btn-xs disabled" ng-class="{'SUCCESS':'btn-success','FAIL':'btn-danger'}[row.status]" ng-bind="row.status|cn:'taskStatus'"></button>
+									</td>
+									<td class="text-center" ng-bind="row.startTime"></td>
+									<td class="text-center" ng-bind="row.endTime"></td>
+									<td class="text-center" ng-bind="row.mode|cn:'startWay'"></td>
+									<td class="text-center" ng-bind="row.cost"></td>
+									<td class="text-center">
+										<button class="btn btn-sm btn-primary m-r-sm" ng-click="recovery(row.id)"><i class="fa fa-mail-forward"></i> 恢复</button>
+										<button class="btn btn-sm btn-success m-r-sm" ng-click="getFileList(row.id)"><i class="fa fa-file-archive-o"></i> 文件</button>
+										<button class="btn btn-sm btn-info" ng-click="goTaskDetail(row.id)"><i class="fa fa-info"></i> 详情</button>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="clearfix">
+								<div class="col-sm-6">
+									<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+									</div>
+								</div>
+								<div class="col-sm-6 text-right">
+									<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+									            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</tab>
+			<tab ng-controller="RecorveryHistoryCtrl" select="getList(1)">
+				<tab-heading>
+					恢复记录
+				</tab-heading>
+				<div class="row panel" style="padding-top: 10px">
+					<div class="col-md-12 search-box m-b-md">
+						<div class="legend">查询条件</div>
+						<div class="search-content">
+							<div class="form-group">
+								<label class="control-label">任务名称：</label>
+								<input type="text" class="form-control" ng-model="name" placeholder="请输入任务名称"/>
+							</div>
+						</div>
+						<div class="search-btn">
+							<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+							<button class="btn btn-success w-xs" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-striped b-light m-b-xxs">
+								<thead style="background: #fefefe">
+								<tr>
+									<th class="text-center">任务名称</th>
+									<th class="text-center">启动人</th>
+									<th class="text-center">任务状态</th>
+									<th class="text-center">开始时间</th>
+									<th class="text-center">结束时间</th>
+									<th class="text-center">启动方式</th>
+									<th class="text-center">总耗时（s）</th>
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="(key,row) in listData">
+									<td class="text-center" ng-bind="row.name"></td>
+									<td class="text-center" ng-bind="row.operator"></td>
+									<td class="text-center" >
+										<button class="btn btn-primary btn-xs disabled" ng-class="{'SUCCESS':'btn-success','FAIL':'btn-danger'}[row.status]" ng-bind="row.status|cn:'taskStatus'"></button>
+									</td>
+									<td class="text-center" ng-bind="row.startTime"></td>
+									<td class="text-center" ng-bind="row.endTime"></td>
+									<td class="text-center" ng-bind="row.mode|cn:'startWay'"></td>
+									<td class="text-center" ng-bind="row.cost"></td>
+									<td class="text-center">
+										<button class="btn btn-sm btn-info" ng-click="goTaskDetail(row.id)"><i class="fa fa-info"></i> 详情</button>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="clearfix">
+								<div class="col-sm-6">
+									<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+									</div>
+								</div>
+								<div class="col-sm-6 text-right">
+									<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+									            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</tab>
+		</tabset>
+		<div class="panel panel-default task-graph-content" ng-task-preview-detail="" ng-if="(routerStatus == 2)"></div>
+		<div class="panel panel-default" ng-task-execute-detail="" ng-if="(routerStatus == 3)"></div>
+	</div>
+</div>

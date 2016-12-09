@@ -1,0 +1,128 @@
+<div ng-controller="VmCtrl" class="clearfix script-content">
+    <div class="wrapper-md">
+        <div class="panel panel-default" ng-show="!showDetail">
+            <div class="">
+                <div class="col-md-12 search-box m-b-md" style="float:none;">
+                    <div class="legend">查询条件</div>
+                    <div class="search-content">
+                        <div class="form-group">
+                            <label class="control-label">主机名称：</label>
+                            <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">主机状态：</label>
+                            <select class="form-control" ng-model="searchByStatus">
+                                <option value="">--请选择--</option>
+                                <option ng-repeat="row in statusData" ng-selected="row.value==searchByStatus" value="{{row.value}}" ng-bind="row.name"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-btn">
+                        <button class="btn btn-primary w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                        <button class="btn btn-success w-xs" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+                        <!--<button class="btn btn-success w-xs m-r" ng-click="sync($event,row,'lg')"><i class="fa fa-hourglass-start"></i> 同步</button>-->
+                        <!--<button class="btn btn-primary w-xs m-r" ng-click="add($event,'lg')"><i class="fa fa-plus-circle"></i> 新增</button>-->
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="float:none;">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-top: -10px;">
+                                <table class="table table-striped b-light m-b-xxs">
+                                    <thead class="table-header">
+                                    <tr>
+                                        <th width="25%" class="font-15 text-center">主机名称</th>
+                                        <th width="15%" class="font-15 text-center">主机状态</th>
+                                        <th width="20%" class="font-15 text-center">创建时间</th>
+                                        <th width="15%" class="font-15 text-center">平台名称</th>
+                                        <th width="15%" class="font-15 text-center">OS名称</th>
+                                        <th class="text-center td-operate font-15" width="10%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="table-content" ng-repeat="row in vmList" ng-if="!isImageData">
+                                        <td width="25%" class="font-15 text-center text-overflow" style="max-width:242px;" title="{{row.name}}"  ng-bind="row.name"></td>
+                                        <td width="15%" class="font-15 text-center">
+                                            <button class="btn btn-xs disabled" ng-class="{'success':'btn-success','danger':'btn-danger','warning':'btn-warning','primary':'btn-primary','default':'btn-default','info':'btn-info'}[row.statusColor]" title="{{row.status}}" ng-bind="row.status"></button>
+                                        </td>
+                                        <td width="20%" class="font-15 text-center text-overflow" style="max-width:193px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                        <td width="15%" class="font-15 text-center text-overflow" style="max-width:146px;" title="{{row.vendorName}}" ng-bind="row.vendorName"></td>
+                                        <td width="30%" class="font-15 text-center text-overflow" style="max-width:242px;" title="{{row.osName}}" ng-bind="row.osName"></td>
+                                        <td width="10%" class="td-operate text-center">
+                                            <!--<button class="btn btn-success btn-sm" ng-click="update($event,$index,row,key)">-->
+                                                <!--<i class="fa fa-pencil-square-o"></i>-->
+                                                <!--<span class="">编辑</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-danger btn-sm" ng-click="remove($event,row.id,6)">-->
+                                                <!--<i class="fa fa-trash-o"></i>-->
+                                                <!--<span class="">删除</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-success btn-sm" ng-click="remove($event,row.id,3)">-->
+                                            <!--<i class="fa fa-clipboard"></i>-->
+                                            <!--<span class="">备份</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-primary btn-sm" ng-click="remove($event,row.id,4)">-->
+                                            <!--<i class="fa fa-camera"></i>-->
+                                            <!--<span class="">快照</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-info btn-sm" ng-if="row.isStart" ng-disabled="row.start" ng-click="remove($event,row.id,0)">-->
+                                            <!--<i class="fa fa-repeat"></i>-->
+                                            <!--<span class="">恢复</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-warning btn-sm" ng-if="row.isStop" ng-click="remove($event,row.id,7)">-->
+                                            <!--<i class="fa fa-pause-circle-o"></i>-->
+                                            <!--<span class="">暂停</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-danger btn-sm" ng-if="row.isPaused" ng-click="remove($event,row.id,8)">-->
+                                            <!--<i class="fa fa-stop-circle-o"></i>-->
+                                            <!--<span class="">挂起</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-success btn-sm" ng-if="row.isActive" ng-disabled="row.active" ng-click="remove($event,row.id,9)">-->
+                                            <!--<i class="fa fa-play-circle"></i>-->
+                                            <!--<span class="">激活</span>-->
+                                            <!--</button>-->
+                                            <!--<button class="btn btn-primary btn-sm" ng-click="remove($event,row.id,1)">-->
+                                            <!--<i class="fa fa-history"></i>-->
+                                            <!--<span class="">重启</span>-->
+                                            <!--</button>-->
+                                            <button class="btn btn-danger btn-sm" ng-click="goMonitor(row.id)">
+                                                <i class="fa fa-pie-chart icon-font1"></i>
+                                                <span class="">监控</span>
+                                            </button>
+                                            <!--<div class="btn-group dropdown table-operation" dropdown="">-->
+                                                <!--<a class="btn btn-info btn-addon" dropdown-toggle=""><i class="fa fa-reorder" ></i>其他操作</a>-->
+                                                <!--<ul class="dropdown-menu">-->
+                                                    <!--<li ng-click="remove($event,row.id,0)" ng-if="row.isStart"><a href="">恢复</a></li>-->
+                                                    <!--<li ng-click="remove($event,row.id,7)" ng-if="row.isStop"><a href="">暂停</a></li>-->
+                                                    <!--<li ng-click="remove($event,row.id,8)" ng-if="row.isPaused"><a href="">挂起</a></li>-->
+                                                    <!--<li ng-click="remove($event,row.id,9)" ng-if="row.isActive"><a href="">激活</a></li>-->
+                                                    <!--<li ng-click="remove($event,row.id,1)"><a href="">重启</a></li>-->
+                                                    <!--<li ng-click="remove($event,row.id,3)"><a href="">备份</a></li>-->
+                                                    <!--<li ng-click="remove($event,row.id,4)"><a href="">快照</a></li>-->
+                                                    <!--<li ng-click="goMonitor(row.id)"><a href="">监控</a></li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="isImageData">
+                                        <td class="td-nodata" colspan="6">暂无数据</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="clearfix">
+                                    <div class="col-sm-6" style="padding:12px 15px;">
+                                        <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

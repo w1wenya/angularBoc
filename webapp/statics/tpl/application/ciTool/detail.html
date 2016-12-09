@@ -1,0 +1,75 @@
+<div class="content-byc image-content" ng-controller="detailIntegrateModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">集成工具详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="pmbb-header">
+                                        <!-- <h5><i class="glyphicon glyphicon-user icon m-r-10"></i>基本信息</h5>-->
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>集成名称：</dt>
+                                                <dd ng-bind="ciToolDetail.username"></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>集成状态：</dt>
+                                                <dd>
+                                                    <button class="btn btn-xs disabled" style="width:50px;" ng-class="{'NORMAL':'btn-success','ABNORMAL':'btn-warning'}[ciToolDetail.status]" title="{{ciToolDetail.status|cnUser:'status'}}" ng-bind="ciToolDetail.status|cnUser:'status'"></button>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>管理用户：</dt>
+                                                <dd ng-bind="ciToolDetail.username"></dd>
+                                            </dl>
+                                        </div>
+                                         <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>管理密码：</dt>
+                                                <dd ng-bind="ciToolDetail.password"></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>服务地址：</dt>
+                                                <dd ng-bind="ciToolDetail.address"></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>集成描述：</dt>
+                                                <dd ng-bind="ciToolDetail.remark"></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="go-back" ng-click="goBack()">-->
+                    <!--<div class="head"><i class="glyphicon glyphicon-chevron-left"></i></div>-->
+                    <!--<div class="content">返回列表</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+    </div>
+</div>

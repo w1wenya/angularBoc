@@ -1,0 +1,59 @@
+<div class="content-byc image-content" ng-controller="tenantUserCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <span class="p-l-6">租户下的用户列表</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="col-md-12">
+                                    <table class="table table-striped b-light m-b-xxs">
+                                        <thead class="table-header">
+                                        <tr>
+                                            <th width="9%" class="font-15 text-center">用户名</th>
+                                            <th width="7%" class="font-15 text-center">真实姓名</th>
+                                            <th width="7%" class="font-15 text-center">状态</th>
+                                            <th width="12%" class="font-15 text-center">电话</th>
+                                            <th width="12%" class="font-15 text-center">移动电话</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="table-content" ng-repeat="row in userList" ng-if="!isImageData">
+                                            <td width="9%" class="font-15 text-center text-overflow" style="max-width:197px;" title="{{row.username}}"  ng-bind="row.username"></td>
+                                            <td width="7%" class="font-15 text-center text-overflow" style="max-width:154px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                            <td width="7%" class="font-15 text-center">
+                                                <button class="btn btn-xs disabled" style="width:50px;" ng-class="{'NORMAL':'btn-success','ABNORMAL':'btn-warning'}[row.status]" title="{{row.status|cnUser:'status'}}" ng-bind="row.status|cnUser:'status'"></button>
+                                            </td>
+                                            <td width="12%" class="font-15 text-center" title="{{row.phone}}" ng-bind="row.phone"></td>
+                                            <td width="12%" class="font-15 text-center" title="{{row.mobile}}" ng-bind="row.mobile"></td>
+                                        </tr>
+                                        <tr ng-if="isImageData">
+                                            <td class="td-nodata" colspan="5">暂无数据</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix">
+                                        <div class="col-sm-6" style="padding:7px 15px;">
+                                            <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

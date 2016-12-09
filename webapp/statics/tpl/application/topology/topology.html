@@ -1,0 +1,72 @@
+<div class="clearfix topology-content" ng-controller="TopologyEditCtrl" >
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+				<div class="button">
+					<button id="toJson" type="button">在console中显示实时的json数据，IE下可将json数据另存至本地按钮，</button>
+				</div>
+				<div class="right">
+					<div>
+						<canvas id="canvas1">sorry,your browser do not support canvas label</canvas>
+					</div>
+					<div id="content">
+						<canvas id="canvas">sorry,your browser do not support canvas label</canvas>
+					</div>
+				</div>
+				<div class="node-right">
+					<div class="class-group"><h4>Element</h4>
+
+						<div class="form-group"><label class="col-sm-6 control-label font-small">名称</label>
+
+							<div class="input-group input-group-sm col-sm-6"><input class="form-control name_node"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-6 control-label font-small">ID</label>
+
+							<div class="input-group input-group-sm col-sm-6"><input class="form-control id_node"></div>
+						</div>
+
+					</div>
+					<div class="class-group"><h4>Node</h4>
+
+						<div class="form-group"><label class="col-sm-6 control-label font-small">长</label>
+
+							<div class="input-group input-group-sm col-sm-6"><input class="form-control length_node"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-6 control-label font-small">宽</label>
+
+							<div class="input-group input-group-sm col-sm-6"><input class="form-control weith_node"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-6 control-label font-small cide_node">坐标</label>
+
+							<div class="input-group input-group-sm col-sm-6"><input class="form-control"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-6 control-label font-small">状态</label>
+
+							<div class="input-group input-group-sm col-sm-6 colorpicker-element"><input class="form-control"><span
+									class="input-group-addon"><i></i></span></div>
+						</div>
+					</div>
+					<button onclick="save()">保存</button>
+				</div>
+				<ul id="contextmenu" style="display:none;">
+					<li><a>添加连线</a></li>
+					<li><a>添加节点</a></li>
+					<li><a>顺时针旋转</a></li>
+					<li><a>逆时针旋转</a></li>
+					<li><a>放大</a></li>
+					<li><a>缩小</a></li>
+					<li><a>撤销上一次操作</a></li>
+					<li><a>删除该节点</a></li>
+					<li><a>警告</a></li>
+					<li><a>取消</a></li>
+				</ul>
+				<ul id="linkmenu" style="display:none;">
+					<li><a>修改颜色(随机)</a></li>
+					<li><a>改为红色</a></li>
+					<li><a>改为普通颜色</a></li>
+					<li><a>删除连线</a></li>
+					<li><a>警告</a></li>
+					<li><a>取消</a></li>
+				</ul>
+		</div>
+	</div>
+</div>

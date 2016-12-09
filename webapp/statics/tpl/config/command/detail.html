@@ -1,0 +1,50 @@
+<div class="content-byc image-content" ng-controller="detailCommandModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold" ng-click="goBack()">
+                            <i class="fa fa-reply icon-font" aria-hidden="true"></i>
+                            <span class="p-l-6">命令审计详情</span>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="pmbb-header">
+                                        <!-- <h5><i class="glyphicon glyphicon-user icon m-r-10"></i>基本信息</h5>-->
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>名称：</dt>
+                                                <dd ng-bind="commandDetail.name"></dd>
+                                            </dl>
+                                        </div>
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>级别：</dt>
+                                                <dd>
+                                                    <button class="btn btn-xs disabled" style="width:50px;" ng-class="{'DEADLY':'btn-danger','HIGH':'btn-warning','SERIOUS':'btn-primary','MEDIUM':'btn-info','COMMON':'btn-success'}[commandDetail.level]" title="{{commandDetail.level|cn:'level'}}" ng-bind="commandDetail.level|cn:'level'"></button>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>内容：</dt>
+                                                <dd ng-bind="commandDetail.content"></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

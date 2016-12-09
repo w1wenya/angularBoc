@@ -1,0 +1,81 @@
+<div class="sidebar-inner c-overflow">    
+    <div class="profile-menu">
+        <a href="" toggle-submenu>
+            <div class="profile-pic">
+                <img src="img/profile-pics/1.jpg" alt="">
+            </div>
+
+            <div class="profile-info">
+                WWY
+
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+
+        <ul class="main-menu">
+
+            <li>
+                <a href="" data-ui-sref="login" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-time-restore"></i> 退出</a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="main-menu">
+        
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="home" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-home"></i> 数据纵览</a>
+        </li>
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('basis') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-view-compact"></i> 基础设施</a>
+
+            <ul>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.host" data-ng-click="mactrl.sidebarStat($event)">主机管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.image-logo" data-ng-click="mactrl.sidebarStat($event)">集群管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.image-logo" data-ng-click="mactrl.sidebarStat($event)">网络管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.mainmenu-on-top" data-ng-click="mactrl.sidebarStat($event)">镜像仓库</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.mainmenu-on-top" data-ng-click="mactrl.sidebarStat($event)">负载均衡</a></li>
+            </ul>
+        </li>
+
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('widgets') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-widgets"></i> 配置中心</a>
+
+            <ul>
+                <li><a data-ui-sref-active="active" data-ui-sref="widgets.widget-templates" data-ng-click="mactrl.sidebarStat($event)">环境管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="widgets.widgets" data-ng-click="mactrl.sidebarStat($event)">参数管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="widgets.widgets" data-ng-click="mactrl.sidebarStat($event)">弹性策略</a></li>
+             </ul>
+        </li>
+        
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('tables') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-view-list"></i> 应用管理</a>
+
+            <ul>
+                <li><a data-ui-sref-active="active" data-ui-sref="tables.tables" data-ng-click="mactrl.sidebarStat($event)">应用集成</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="tables.data-table" data-ng-click="mactrl.sidebarStat($event)">构建应用</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="tables.tables" data-ng-click="mactrl.sidebarStat($event)">应用镜像</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="tables.data-table" data-ng-click="mactrl.sidebarStat($event)">应用发布</a></li>
+
+            </ul>
+        </li>
+        
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('form') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-collection-text"></i> 系统维护</a>
+
+            <ul>
+             <li><a data-ui-sref-active="active" data-ui-sref="form.form-validations" data-ng-click="mactrl.sidebarStat($event)">日志管理</a></li>
+            </ul>
+        </li>
+
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('user-interface') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-swap-alt"></i>用户中心</a>
+            <ul>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.ui-bootstrap" data-ng-click="mactrl.sidebarStat($event)">租户管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.colors" data-ng-click="mactrl.sidebarStat($event)">用户管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.animations" data-ng-click="mactrl.sidebarStat($event)">角色管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.other-components" data-ng-click="mactrl.sidebarStat($event)">权限管理</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div>

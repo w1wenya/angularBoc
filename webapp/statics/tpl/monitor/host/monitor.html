@@ -1,0 +1,53 @@
+<div class="content-byc image-content" ng-controller="detailHostMonitorModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <span class="p-l-6" ng-bind="hostmonitorDetail.name"></span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block">
+                            <div class="form-horizontal">
+                                <div class="clear-float timeline-content">
+                                    <div class="float-left" style="margin: 5px 0;">
+                                        <div class="timeline" ng-class="{'timeline-active':action==1}" ng-click="setInterval(1)">近1小时</div>
+                                        <div class="timeline" ng-class="{'timeline-active':action==2}" ng-click="setInterval(2)">1天</div>
+                                        <div class="timeline" ng-class="{'timeline-active':action==3}" ng-click="setInterval(3)">7天</div>
+                                        <div class="timeline" ng-class="{'timeline-active':action==4}" ng-click="setInterval(4)">30天</div>
+                                        <div class="timeline1" ng-class="">
+                                            <span style="cursor:default;">自定义：</span>
+                                            <input class="form-control w-md" ui-jq="daterangepicker" ui-options="dateRangeOptions" ng-model="datePicker.date" ng-disabled="useDaterangepicker" />
+                                        </div>
+                                        <div class="timeline1">
+                                            <span class="float-left dynamics-text">实时：</span>
+                                            <form class="float-right" style="margin-top:4px;" ng-click="move(choose)">
+                                                <switch id="enabled" name="enabled" ng-model="choose" class="green"></switch>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="dataTables_wrapper form-inline">
+                                        <div class="row">
+                                            <div class="col-sm-12" style="margin-top: 10px;">
+                                                <div class="console-content" ng-repeat="row in queryData">
+                                                    <div line-echarts class="panel-body chart-content" id-data="$index" xaxis-data="xAxis" measurement="row.measurement" unit="row.unit" monitor-data="row.data" timeline="timeline" type="type" get-data="getData(action)"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

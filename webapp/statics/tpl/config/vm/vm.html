@@ -1,0 +1,41 @@
+<div ng-controller="vmCtrl" class="content-byc">
+    <div class="wrapper-md">
+        <div class="row">
+            <div class="list-byc">
+                <ul class="list-ul">
+                    <li class="list-li" ng-repeat="(key,row) in countData">
+                        <div class="list-li-div list-li-div1" ng-class="{true:'border-color',false:'normal-border-color'}[row.isChose]" ng-click="goVm(row)">
+                            <div class="name">{{row.type}}—{{row.name}}</div>
+                            <div class="text">
+                                <ul class="pull-left resources-box">
+                                    <li class="resources-item">
+                                        <span>实例 {{row.instance}}</span>
+                                    </li>
+                                </ul>
+                                <div class="relation-line pull-left"></div>
+                                <ul class="pull-left status-box">
+                                    <li class="run-status run-status-running">
+                                        <i class="fa fa-circle"></i>
+                                        <span>在线 </span><span class="color-6">{{row.online}}</span>
+                                    </li>
+                                    <li class="run-status run-status-stop">
+                                        <i class="fa fa-circle"></i>
+                                        <span>离线 </span><span class="color-6">{{row.offline}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="col-md-12 clearfix" ng-show="isEight">
+                    <div class="col-sm-6" style="padding:7px 15px;">
+                        <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <pagination boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="8" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

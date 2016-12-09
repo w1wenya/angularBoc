@@ -1,0 +1,79 @@
+<div class="clearfix script-content" ng-task-main-router="">
+    <div class="wrapper-md">
+        <div class="" ng-controller="storageTabCtrl">
+            <button class="btn btn-info pull-right" ng-click="goBack()" tabindex="0">
+                <i class="fa fa-reply icon-font"></i> 返回
+            </button>
+        </div>
+        <tabset class="tab-container">
+            <tab ng-controller="bucketListCtrl" ng-click="getData(1)">
+                <tab-heading>
+                    Bucket
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content">
+                            <div class="form-group">
+                                <label class="control-label">名称：</label>
+                                <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">权限：</label>
+                                <select class="form-control input-sm" ng-model="searchByAcl">
+                                    <option value="">--请选择--</option>
+                                    <option ng-repeat="row in aclData" ng-selected="row.value==searchByAcl" value="{{row.value}}" ng-bind="row.name"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="sync($event)"><i class="fa fa-hourglass-start"></i> 同步</button>
+                            <button class="btn btn-primary w-xs m-r" ng-click="add($event,'lg')"><i class="fa fa-plus-circle"></i> 新增</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs">
+                                <thead style="background: #fefefe">
+                                <tr>
+                                    <th width="15%" class="font-15 text-center">名称</th>
+                                    <th width="20%" class="font-15 text-center">权限</th>
+                                    <th width="20%" class="font-15 text-center">存储空间</th>
+                                    <th width="20%" class="font-15 text-center">创建时间</th>
+                                    <th class="text-center td-operate font-15" width="25%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in bucketList" ng-if="!isImageData">
+                                    <td width="15%" class="font-15 text-center text-overflow detail-href" style="max-width:153px;" title="{{row.name}}"  ng-bind="row.name" ng-click="detail(row.id)"></td>
+                                    <td width="20%" class="font-15 text-center text-overflow" style="max-width:203px;" title="{{row.acl|cn:'acl'}}" ng-bind="row.acl|cn:'acl'"></td>
+                                    <td width="20%" class="font-15 text-center text-overflow" style="max-width:203px;" title="{{row.space}}" ng-bind="row.space"></td>
+                                    <td width="20%" class="font-15 text-center text-overflow" style="max-width:203px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                    <td width="25%" class="td-operate text-center">
+                                        <button class="btn btn-danger btn-sm" ng-click="remove($event,row.id)">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span class="">删除</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="5">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="col-sm-6" style="padding:7px 15px;">
+                                    <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

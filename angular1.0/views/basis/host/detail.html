@@ -1,0 +1,226 @@
+<div ng-controller="HostDetailCtrl" class="clearfix all-height content-byc tpl-1">
+	<div class="row wrapper">
+		<div class="col-md-12 group-panel">
+			<div class="panel panel-default">
+				<div class="panel-heading"><a href="javascript:void(0)"
+				                              ng-click="goBack()"><i class="fa fa-arrow-left"></i></a>主机详请（{{hostDetailData.name}}）</div>
+				<div class="panel-body">
+					<div class="col-md-12 host-detail">
+						<div class="col-md-6">
+							<div class="panel panel-info">
+								<div class="panel-heading">主机基本信息</div>
+								<div  class="panel-detail">
+									<p class="cabinet-line">
+										<span class="cabinet-title">主机名称：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.name"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">主机状态：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.status|cn:'status'"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">用户账号：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.osAccount"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">IPMI账号：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.ipmiAccount"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">IPMI地址：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.ipmiAddress"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">管理地址：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.managerIp"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">管理端口：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.managerPort"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">主机标签：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.tags"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-info">
+								<div class="panel-heading">主机配置信息</div>
+								<div  class="panel-detail">
+									<p class="cabinet-line">
+										<span class="cabinet-title">CPU型号：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.processorMode"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">CPU数量：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.processorAmount"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">内存型号：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.memoryMode"></span>
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">内存大小：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.memoryCapacity"></span> MB
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">磁盘容量：</span>
+										<span class="cabinet-content" ng-bind="(hostDetailData.diskCapacity||'容量未知')"></span> GB
+									</p>
+									<p class="cabinet-line">
+										<span class="cabinet-title">内核版本：</span>
+										<span class="cabinet-content" ng-bind="hostDetailData.kernelVersion"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12" style="background-color: #fff">
+						<div class="col-md-12 page-info-round">
+							<div data-monitor="host.disk.in" 
+								data-width="12%"
+								data-dimensions="write"
+								data-title="磁盘写入"
+								data-units="%"
+								data-chart-library="easypiechart"
+								data-chart-type="area"
+								data-before="0" 
+								data-after="10000"
+								data-identification="{{hostDetailData.managerIp}}" 
+								data-colors="#DD4400"
+								class="netdata-container">
+							</div>					
+							<div data-monitor="host.disk.out" 
+								data-width="12%"
+								data-dimensions="read"
+								data-title="磁盘读取"
+								data-units="%"
+								data-chart-library="easypiechart"
+								data-before="0" 
+								data-after="10000"
+								data-identification="{{hostDetailData.managerIp}}" 
+								style="width: 12%; height: 120px;">
+							</div>					
+							<div data-monitor="host.cpu" 
+								data-width="12%"
+								data-title="CPU"
+								data-dimensions="used"
+								data-units="%"
+								data-chart-library="gauge"
+								data-gauge-max-value="100"
+								data-before="0" 
+								data-after="10000"
+								data-identification="{{hostDetailData.managerIp}}" >
+							</div>					
+							<div data-monitor="host.net.received" 
+								data-width="12%"
+								data-dimensions="received"
+								data-title="接收"
+								data-units="kbps/s"
+								data-chart-library="easypiechart"
+								data-before="0" 
+								data-after="10000"
+								data-identification="{{hostDetailData.managerIp}}" >
+							</div>					
+							<div data-monitor="host.net.sent" 
+								data-width="12%"
+								data-dimensions="sent"
+								data-title="发送"
+								data-units="kbps/s"
+								data-chart-library="easypiechart"
+								data-before="0" 
+								data-after="10000"
+								data-identification="{{hostDetailData.managerIp}}" >
+							</div>					
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="content-column">
+							<div class="table-bordered">
+								<div class="col-md-12 table-bordered-one">
+									<div class="panel-heading_title_table">
+										 <p class="title-content">CPU</p>
+				                     	 <p class="title-desc-txt">描述</p>
+				                    </div>
+									<div class="chart-content" style="padding: 10px">
+										<div data-monitor="host.cpu" 
+											data-width="100%" 
+											data-units="%"
+											data-before="0" 
+											data-after="10000"
+											data-identification="{{hostDetailData.managerIp}}"
+											data-colors=""
+											role="application" 
+											class="monitor-container-with-legend"
+											style="width: 100%; height: 180px;">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 table-bordered-one">
+									<div class="panel-heading_title_table">
+										<p class="title-content">内存</p>
+	                        			 <p class="title-desc-txt">描述</p>
+									</div>
+									<div class="chart-content " style="padding: 10px">
+	<!-- 									<div class="doubleChart" double-chart="" data="IO" style="height:230px;width:100%;"></div> -->
+										<div data-monitor="host.mem" 
+											data-width="100%" 
+											data-units="%"
+											data-before="0" 
+											data-after="10000"
+											data-identification="{{hostDetailData.managerIp}}"
+											data-colors=""
+											role="application" 
+											class="monitor-container-with-legend"
+											style="width: 100%; height: 180px;">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 table-bordered-one">
+									<div class="panel-heading_title_table">
+										<p class="title-content">磁盘</p>
+	                        			 <p class="title-desc-txt">描述</p>
+	                       			 </div>
+									<div class="chart-content " style="padding: 10px">
+										<div data-monitor="host.disk" 
+											data-width="100%" 
+											data-units="%"
+											data-before="0" 
+											data-after="10000"
+											data-identification="{{hostDetailData.managerIp}}"
+											data-colors=""
+											role="application" 
+											class="monitor-container-with-legend"
+											style="width: 100%; height: 180px;">
+										</div>
+									</div>	
+								</div>							
+								<div class="col-md-12 table-bordered-one">
+									<div class="panel-heading_title_table">
+										<p class="title-content">IO</p>
+				               			<p class="title-desc-txt">描述</p>
+									</div>
+									<div class="chart-content "style="padding: 10px">
+										<div data-monitor="host.net.bytes" 
+											data-width="100%" 
+											data-chart-library="dygraph"
+											data-before="0" 
+											data-after="10000"
+											data-identification="{{hostDetailData.managerIp}}"
+											data-colors=""
+											role="application" 
+											class="monitor-container-with-legend"
+											style="width: 100%; height: 180px;">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

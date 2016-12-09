@@ -1,0 +1,491 @@
+<div class="content-byc image-content" ng-controller="AddDataBaseCtrl">
+	<div class="update-content">
+		<div class="wrapper-md">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default" style="padding:0;">
+						<div class="panel-heading">
+							<span class="p-l-6">新增数据库</span>
+							<button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()">
+								<i class="fa fa-reply icon-font"></i> 返回
+							</button>
+						</div>
+						<div class="panel-body pmb-block" style="border:none;">
+							<div class="form-horizontal">
+								<div class="col-md-12 margin-top-12" ng-controller="AddAliDbCtrl" ng-if="status==1">
+									<form class="form-horizontal form-validation" name="addvmAliForm">
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend">基本配置</div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">地域：</label>
+														<div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">
+															<div class="region region-box" style="width:130px;"
+															     ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion2(row)"
+															     ng-repeat="row in regionData">
+																<span class="region-txt" ng-bind="row.name"></span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">可用区：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.zone">
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone"
+																        value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">类型：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.zone">
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone" value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">版本：</label>
+														<div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">
+															<div class="region region-box" style="width:130px;"
+															     ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion2(row)"
+															     ng-repeat="row in regionData">
+																<span class="region-txt" ng-bind="row.name"></span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">系列：</label>
+														<div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">
+															<div class="region region-box" style="width:130px;"
+															     ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion2(row)"
+															     ng-repeat="row in regionData">
+																<span class="region-txt" ng-bind="row.name"></span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend">网络</div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">网络类型：</label>
+														<div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">
+															<div class="region region-box" style="width:90px;"
+															     ng-class="{true:'region-active'}[row.isNetworkTypeActive]"
+															     ng-click="chooseNetworkType(row)" ng-repeat="row in networkTypeData">
+																<span class="region-txt" ng-bind="row.name"></span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group" ng-show="issecurityGroup">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">安全组：</label>
+														<div class="col-lg-9 control-input" style="padding: 0;">
+															<select class="form-control" ng-model="addData.securityGroupId">
+																<option ng-repeat="row in securityList" ng-selected="row.value==addData.securityGroupId"
+																        value="{{row.value}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group" ng-show="isProprietary">
+													<div class="col-lg-12">
+														<div class="col-lg-3 control-input" style="margin-left: 80px;padding: 0;">
+															<select class="form-control" ng-model="addData.zone">
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone"
+																        value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+														<div class="col-lg-3 control-input" style="padding: 0;">
+															<select class="form-control" ng-model="addData.zone">
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone"
+																        value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend">实例规格</div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">规格：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.zone">
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone"
+																        value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend">存储</div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-12 input-style">
+														<label class="col-lg-3 control-label">系统盘：</label>
+														<div class="control-input width-74" style="position:relative;">
+															<select class="form-control" style="width:250px;float:left;" ng-model="systemDiskValue">
+																<option ng-repeat="row in systemDiskData" ng-selected="row.value==systemDiskValue"
+																        value="{{row.value}}" ng-bind="row.name"></option>
+															</select>
+															<input type="text" name="size" class="form-control volume-size-input"
+															       style="margin-left: 0;width:110px;" ng-model="systemDiskNum"
+															       ng-blur="selectSystemDiskSize()" validator="positiveNumber">
+															<span class="bk-disk-unit">GB</span>
+															<!--<span class="sup" style="font-size:14px;color:black;">{{IOPSMin}} ~ {{IOPSMax}}</span><span class="sup" style="font-size:14px;color:rgba(18, 19, 20, 0.69);">IOPS</span>-->
+															<i class="fa fa-info-circle" aria-hidden="true"
+															   style="color:#43bfe3;font-size:14px;margin-left: 30px;"></i>
+															<span class="sup"
+															      style="font-size:12px;">容量范围：{{systemDiskMin}} - {{systemDiskMax}}</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend">购买量</div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-12 input-style">
+														<label class="col-lg-3 control-label">数量：</label>
+														<div class="col-lg-2 contentW">
+															<a href="" class="calc {{addData.count<=1?'nobuy':''}}" ng-click="overdue()">-</a>
+															<span ng-bind="addData.count"></span>
+															<a href="" class="calc {{addData.count>=1?'nobuy':''}}" ng-click="add()">+</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div class="col-md-12" style="margin:10px 0;">
+										<div class="col-md-6">
+											<button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;"
+											        validation-submit="addvmAliForm" ng-disabled="addvmAliForm.$invalid" ng-click="ok()">确认
+											</button>
+										</div>
+										<div class="col-md-6">
+											<button class="btn btn-default" style="width:95%;height:35px;margin-bottom:15px;"
+											        ng-click="cancel()">取消
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12" ng-controller="vmAddJDCtrl" ng-if="status==2">
+									<ul class="nav nav-pills nav-justified step step-arrow">
+										<li ng-class="{'active':step==1||step==2||step==3}"><a class="nav-normal-item">基本配置</a></li>
+										<li ng-class="{'active':step==2||step==3}"><a class="nav-normal-item">网络配置</a></li>
+										<li ng-class="{'active':step==3}" style="padding: 0;"><a class="nav-normal-item">基本信息</a></li>
+									</ul>
+									<form class="form-horizontal form-validation" name="addvmJDForm1" ng-show="step==1">
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend"></div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-12 margin-10"
+													     style="padding-right:15px;padding-left:10px;margin-top: 20px;">
+														<label class="col-lg-3 control-label">地域：</label>
+														<div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">
+															<div class="region region-box" style="width:130px;"
+															     ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion3(row)"
+															     ng-repeat="row in regionData">
+																<span class="region-txt" ng-bind="row.name"></span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">官方镜像：</label>
+														<div class="col-lg-3 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.osName"
+															        ng-change="selectImageName(addData.osName)">
+																<option value="">--请选择操作系统--</option>
+																<option ng-repeat="row in imageNameList" ng-selected="row.name==addData.osName"
+																        value="{{row.name}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+														<div class="col-lg-3 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.imageId" ng-disabled="isImageVersion">
+																<option value="">--请选择版本--</option>
+																<option ng-repeat="row in imageVersionList" ng-selected="row.imageId==addData.imageId"
+																        value="{{row.imageId}}" ng-bind="row.osVersion"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">实例规格：</label>
+														<div class="col-lg-9 control-input"
+														     style="width:calc(100% - 85px);padding:0;height: 34px;line-height: 34px;">
+															<span ng-bind="addData.cpu"></span>核<span ng-bind="addData.memory"></span>GB
+															<span class="bk-rect-select-txt bk-click-link" ng-click="chooseSize()">请选择实例规格</span>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 input-style">
+														<label class="col-lg-3 control-label">系统盘：</label>
+														<div class="control-input width-74" style="position:relative;">
+															<select class="form-control" style="width:250px;float:left;" ng-model="systemDiskValue"
+															        ng-change="changeDataDisk()">
+																<option ng-repeat="row in systemDiskData" ng-selected="row.value==systemDiskValue"
+																        value="{{row.value}}" ng-bind="row.name"></option>
+															</select>
+															<input type="text" name="size" class="form-control volume-size-input"
+															       style="margin-left: 0;width:110px;" ng-model="systemDiskNum"
+															       ng-blur="selectSystemDiskSize()" validator="positiveNumber">
+															<span class="bk-disk-unit">GB</span>
+															<!--<span class="sup" style="font-size:14px;color:black;">{{IOPSMin}} ~ {{IOPSMax}}</span><span class="sup" style="font-size:14px;color:rgba(18, 19, 20, 0.69);">IOPS</span>-->
+															<i class="fa fa-info-circle" aria-hidden="true"
+															   style="color:#43bfe3;font-size:14px;margin-left: 30px;"></i>
+															<span class="sup"
+															      style="font-size:12px;">容量范围：{{systemDiskMin}} - {{systemDiskMax}}</span>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 input-style">
+														<label class="col-lg-3 control-label">数据盘：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<div class="bk-disk" style="margin-bottom:10px;" ng-repeat="row in dataDisk">
+                                                                <span class="bk-form-row-li-info bk-disk-cell">
+                                                                    <span class="bk-form-row-li-info">
+                                                                        <span class="bk-black pd10"
+                                                                              ng-bind="row.name"></span>
+                                                                    </span>
+                                                                </span>
+																<span class="bk-form-row-li-info bk-disk-cell bk-disk-cell-size">
+                                                                    <span class="bk-disk-storage">
+                                                                        <span>
+                                                                            <input type="text" name="size"
+                                                                                   class="bk-disk-input"
+                                                                                   style="margin-left: 0;width:130px;"
+                                                                                   ng-model="row.size"
+                                                                                   ng-blur="checkDiskRange(row,$index)"
+                                                                                   validator="positiveNumber">
+                                                                            <span class="bk-disk-unit1">GB</span>
+                                                                            <i class="fa fa-info-circle"
+                                                                               aria-hidden="true"
+                                                                               style="color:#43bfe3;font-size:14px;"></i>
+                                                                            <span class="sup" style="font-size:12px;">容量范围：{{diskMin}} - {{diskMax}}</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="bk-disk-delete"
+                                                                          ng-click="deleteDataDisk($index)">
+                                                                        <i class="fa fa-close"
+                                                                           style="font-size:18px;"></i>
+                                                                    </span>
+                                                                </span>
+															</div>
+															<div>
+                                                                <span class="bk-disk-add" ng-click="addDataDisk()">
+                                                                    <i class="bk-disk-add-icon"
+                                                                       ng-class="{'bk-disk-add-icon-disabled':datadiskNum==0}">
+                                                                        <em class="bk-disk-add-icon-line"></em><em
+		                                                                    class="bk-disk-add-icon-line-b"></em>
+                                                                    </i>
+                                                                </span>
+																<span class="sup">您还可增加</span><span class="sup"
+																                                    style="color:red;">{{datadiskNum}}</span><span
+																	class="sup">块</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div class="col-md-12" style="margin:10px 0;" ng-show="step==1">
+										<div class="col-md-6">
+											<button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;"
+											        ng-disabled="true">上一步
+											</button>
+										</div>
+										<div class="col-md-6">
+											<button class="btn btn-success" style="width:95%;height:35px;margin-bottom:15px;"
+											        validation-submit="addvmJDForm1" ng-disabled="addvmJDForm1.$invalid" ng-click="next1()">
+												下一步
+											</button>
+										</div>
+									</div>
+
+									<form class="form-horizontal form-validation" name="addvmJDForm2" ng-show="step==2">
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend"></div>
+											<div class="search-content1">
+												<div class="form-group">
+													<div class="col-lg-12 margin-10"
+													     style="padding-right:15px;padding-left:10px;margin-top:20px;">
+														<label class="col-lg-3 control-label">专有网络：</label>
+														<div class="col-lg-3 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.zone"
+															        ng-change="selectImageName(addData.osName)">
+																<option value="">--请选择路由器--</option>
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone"
+																        value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+														<div class="col-lg-3 control-input" style="padding:0;">
+															<select class="form-control" ng-model="addData.zone" ng-disabled="isImageVersion">
+																<option value="">--请选择子网--</option>
+																<option ng-repeat="row in availableRegion" ng-selected="row.id==addData.zone"
+																        value="{{row.id}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">安全组：</label>
+														<div class="col-lg-9 control-input" style="padding: 0;">
+															<select class="form-control" ng-model="addData.securityGroupId">
+																<option ng-repeat="row in securityList" ng-selected="row.value==addData.securityGroupId"
+																        value="{{row.value}}" ng-bind="row.name"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label">公网IP：</label>
+														<div class="col-lg-9 control-input"
+														     style="margin-left: -25px;height: 34px;line-height: 34px;">
+															<div class="col-lg-4"><input type="radio" name="isBGP" class="update-txt-three"
+															                             ng-model="addData.isBGP" value="true"><span>BGP</span></div>
+															<div class="col-lg-4"><input type="radio" name="isBGP" class="update-txt-three"
+															                             ng-model="addData.isBGP" value="false"><span>非BGP</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+														<label class="col-lg-3 control-label" style="height: 54px;line-height: 54px;"></label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<rzslider rz-slider-model="IPslider.value"
+															          rz-slider-options="IPslider.options"></rzslider>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 input-style">
+														<label class="col-lg-3 control-label">数量：</label>
+														<div class="col-lg-2 contentW">
+															<a href="" class="calc {{addData.count<=1?'nobuy':''}}" ng-click="overdue()">-</a>
+															<span ng-bind="addData.count"></span>
+															<a href="" class="calc {{addData.count>=250?'nobuy':''}}" ng-click="add()">+</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div class="col-md-12" style="margin:10px 0;" ng-show="step==2">
+										<div class="col-md-6">
+											<button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;"
+											        ng-click="before()">上一步
+											</button>
+										</div>
+										<div class="col-md-6">
+											<button class="btn btn-success" style="width:95%;height:35px;margin-bottom:15px;"
+											        validation-submit="addvmJDForm2" ng-disabled="addvmJDForm2.$invalid" ng-click="next2()">
+												下一步
+											</button>
+										</div>
+									</div>
+
+									<form class="form-horizontal form-validation" name="addvmJDForm3" ng-show="step==3">
+										<div class="col-md-12 search-box m-b-md" style="float:none;">
+											<div class="legend"></div>
+											<div class="search-content1" style="margin: 20px 0;padding-left: 15px;padding-right: 15px;">
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">名称：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<input type="text" name="step3name" class="form-control" ng-model="addData.name"
+															       validator="required,name" maxlength="32" maxlength-error-message="最多输入32个字符">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">用户名：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<input type="password" name="password2" class="form-control"
+															       ng-disabled="!addData.password" ng-blur="isPasswordSame()" ng-model="password2"
+															       validator="required,password2">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">登录密码：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<input type="password" name="password1" class="form-control" ng-model="addData.password"
+															       validator="required,password2">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-6">
+														<label class="col-lg-3 control-label">确认密码：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<input type="password" name="password2" class="form-control"
+															       ng-disabled="!addData.password" ng-blur="isPasswordSame()" ng-model="password2"
+															       validator="required,password2">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12">
+														<label class="col-lg-3 control-label">描述：</label>
+														<div class="col-lg-9 control-input" style="padding:0;">
+															<textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256"
+															          maxlength-error-message="最多输入256个字符"></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div class="col-md-12" style="margin:10px 0;" ng-show="step==3">
+										<div class="col-md-6">
+											<button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;"
+											        ng-click="before()">上一步
+											</button>
+										</div>
+										<div class="col-md-6">
+											<button type="submit" class="btn btn-success" style="width:95%;height:35px;margin-bottom:15px;"
+											        validation-submit="addvmJDForm3" ng-disabled="addvmJDForm3.$invalid" ng-click="ok()"
+											        ng-disabled="true">确定
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

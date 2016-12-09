@@ -1,0 +1,62 @@
+<div class="content-byc image-content" ng-controller="detailGroupManageSoftwareModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">软件分组详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;padding-top:0;">
+                            <div class="form-horizontal">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>分组名称：</dt>
+                                                    <dd ng-bind="groupSoftwareDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>分组状态：</dt>
+                                                    <dd>
+                                                        <button class="btn btn-xs disabled" style="width:50px;" ng-class="{'NORMAL':'btn-success','ABNORMAL':'btn-warning'}[groupSoftwareDetail.status]" title="{{groupSoftwareDetail.status|cn:'status'}}" ng-bind="groupSoftwareDetail.status|cn:'status'"></button>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>分组编码：</dt>
+                                                    <dd ng-bind="groupSoftwareDetail.code"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>分组描述：</dt>
+                                                    <dd ng-bind="groupSoftwareDetail.remark"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<div ng-controller="querymonitorCtrl" class="clearfix script-content">
+    <div class="wrapper-md">
+        <div class="panel panel-default" ng-show="!showDetail">
+            <div class="row" style="margin:0;">
+                <div class="col-md-12 search-box m-b-md">
+                    <form class="form-horizontal form-validation" name="queryMonitorForm">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content1">
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">IP：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <input name="IP" ng-model="searchByIP" validator="required,ip" class="form-control input-sm" placeholder="请输入IP" aria-controls="DataTables_Table_3">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">监控项：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchByMonitorItem" ng-change="change(0)">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in itemData" ng-selected="row.key==searchByMonitorItem" value="{{row.key}}" ng-bind="row.value"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">聚合函数：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="function" ng-change="change(1)">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in functionData" ng-selected="row.value==function" value="{{row.value}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">开始时间：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <input class="form-control input-sm" ui-jq="daterangepicker" ui-options="dateRangeOptions" placeholder="请选择开始时间" ng-model="datePicker.date1" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">结束时间：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <input class="form-control input-sm" ui-jq="daterangepicker" ui-options="dateRangeOptions" placeholder="请选择结束时间" ng-model="datePicker.date2" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">时间单位：</label>
+                                    <div class="col-lg-7 control-input" style="width:50%;">
+                                        <input type="number" min="1" name="timeUnits" ng-model="searchByTimeUnits" class="form-control input-sm" placeholder="请输入时间单位" aria-controls="DataTables_Table_3">
+                                    </div>
+                                    <div class="selcet-style">
+                                        <select class="form-control input-sm" ng-model="timeUnit" >
+                                            <option ng-repeat="row in timeData" ng-selected="row.value==timeUnit" value="{{row.value}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">标签：</label>
+                                    <div class="col-lg-7 control-input width-74">
+                                        <input name="tag" ng-model="searchByTag" class="form-control input-sm" placeholder="请输入标签" aria-controls="DataTables_Table_3">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">图表类型：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="type" ng-change="change(2)">
+                                            <option ng-repeat="row in typeData" ng-selected="row.value==type" value="{{row.value}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="search-btn">
+                        <button class="btn btn-primary w-xs m-r" validation-submit="queryMonitorForm" ng-disabled="(queryMonitorForm.$invalid|| isFail)" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                        <button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+                    </div>
+                </div>
+                <div class="col-md-12" style="border: 1px solid #ddd;" ng-show="isImageData">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-top: -10px;">
+                                <h5 class="console-title" ng-bind="name"></h5>
+                                <div class="console-content" ng-repeat="row in queryData">
+                                    <div line-echarts class="panel-body chart-query" xaxis-data="xAxis" measurement="row.measurement" unit="row.unit" monitor-data="row.data" timeline="timeline" type="type"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

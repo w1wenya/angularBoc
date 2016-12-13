@@ -1,0 +1,64 @@
+<div ng-controller="PluginDetailCtrl" class="clearfix detail">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>插件详情</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form name="addForm">
+						<div class="row search-box m-t-md">
+							<div class="legend">基本信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">插件名称：</label>
+										<input type="text" name="name" class="form-control" ng-model="detailData.name" disabled/>
+									</div>
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">插件类型：</label>
+										<input type="text" name="type" class="form-control" ng-model="detailData.type" disabled/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">属性名称：</label>
+										<input type="text" name="property" class="form-control" ng-model="detailData.property" validator="required" disabled/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12 input-error-info">
+										<label class="control-label m-t-n-70">插件描述：</label>
+										<textarea class="form-control" name="remark" ng-model="detailData.remark" maxlength="256" disabled></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row search-box m-t-md">
+							<div class="legend">配置信息</div>
+							<div class="search-content" ng-repeat="item in settingList">
+									<div class="form-group">
+										<div class="col-md-3 input-error-info">
+											<label class="control-label">配置项：</label>
+											<input type="text" class="form-control" ng-model="item.key" disabled/>
+										</div>
+										<div class="col-md-4 input-error-info">
+											<label class="control-label">默认值：</label>
+											<input type="text" class="form-control" ng-model="item.value"  disabled/>
+										</div>
+										<div class="col-md-3 input-error-info">
+											<label class="control-label">描述：</label>
+											<input type="text" class="form-control" ng-model="item.desp" disabled/>
+										</div>
+										<div class="col-md-2 input-error-info m-t-xs">
+											<label class="i-checks"><input type="checkbox" ng-model="item.require" disabled><i></i>是否必须</label>
+										</div>
+									</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

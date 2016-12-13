@@ -1,0 +1,119 @@
+<div ng-controller="roomCtrl" class="content-byc">
+    <div class="wrapper-md">
+        <div class="row panel panel-default">
+            <div class="col-md-12 search-box m-b-md">
+                <div class="legend">查询条件</div>
+                <div class="search-content">
+                    <div class="form-group">
+                        <label class="control-label">机房名称：</label>
+                        <input type="text" class="form-control" ng-model="name" placeholder="请输入机房名称"/>
+                    </div>
+                </div>
+                <div class="search-btn">
+                    <button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+                    <button class="btn btn-success w-xs" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+                </div>
+            </div>
+            <div class="col-md-12 cart_body">
+                <!--内容 -->
+                <div class="col-md-12 list-byc">
+                    <ul class="list-ul" ng-if="totalCount">
+                        <li class="list-li" ng-repeat="(key,row) in roomListData">
+                            <div class="list-li-div list-li-div1" ng-class="{true:'border-color',false:'normal-border-color'}[row.isChose]" ng-click="goMonitor(row.id)">
+                                <div class="name" title="{{row.name}}" ng-bind="row.name"></div>
+                                <div class="text">
+                                    <p title="{{row.status}}">状态：{{row.status|cn:'status'}}</p>
+
+                                    <p title="{{row.remark}}">描述：{{row.remark}}</p>
+                                </div>
+                                <div class="shadow-content" ng-if="isbacthmanage">
+                                    <div class="shadow"></div>
+                                    <div class="check" ng-class="{true:'check-position'}[row.isChose]"
+                                         ng-click="chooseRepository($event,row.id)">
+                                        <img src="/statics/img/check.png" width="32" height="32" ng-show="row.isChose">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="col-md-12 clearfix">
+                        <div class="col-sm-6">
+                            <div class="paginationTables_info_one">总共<span ng-bind="totalCount"></span>条, 每页<span
+                                    ng-bind="param.rows"></span>条
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right" style="margin-top:-10px;">
+                            <pagination boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="loadRoomList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div ng-controller="roommonitorCtrl" class="clearfix script-content">-->
+    <!--<div class="wrapper-md">-->
+        <!--<div class="panel panel-default" ng-show="!showDetail">-->
+            <!--<div class="row" style="margin:0;">-->
+                <!--<div class="col-md-12 search-box m-b-md">-->
+                    <!--<div class="legend">查询条件</div>-->
+                    <!--<div class="search-content">-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label">机房名称：</label>-->
+                            <!--<input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="search-btn">-->
+                        <!--<button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-12">-->
+                    <!--<div class="dataTables_wrapper form-inline">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-sm-12" style="margin-top: -10px;">-->
+                                <!--<table class="table table-striped b-light m-b-xxs">-->
+                                    <!--<thead class="table-header">-->
+                                    <!--<tr>-->
+                                        <!--<th width="20%" class="text-center font-15">机房名称</th>-->
+                                        <!--<th width="10%" class="text-center font-15">机房状态</th>-->
+                                        <!--<th width="10%" class="text-center font-15">机房类型</th>-->
+                                        <!--<th width="20%" class="text-center font-15">所属数据中心</th>-->
+                                        <!--<th width="20%" class="text-center font-15">联系人</th>-->
+                                        <!--<th width="20%" class="text-center font-15">联系电话</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr class="table-content" ng-repeat="row in roomList" ng-if="!isImageData">-->
+                                        <!--<td width="20%" class="text-center font-15 detail-href text-overflow" style="max-width:210px;" title="{{row.name}}" ng-bind="row.name" ng-click="detail(row.id)"></td>-->
+                                        <!--<td width="10%" class="text-center font-15">-->
+                                            <!--<button class="btn btn-xs disabled" style="width:50px;" ng-class="{'NORMAL':'btn-success','ABNORMAL':'btn-warning'}[row.status]" title="{{row.status|cnUser:'status'}}" ng-bind="row.status|cnUser:'status'"></button>-->
+                                        <!--</td>-->
+                                        <!--<td width="10%" class="text-center font-15" title="{{row.type}}" ng-bind="row.type"></td>-->
+                                        <!--<td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.dcName}}" ng-bind="row.dcName"></td>-->
+                                        <!--<td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.contacter}}" ng-bind="row.contacter"></td>-->
+                                        <!--<td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.contactPhone}}" ng-bind="row.contactPhone"></td>-->
+                                    <!--</tr>-->
+                                    <!--<tr ng-if="isImageData">-->
+                                        <!--<td class="td-nodata" colspan="6">暂无数据</td>-->
+                                    <!--</tr>-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                                <!--<div class="clearfix">-->
+                                    <!--<div class="col-sm-6">-->
+                                        <!--<div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-sm-6 text-right" style="margin-top: 13px;">-->
+                                        <!--<pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

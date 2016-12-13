@@ -1,0 +1,68 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">策略名称：</label>
+				<div class="control-input">
+					<input class="form-control" name="name" placeholder="策略名称" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">告警时间：</label>
+				<div class="control-input">
+					<select class="form-control" name="delay" ng-model="timeperiod" validator="required">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in timeData" ng-selected="key == timeperiod" value="{{key}}" ng-bind="item"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">延迟时间：</label>
+				<div class="control-input">
+					<select class="form-control" name="delay" ng-model="delay" validator="required">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in delayData" ng-selected="item.value == delay" value="{{item.value}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">通知方式：</label>
+				<div class="control-input">
+					<select class="form-control" name="dsId" ng-model="mode" validator="required">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in modeData" ng-selected="key == mode" value="{{key}}" ng-bind="item"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">告警级别：</label>
+				<div class="control-input">
+					<select class="form-control"name="level" ng-model="level" validator="required">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in levelData" value="{{item.value}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">策略描述：</label>
+				<div class="control-input">
+					<textarea class="form-control" name="remark" placeholder="策略描述" ng-model="remark" maxlength="256"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

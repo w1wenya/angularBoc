@@ -1,0 +1,178 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <p class="modal-title panel-title-size">新建定时作业</p>
+</div>
+<div class="modal-body panel-body">
+    <form class="form-horizontal form-validation" name="addTimedOperationForm">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">定时任务：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="taskName" class="form-control" ng-model="addData.name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">任务名称：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="taskName" class="form-control" ng-model="taskName" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">定时规则：</label>
+                <div class="col-lg-10 control-input" style="margin:5px 0 0 -12px;">
+                    <div class="col-lg-2 width-86"><input type="radio" name="timedRule" class="update-txt-three" ng-model="timedRule" value="0" ><span>勾选</span></div>
+                    <div class="col-lg-2 width-86"><input type="radio" name="timedRule" class="update-txt-three" ng-model="timedRule" value="1" ><span>自定义</span></div>
+                </div>
+                <div class="col-lg-10 control-input" style="margin:5px 0 -25px 0;">
+                    <tabset class="tab-container tab-style" ng-show="timedRule==0">
+                        <tab>
+                            <tab-heading class="detail-href">分钟</tab-heading>
+                            <div>
+                                <input type="radio" name="minuteRule" class="update-txt-three" ng-model="minuteRule" value="0" ng-change="checkMinute(minuteRule)">
+                                <span>循环：从第</span>
+                                <input name="minuteStart" min="1" ng-model="minuteStart" ng-blur="checkcircleMinute(minuteStart,0)" ng-disabled="minuteRule==1" type="text" style="width: 40px;">
+                                <span>分钟开始，每隔</span>
+                                <input name="minuteEnd" min="1" ng-model="minuteEnd" ng-blur="checkcircleMinute(minuteEnd,1)" ng-disabled="minuteRule==1" type="text" style="width: 40px;">
+                                <span>分钟执行</span>
+                            </div>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="minuteRule" class="update-txt-three" ng-model="minuteRule" value="1" ng-change="checkMinute(minuteRule)">指定：
+                                </label>
+                                <div class="time-box">
+                                    <label class="checkbox-inline time-box-item" ng-repeat="row in minuteList"><input type="checkbox" class="cron-rd-chk" name="min-checkbox" ng-model="row.isSelected" ng-change="getConMinute(row.num,row.isSelected)" ng-disabled="minuteRule==0"><span class="check-span" ng-bind="row.num"></span></label>
+                                </div>
+                            </div>
+                            <div ng-show="minuteRule==0">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+minuteStart+'/'+minuteEnd+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                            <div ng-show="minuteRule==1">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+conMinute+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading class="detail-href">小时</tab-heading>
+                            <div>
+                                <input type="radio" name="hourRule" class="update-txt-three" ng-model="hourRule" value="0" ng-change="checkHour(hourRule)">
+                                <span>每小时</span>
+                            </div>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="hourRule" class="update-txt-three" ng-model="hourRule" value="1" ng-change="checkHour(hourRule)">指定：
+                                </label>
+                                <div class="time-box">
+                                    <label class="checkbox-inline time-box-item" ng-repeat="row in hourList"><input type="checkbox" class="cron-rd-chk" name="min-checkbox" ng-model="row.isSelected" ng-change="getHour(row.num,row.isSelected)" ng-disabled="hourRule==0"><span class="check-span" ng-bind="row.num"></span></label>
+                                </div>
+                            </div>
+                            <div ng-show="minuteRule==0">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+minuteStart+'/'+minuteEnd+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                            <div ng-show="1==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+conMinute+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading class="detail-href">天</tab-heading>
+                            <div>
+                                <input type="radio" name="dayRule" class="update-txt-three" ng-model="dayRule" value="0" ng-change="checkDay(dayRule)">
+                                <span>每天</span>
+                            </div>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="dayRule" class="update-txt-three" ng-model="dayRule" value="1" ng-change="checkDay(dayRule)">指定：
+                                </label>
+                                <div class="time-box">
+                                    <label class="checkbox-inline time-box-item" ng-repeat="row in dayList"><input type="checkbox" class="cron-rd-chk" name="min-checkbox" ng-model="row.isSelected" ng-change="getDay(row.num,row.isSelected)" ng-disabled="isDay"><span class="check-span" ng-bind="row.num"></span></label>
+                                </div>
+                            </div>
+                            <div ng-show="0==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+minuteStart+'/'+minuteEnd+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                            <div ng-show="1==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+conMinute+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading class="detail-href">月</tab-heading>
+                            <div>
+                                <input type="radio" name="monthRule" class="update-txt-three" ng-model="monthRule" value="0" ng-change="checkMonth(monthRule)">
+                                <span>每月</span>
+                            </div>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="monthRule" class="update-txt-three" ng-model="monthRule" value="1" ng-change="checkMonth(monthRule)"> 指定：
+                                </label>
+                                <div class="time-box">
+                                    <label class="checkbox-inline time-box-item" ng-repeat="row in monthList"><input type="checkbox" class="cron-rd-chk" name="min-checkbox" ng-model="row.isSelected" ng-change="getMonth(row.num,row.isSelected)" ng-disabled="monthRule==0"><span class="check-span" ng-bind="row.num"></span></label>
+                                </div>
+                            </div>
+                            <div ng-show="0==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+minuteStart+'/'+minuteEnd+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                            <div ng-show="1==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+conMinute+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading class="detail-href">星期</tab-heading>
+                            <div>
+                                <input type="checkbox" name="weekRule" class="update-txt-three" ng-model="weekRule" ng-click="checkWeekRule()">
+                                <span>使用星期</span>
+                            </div>
+                            <div>
+                                <div class="time-box">
+                                    <div class="padding-10">
+                                        <input type="radio" name="weekRuleItem" class="update-txt-three" ng-model="everyweek" value="0" ng-disabled="!weekRule" ng-change="checkWeek(everyweek)">
+                                        <span>每星期</span>
+                                    </div>
+                                    <div class="padding-10">
+                                        <input type="radio" name="weekRuleItem" class="update-txt-three" ng-model="everyweek" value="1" ng-disabled="!weekRule" ng-change="checkWeek(everyweek)"> 指定：
+                                    </div>
+                                    <div class="padding-20">
+                                        <label class="checkbox-inline time-box-item" ng-repeat="row in weekList">
+                                            <input type="checkbox" class="cron-rd-chk" name="min-checkbox" ng-model="row.isSelected" ng-change="getWeek(row.num,row.isSelected)" ng-disabled="isWeek">
+                                            <span class="check-span width-83" ng-bind="row.day"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="0==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+minuteStart+'/'+minuteEnd+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                            <div ng-show="1==minuteRule">
+                                <label class="filter-label">表达式：</label>
+                                <div ng-bind="0+' '+conMinute+' '+hourCrons+' '+dayCrons+' '+monthCrons+' '+weekCrons" style="width:488px;display:inline-block;" class="form-control"></div>
+                            </div>
+                        </tab>
+                    </tabset>
+                    <div class="tab-container tab-style" ng-show="timedRule==1">
+                        <div>
+                            <div class="backImg"></div>
+                            <div style="margin:0 auto;">
+                                <label class="filter-label">表达式：</label>
+                                <input type="text" ng-model="crons" style="width:488px;display:inline-block;" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" validation-submit="addTimedOperationForm" ng-disabled="addTimedOperationForm.$invalid" ng-click="ok()">确认</button>
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

@@ -1,0 +1,41 @@
+<div class="modal-header" xmlns="http://www.w3.org/1999/html">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+	<p class="modal-title panel-title-size">新增空间</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="adddataCenterForm">
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">空间名称：</label>
+				<div class="control-input">
+					<input type="text" name="name" class="form-control" ng-focus="foucs()" ng-blur="blur()" ng-model="addData.name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+				</div>
+			</div>
+
+		</div>
+
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">访问权限：</label>
+				<div class="control-input">
+					<select class="form-control" name="type" validator="required"  ng-model="type">
+						<option value="">--请选择--</option>
+						<option  value="0">私有</option>
+						<option  value="1">公有</option>
+					</select>
+					<br>
+						权限说明：</br>
+						私有：对文件的所有访问操作由文件的所有者授权的操作人完成。</br>
+						公共：任何人都可以对读取文件，对文件的写入、删除等操作仍需要由文件的所有者授权的操作人完成。
+					</p>
+					</div>
+			</div>
+
+		</div>
+
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="adddataCenterForm" ng-disabled="adddataCenterForm.$invalid" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

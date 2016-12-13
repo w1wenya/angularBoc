@@ -1,0 +1,94 @@
+<form name="scriptForm" novalidate>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+		<p class="modal-title panel-title-size">备份任务</p>
+	</div>
+	<div class="modal-body panel-body script-modal">
+		<table class="task-table table table-striped b-light m-b-xxs">
+			<thead style="background: #fefefe">
+			<tr>
+				<th class="text-center">任务名称</th>
+				<th class="text-center">执行账户</th>
+				<th class="text-center">服务器数</th>
+				<th class="text-center">备份路径</th>
+			</tr>
+			<tr>
+				<td class="text-center">
+					<input type="text" class="form-control" name="jobname" ng-model="itemData.name" validator="required" data-content="必填项"/>
+				</td>
+				<td class="text-center">
+					<select class="form-control" ng-model="itemData.identId" name="account" validator="required" data-content="必填项">
+						<option value="">--请选择--</option>
+						<option ng-repeat="item in accountData" ng-selected="itemData.identId==item.id" value="{{item.id}}" ng-bind="item.name"></option>
+					</select>
+				</td>
+				<td class="text-center">
+					<input type="text" class="form-control" ng-model="totalSelect" disabled/>
+				</td>
+				<td class="text-center">
+					<input type="text" class="form-control" name="param" ng-model="itemData.sourcePath" validator="required" data-content="必填项"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"  >
+					<div class="col-md-12 m-b-sm">
+						<label class="control-label">超时时间：</label>
+						<input type="number" class="form-control control-input" ng-model="itemData.timeout" placeholder="请输入超时时间，单位为秒，默认600秒"/>
+					</div>
+					<div ng-if="!hideTarget">
+						<div class="col-md-12">
+							<label class="control-label">目标机器：</label>
+							<div class="control-input">
+								<button class="btn btn-sm btn-success" ng-click="selectServer()" data-content="必填项" value="{{serverListData.length}}"><i class="fa fa-desktop"></i> 选择服务器</button>
+								<div class="pull-right" ng-show="isShowServer">
+									<button class="btn btn-sm btn-danger" ng-click="clearServer()">清空IP</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="server-list">
+								<table st-table="displayListData" st-safe-src="serverListData" class="table table-striped">
+									<thead>
+									<tr>
+										<th class=""> IP</th>
+										<th>状态</th>
+										<th class="text-center" style="width: 180px">操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ng-if="(serverListData.length==0)">
+										<td class="text-center" colspan="3">请选择服务器</td>
+									</tr>
+									<tr ng-repeat="row in displayListData">
+										<td class="text-left" ng-bind="row.ip"></td>
+										<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+										<td class="text-center">
+											<button class="btn btn-xs w-xxs btn-danger" ng-click="delServer($index)">删除</button>
+										</td>
+									</tr>
+									</tbody>
+									<tfoot>
+									<tr>
+										<td colspan="2" class="text-left">
+											<div>每页{{itemsByPage}}条，共选择{{totalSelect}}条</div>
+										</td>
+										<td colspan="3" class="text-right">
+											<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+											     st-displayed-pages="7" class="no-margin"></div>
+										</td>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-validator-popover="scriptForm" $invalid="$invalid" ng-disabled="$invalid" ng-click="ok()">保存
+		</button>
+		<button class="btn btn-default" ng-click="cancle()">取消</button>
+	</div>
+</form>

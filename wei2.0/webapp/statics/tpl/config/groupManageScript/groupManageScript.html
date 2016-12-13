@@ -1,0 +1,41 @@
+<div ng-controller="groupManageScriptCtrl" class="clearfix script-content">
+    <div class="wrapper-md">
+        <div class="panel panel-default" ng-show="!showDetail">
+            <div class="">
+                <div class="search-btn" style="margin-left: 6px;margin-top: -10px;">
+                    <button class="btn btn-primary w-xs m-r" ng-click="add(1,{},$event)"><i class="fa fa-plus-circle"></i> 新增</button>
+                </div>
+                <!--<div class="col-md-12 search-box m-b-md">
+                    <div class="legend">查询条件</div>
+                    <div class="search-content">
+                        <div class="form-group">
+                            <label class="control-label">名称：</label>
+                            <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                        </div>
+                        &lt;!&ndash;<div class="form-group">
+                            <label class="control-label">状态：</label>
+                            <select class="form-control" name="state" validator="required" ng-model="searchByState">
+                                <option ng-repeat="item in userState" ng-selected="item.value == searchByState" value="{{item.value}}" ng-bind="item.name"></option>
+                            </select>
+                        </div>&ndash;&gt;
+                    </div>
+                    <div class="search-btn">
+                        <button class="btn btn-info w-xs m-r" ng-click="getData()"><i class="fa fa-search"></i> 查询</button>
+                        <button class="btn btn-primary w-xs m-r" ng-click="add(1,{},$event)"><i class="fa fa-plus-circle"></i> 新增</button>
+                        &lt;!&ndash;<button class="btn btn-success w-xs" ng-click="batchDelete()"><i class="fa fa-minus-circle"></i> 批量删除</button>&ndash;&gt;
+                    </div>
+                </div>-->
+
+                <div class="">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row">
+                            <div class="" style="margin:-10px 0 0 -10px;">
+                                <table groupscript-grid id="dg" tree-data="treeData" get-data="getData(param)" add="add(flag,item,$event)" remove="remove(item,$event)" detail="detail(item,$event)" class="easyui-treegrid"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

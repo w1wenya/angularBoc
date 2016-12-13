@@ -1,0 +1,85 @@
+<!-- navbar header -->
+<div class="navbar-header {{app.settings.navbarHeaderColor}}">
+  <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+    <i class="glyphicon glyphicon-cog"></i>
+  </button>
+  <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll-to="app">
+    <i class="glyphicon glyphicon-align-justify"></i>
+  </button>
+  <!-- brand -->
+        <a href class="navbar-brand text-lt">
+          <!--<i class="fa fa-btc"></i>-->
+          <!--<img src="/statics/img/logo.png" alt="" class="hidden-folded" style="height: 45px">-->
+          <img src="/statics/img/logo.png" alt="" class="hidden-folded inline m-l">
+          <!--<span class="hidden-folded m-l-xs">{{app.name}}</span>-->
+        </a>
+  <!-- / brand -->
+</div>
+<!-- / navbar header -->
+<!-- navbar collapse -->
+<div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
+  <!-- buttons -->
+  <div class="nav navbar-nav hidden-xs">
+    <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+      <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i><span class="m-l" ng-bind="app.name"></span>
+    </a>
+  </div>
+
+  <!-- / buttons -->
+  <!-- module title -->
+  <!--<div class="module-title nav navbar-nav hidden-sm">-->
+    <!--<div class="m-n font-thin h3 no-padding" ng-bind="app.name"></div>-->
+  <!--</div>-->
+  <!-- / module title -->
+
+  <!-- nabar right -->
+  <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown" dropdown>
+      <a href class="dropdown-toggle" dropdown-toggle title="任务工单查看">
+        <i class="icon-bell fa-fw"></i>
+        <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
+      </a>
+      <div class="dropdown-menu w-xl animated fadeInUp">
+        <div class="panel bg-white">
+          <div class="panel-heading b-light bg-light">
+            <strong>您有 <span>2</span> 条新消息</strong>
+          </div>
+          <div class="list-group">
+            <a href class="list-group-item">
+              <span class="text-danger">10.10.10.10服务器爆炸啦！！</span>
+            </a>
+            <a href class="list-group-item">
+              <span class="text-info">112服务器定时任务已完成！！</span>
+            </a>
+          </div>
+          <div class="panel-footer text-sm">
+            <a href class="pull-right"><i class="fa fa-cog"></i></a>
+            <a href="#notes" data-toggle="class:show animated fadeInRight">查看所有消息</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown" dropdown>
+      <a href class="dropdown-toggle clear" dropdown-toggle>
+        <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+          <img src="/statics/img/a0.jpg" alt="...">
+          <!-- <i class="on md b-white bottom"></i> -->
+        </span>
+        <span class="hidden-sm hidden-md" ng-bind="userData.name"></span> <b class="caret"></b>
+      </a>
+      <!-- dropdown -->
+      <ul class="dropdown-menu animated fadeInRight w" ng-controller="updatePasswordCtrl">
+        <li>
+          <a ng-click="updatePassword($event)"><span class="m-l-5">修改密码</span></a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a ng-click="loginout($event)"><i class="glyphicon glyphicon-log-out"></i><span class="m-l-5">退出</span></a>
+        </li>
+      </ul>
+      <!-- / dropdown -->
+    </li>
+  </ul>
+  <!-- / navbar right -->
+</div>
+<!-- / navbar collapse -->

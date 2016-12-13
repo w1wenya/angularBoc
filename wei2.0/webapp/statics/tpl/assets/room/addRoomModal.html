@@ -1,0 +1,98 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">数据中心：</label>
+				<div class="control-input">
+					<select class="form-control" name="centerId" validator="required" required-error-message="请选择数据中心" ng-model="dcId" ng-disabled="disableSelect">
+						<option value="">--请选择--</option>
+						<option ng-repeat="item in dataCenterData" ng-selected="item.id == dcId" value="{{item.id}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">机房类型：</label>
+				<div class="control-input">
+					<select class="form-control" name="type" validator="required" required-error-message="机房类型" ng-model="type">
+						<option value="">--请选择--</option>
+						<option ng-repeat="item in dataType" ng-selected="item.id == id" value="{{item.value}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">机房名称：</label>
+				<div class="control-input">
+					<input class="form-control" name="name" placeholder="机房名称" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">投产日期：</label>
+				<div class="control-input">
+					<input type="text" name="date" class="form-control" style="background: #fff" ui-jq="daterangepicker" ui-options="{format: 'YYYY-MM-DD',singleDatePicker: true,maxDate:today}" ng-model="commissionDate" readonly>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">位置编号：</label>
+				<div class="control-input">
+					<input class="form-control" name="locationSn" placeholder="楼号-楼层-房间号" ng-model="locationSn" validator="required,positionNumber"
+					       type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">机房面积：</label>
+				<div class="control-input-span">
+					<input class="form-control" name="totalArea" placeholder="面积" ng-model="totalArea" min="1" max="10000" validator="required,positiveNumber" required-error-message="请输入内容，面积的范围为1-10000" type="number" />
+				</div>
+				<div class="sup col-lg-1">m<sup>2</sup></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">联系人名：</label>
+				<div class="control-input">
+					<input class="form-control" name="contacter" placeholder="联系人" ng-model="contacter" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">联系电话：</label>
+				<div class="control-input">
+					<input class="form-control" name="contactPhone" placeholder="联系电话" ng-model="contactPhone" validator="required,cellphone" type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">机柜行数：</label>
+				<div class="control-input">
+					<input class="form-control" name="rowNum" placeholder="行数" ng-model="rowNum" ng-blur="outFouse(id)" min="1" validator="required,positiveNumber" type="number" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">机柜列数：</label>
+				<div class="control-input">
+					<input class="form-control" name="colNum" placeholder="列数" ng-model="colNum" ng-blur="outFouse(id)" min="1" validator="required,positiveNumber" type="number" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">机房描述：</label>
+				<div class="control-input">
+					<textarea class="form-control" name="remark" placeholder="机房描述" ng-model="remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

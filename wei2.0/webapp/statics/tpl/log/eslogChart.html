@@ -1,0 +1,50 @@
+<div ng-controller="eslogchartCtrl" class="clearfix script-content">
+	<!-- <div class="wrapper-md">		 
+		<div class="panel panel-default" ng-echarts="" style="overflow: hidden;padding: 15px;">		 
+			<div id="main" style = "width:100%;height:400px;"></div>			 
+		</div> 
+	</div> -->
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12 search-box m-b-md">
+					<div class="legend">查询条件</div>
+					<div class="search-content">
+					    <div class="form-group" style="width: 29%;">
+							<label class="control-label">分组条件：</label>
+							 <select class="form-control control-input" ng-model="groupType">
+								<option value="timeGroup">按时间</option>
+								<option value="indexGroup">按索引</option>
+								<option value="typeGroup">按类型</option>
+								<option value="hostGroup">按主机</option>
+								<option value="loglevelGroup">按日志级别</option>
+							</select>
+						</div>
+
+					   <div class="form-group" style="width: 29%;">
+							<label class="control-label">时间范围：</label>
+							<input ng-model="date" class="form-control w-md" ui-jq="daterangepicker"
+							       ui-options="{format: 'YYYY-MM-DD'}" placeholder="请选择时间" />
+							
+						</div>  
+						<div class="form-group" style="width: 40%;"> 
+						   <a ng-click="preWeek()"><i class="fa fa-search"></i>上周</a>&nbsp;&nbsp;
+					       <a ng-click="currWeek()"><i class="fa fa-search"></i>本周</a>&nbsp;&nbsp;
+					       <a ng-click="sevenDays()"><i class="fa fa-search"></i>7天</a>&nbsp;&nbsp;
+					       <a ng-click="fifteenDays()"><i class="fa fa-search"></i>15天</a>&nbsp;&nbsp;
+					       <a ng-click="thirtyDays()"><i class="fa fa-search"></i>30天</a>&nbsp;&nbsp;    
+					       <a ng-click="preMonth()"><i class="fa fa-search"></i>上月</a>&nbsp;&nbsp;
+					       <a ng-click="currMonth()"><i class="fa fa-search"></i>本月</a>
+        				</div>  
+					</div>
+				    <div class="search-btn">
+						<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+						<button class="btn btn-success w-xs" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+					</div>  
+				</div>
+			<div class="col-md-12">
+ 
+		 <div id="main" style = "width:100%;height:400px;"></div>
+			</div>
+		</div>
+	</div>
+</div>

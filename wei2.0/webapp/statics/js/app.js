@@ -1,0 +1,26 @@
+'use strict';
+angular.module('app', [
+  'ngAnimate',
+  // 'ngAria',
+  // 'ngCookies',
+  'toaster',
+  // 'ngMessages',
+  // 'ngResource',
+  'ngSanitize',
+  // 'ngTouch',
+  'ngStorage',
+  'http.load',
+  // 'Analytic.services',
+  'webSocket.services',
+  'ui.router',
+  'ui.bootstrap',
+  'ui.utils',
+  'ui.load',
+  'ui.jq',
+  'oc.lazyLoad',
+  // 'ngMaterial',
+  'validation',
+  'validation.rule',
+  'rzModule',
+  'uiSwitch'
+])

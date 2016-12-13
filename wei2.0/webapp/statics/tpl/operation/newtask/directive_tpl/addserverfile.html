@@ -1,0 +1,52 @@
+<tr ng-show="(addServerStatus == 1)">
+	<td class="text-center">
+		<select class="form-control" ng-model="itemData.fileId">
+			<option value="">--请选择--</option>
+			<option ng-repeat="item in fileList" value="{{item.id}}" ng-bind="item.name"></option>
+		</select>
+	</td>
+	<td class="text-center">
+		-
+		<!--<div ng-if="!serverInfo">共0台<button class="btn btn-xs btn-default m-l-5" ng-click="selectSingleServer()">添加</button></div>-->
+		<!--<div ng-if="serverInfo">共1台-->
+			<!--<span ng-bind="serverInfo.IP"></span>-->
+			<!--<button class="btn btn-xs btn-default m-l-5" ng-click="selectSingleServer()">更改</button>-->
+		<!--</div>-->
+	</td>
+	<td class="text-center">
+		<select class="form-control" ng-model="itemData.account">
+			<option value="">--请选择--</option>
+			<option ng-repeat="item in accountData" value="{{item.id}}" ng-bind="item.name"></option>
+		</select>
+	</td>
+	<td class="text-center"> - </td>
+	<td class="text-center"> - </td>
+	<td class="text-center">
+		<button type="button" class="btn btn-default btn-xs" ng-click="changeStatus(2)">保存</button>
+		<button type="button" class="btn btn-default btn-xs btn-remove-file-node" >删除</button>
+	</td>
+</tr>
+<tr ng-if="(addServerStatus == 2)">
+	<td class="text-center">
+		<select class="form-control" ng-model="itemData.fileId" disabled>
+			<option value="">--请选择--</option>
+			<option ng-repeat="item in fileList" ng-selected="(item.fileId==itemData.id)" value="{{item.id}}" ng-bind="item.name"></option>
+		</select>
+	</td>
+	<td class="text-center">
+		-
+		<!--<div>共1台<span ng-bind="serverInfo.ip"></span></div>-->
+	</td>
+	<td class="text-center">
+		<select class="form-control" ng-model="itemData.account" disabled>
+			<option value="">--请选择--</option>
+			<option ng-repeat="item in accountData" ng-selected="(item.id == itemData.account)" value="{{item.id}}" ng-bind="item.name"></option>
+		</select>
+	</td>
+	<td class="text-center"> - </td>
+	<td class="text-center"> - </td>
+	<td class="text-center">
+		<button type="button" class="btn btn-default btn-xs" ng-click="changeStatus(1)">修改</button>
+		<button type="button" class="btn btn-default btn-xs btn-remove-file-node">删除</button>
+	</td>
+</tr>

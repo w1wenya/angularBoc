@@ -1,0 +1,123 @@
+<div ng-controller="MonitorMeasureRecordDetailCtrl" class="clearfix detail">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>配置详情</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal form-validation" name="addForm">
+						<div class="search-box m-t-md">
+							<div class="legend">基本信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">名称：</label>
+										<input type="text" name="name" class="form-control" ng-model="detailData.name"  disabled/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="search-box m-t-md">
+							<div class="legend">配置信息</div>
+							<div class="search-content">
+								<tree-grid ng-if="isDataLoad" tree-data="tree_data" tree-action="operation(data)" tree-rows="treeRows" action-data="actionData" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="2" icon-leaf= "fa fa-gear"></tree-grid>
+							</div>
+						</div>
+						<div class="search-box m-t-md">
+							<div class="legend">运行信息</div>
+							<div class="search-content">
+								<tabset class="tab-container">
+									<tab select="getExecuteList(1,'SUCCESS')" ng-if="detailData.record.successes">
+										<tab-heading>
+											执行成功({{detailData.record.successes}})
+										</tab-heading>
+										<div class="row">
+											<div class="col-md-6">
+												<table class="detail-table">
+													<thead>
+													<tr>
+														<th>IP</th>
+														<th>返回结果</th>
+														<th>耗时（s）</th>
+													</tr>
+													</thead>
+													<tbody class="table-body">
+													<tr ng-repeat="item in executeList" ng-class="{true:'select'}[item.isSelect]" ng-click="loadDetailLog($index,item.result)">
+														<td ng-bind="item.targetIp"></td>
+														<td ng-bind="item.status|cn:'taskStatus'"></td>
+														<td ng-bind="item.cost"></td>
+													</tr>
+													</tbody>
+												</table>
+												<div class="col-md-12 clearfix m-t-xs clear-padding">
+													<div class="col-sm-4 m-t-xs clear-padding">
+														<div class="paginationTables_info_one">总共<span ng-bind="totalLog"></span>条, 每页<span ng-bind="param.rows"></span>条
+														</div>
+													</div>
+													<div class="col-sm-8 text-right clear-padding">
+														<pagination boundary-links="true" total-items="totalLog" items-per-page="param.rows" max-size="4" ng-model="param.page" ng-change="getExecuteList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6 log-detail">
+												<p ng-if="logDetail.start">【开始时间】{{logDetail.start}}</p>
+												<p ng-if="logDetail.end">【结束时间】{{logDetail.end}}</p>
+												<p ng-if="logDetail.stdout">【输出結果】{{logDetail.stdout}}</p>
+												<p ng-if="logDetail.msg">【输出結果】{{logDetail.msg}}</p>
+												<p ng-if="logDetail.dest">【输出結果】{{logDetail.dest}}</p>
+												<p ng-if="logDetail.stderror">【错误输出】{{logDetail.stderror}}</p>
+											</div>
+										</div>
+									</tab>
+									<tab class="result" select="getExecuteList(1,'FAIL')" ng-if="detailData.record.failures">
+										<tab-heading>
+											执行失败({{detailData.record.failures}})
+										</tab-heading>
+										<div class="row">
+											<div class="col-md-6">
+												<table class="detail-table">
+													<thead>
+													<tr>
+														<th>IP</th>
+														<th>返回结果</th>
+														<th>耗时（s）</th>
+													</tr>
+													</thead>
+													<tbody class="table-body">
+													<tr ng-repeat="item in executeList" ng-class="{true:'select'}[item.isSelect]" ng-click="loadDetailLog($index,item.result)">
+														<td ng-bind="item.targetIp"></td>
+														<td ng-bind="item.status|cn:'taskStatus'"></td>
+														<td ng-bind="item.cost"></td>
+													</tr>
+													</tbody>
+												</table>
+												<div class="col-md-12 clearfix m-t-xs clear-padding">
+													<div class="col-sm-4 m-t-xs clear-padding">
+														<div class="paginationTables_info_one">总共<span ng-bind="totalLog"></span>条, 每页<span ng-bind="param.rows"></span>条
+														</div>
+													</div>
+													<div class="col-sm-8 text-right clear-padding">
+														<pagination boundary-links="true" total-items="totalLog" items-per-page="param.rows" max-size="4" ng-model="param.page" ng-change="getExecuteList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6 log-detail">
+												<p ng-if="logDetail.start">【开始时间】{{logDetail.start}}</p>
+												<p ng-if="logDetail.end">【结束时间】{{logDetail.end}}</p>
+												<p ng-if="logDetail.stdout">【输出結果】{{logDetail.stdout}}</p>
+												<p ng-if="logDetail.msg">【输出結果】{{logDetail.msg}}</p>
+												<p ng-if="logDetail.dest">【输出結果】{{logDetail.dest}}</p>
+												<p ng-if="logDetail.stderror">【错误输出】{{logDetail.stderror}}</p>
+											</div>
+										</div>
+									</tab>
+								</tabset>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

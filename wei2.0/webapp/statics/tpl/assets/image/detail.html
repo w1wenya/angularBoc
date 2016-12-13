@@ -1,0 +1,207 @@
+<div class="content-byc image-content" ng-controller="detailImageModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">镜像详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal" ng-if="showJDYUN">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像名称：</dt>
+                                                    <dd ng-bind="imageDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像ID：</dt>
+                                                    <dd ng-bind="imageDetail.imageId"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像状态：</dt>
+                                                    <dd ng-bind="imageDetail.status"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像类型：</dt>
+                                                    <dd ng-bind="imageDetail.osType"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>所属区域：</dt>
+                                                    <dd ng-bind="imageDetail.regionName"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>创建时间：</dt>
+                                                    <dd ng-bind="imageDetail.gmtCreate"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">详细信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>操作系统：</dt>
+                                                    <dd ng-bind="imageDetail.osName"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>系统版本：</dt>
+                                                    <dd ng-bind="imageDetail.osVersion"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>系统位数：</dt>
+                                                    <dd ng-bind="imageDetail.architecture"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>内核版本：</dt>
+                                                    <dd ng-bind="imageDetail.kernelVersion"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>容量：</dt>
+                                                    <dd ng-bind="imageDetail.size"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像描述：</dt>
+                                                    <dd ng-bind="imageDetail.remark"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal dl-spec">
+                                                    <dt>作为系统的容量：</dt>
+                                                    <dd ng-bind="imageDetail.minDisk"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-horizontal" ng-if="showOPENSTACK">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像名称：</dt>
+                                                    <dd ng-bind="imageDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像状态：</dt>
+                                                    <dd ng-bind="imageDetail.status"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal dl-spec">
+                                                    <dt style="margin-left: -20px;">所属云平台：</dt>
+                                                    <dd ng-bind="imageDetail.vendorName"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>所属区域：</dt>
+                                                    <dd ng-bind="imageDetail.regionName"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                            <!--<div class="col-lg-6">-->
+                                                <!--<dl class="dl-horizontal">-->
+                                                    <!--<dt>系统名称：</dt>-->
+                                                    <!--<dd ng-bind="imageDetail.osNameName"></dd>-->
+                                                <!--</dl>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-lg-6">-->
+                                                <!--<dl class="dl-horizontal">-->
+                                                    <!--<dt>系统版本：</dt>-->
+                                                    <!--<dd ng-bind="imageDetail.osVersion"></dd>-->
+                                                <!--</dl>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">详细信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>其他属性：</dt>
+                                                    <dd ng-bind="imageDetail.moreProp"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>镜像描述：</dt>
+                                                    <dd ng-bind="imageDetail.remark"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

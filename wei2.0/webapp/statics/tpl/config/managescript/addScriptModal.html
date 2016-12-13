@@ -1,0 +1,74 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title">添加脚本</p>
+</div>
+<div class="modal-body panel-body edit-content">
+	<form name="addForm">
+		<div class="form-group">
+			<label class="control-label">脚本名称：</label>
+			<input type="text" name="name" class="form-control control-input" ng-model="name" validator="required,name" maxlength="64"/>
+		</div>
+		<div class="form-group m-b addcombotree">
+			<label class="control-label">脚本分组：</label>
+			<div easy-combotree id="mycombotree2" tree-data="treeData" group-id="groupId" group-name="groupName" index="index" class="easyui-combotree control-input"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">脚本来源：</label>
+			<div>
+				<label class="i-checks m-r m-t-xs" ng-click="selectSource()">
+					<input type="radio" name="type" value="1" ng-model="source"><i></i>手工录入
+				</label>
+				<label class=" i-checks m-r m-t-xs" ng-click="selectSource()">
+					<input type="radio" name="type" value="2" ng-model="source"><i></i>脚本克隆
+				</label>
+				<label class="i-checks m-t-xs" ng-click="selectSource()">
+					<input type="radio" name="type" value="3" ng-model="source"><i></i>本地脚本
+				</label>
+			</div>
+		</div>
+		<div class="form-group source-list" ng-if="(source == 2)">
+			<label>脚本名称：</label>
+			<div class="inline select-script-width">
+				<ui-select ng-model="scriptItem.selected" ng-change="getScriptValue()" theme="bootstrap">
+					<ui-select-match placeholder="选择或者从列表中搜索一个脚本">{{$select.selected.name}}</ui-select-match>
+					<ui-select-choices repeat="item in scriptListData | filter: $select.search">
+						<div ng-bind-html="item.name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+		<div class="form-group source-list" ng-show="(source == 3)">
+			<label>选择脚本：</label>
+			<div class="inline select-script-width">
+				<input type="file" class="form-control inline file"/>
+			</div>
+		</div>
+		<div class="form-group m-b" style="height: 340px">
+			<label class="control-label">脚本内容：</label>
+			<div class="control-input" ng-code-mirrors="" code-mirror="codeMirror">
+				<div class="code-type">
+					<label class="i-checks i-checks-sm">
+						<input type="radio" name="codetype" value="SHELL" ng-model="scriptType"><i></i> shell
+					</label>
+					<label class="i-checks i-checks-sm">
+						<input type="radio" name="codetype" value="BAT" ng-model="scriptType">><i></i> bat
+					</label>
+					<label class="i-checks i-checks-sm">
+						<input type="radio" name="codetype" value="PERL" ng-model="scriptType">><i></i> perl
+					</label>
+					<label class="i-checks i-checks-sm">
+						<input type="radio" name="codetype" value="PYTHON" ng-model="scriptType">><i></i> python
+					</label>
+					<a href="">
+						<i class="icon-size-fullscreen pull-right m-t-sm m-r-sm" ></i>
+					</a>
+				</div>
+				<textarea class="textarea"></textarea>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" ng-click="ok()" validation-submit="addForm" ng-disabled="addForm.$invalid" >确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

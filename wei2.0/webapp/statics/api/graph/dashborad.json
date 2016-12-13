@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "message": "查询任务详细成功",
+  "data": {
+    "digit":{
+      "generals":120,
+      "monthTasks":120,
+      "cronTasks":"20",
+      "success":10,
+      "inactives":20,
+      "fails":20,
+      "runs":10,
+      "cancels":10,
+      "actives":10,
+      "pauses":10
+    },
+    "trend":{
+      "keys":["租户1","租户2","租户3","租户4","租户5","租户6"],
+      "values":[10, 12, 15, 14, 10, 5]
+    },
+    "duration":[
+      {"value":335, "name":"阿里"},
+      {"value":310, "name":"京东"},
+      {"value":234, "name":"OPENSTACK"}
+    ],
+    "warnstatus":[
+      {"value":335, "name":"未确认"},
+      {"value":310, "name":"已确认"},
+      {"value":234, "name":"已解决"}
+    ],
+    "result":[
+      {"value":335, "name":"租户一"},
+      {"value":310, "name":"租户二"},
+      {"value":234, "name":"租户三"},
+      {"value":135, "name":"租户四"}
+    ]
+  },
+  "status": null,
+  "solution": null
+}

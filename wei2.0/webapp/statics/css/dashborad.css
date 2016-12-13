@@ -1,0 +1,104 @@
+.dashborad .panel-info {
+  border-color: #bce8f1;
+}
+.dashborad .col-md-12{
+  padding:0 15px ;
+}
+.dashborad .cell{
+  display: block;
+  cursor: pointer;
+}
+.dashborad .line{
+  border-right: 1px solid #ccc;
+}
+.dashborad .count-box{
+  height: 266px;
+}
+.dashborad .panel {
+  margin:10px 0 10px 0;
+  background-color: #fffeee;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+.dashborad .panel-detail{
+  padding: 10px;
+}
+.dashborad .panel-info > .panel-heading {
+  color: #31708f;
+  background-color: #F6F8F8;
+  border-color: #bce8f1;
+}
+.cell img{
+  width: 80px;
+  height: 80px;
+}
+
+.boc-docs-sidebar .nav > .active > ul {
+  display: block
+}
+.boc-docs-sidebar.affix .boc-docs-sidenav, .boc-docs-sidebar.affix-bottom .boc-docs-sidenav {
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.boc-docs-sidenav {
+  margin-top: 20px;
+  margin-bottom: 20px
+}
+
+.boc-docs-sidebar .nav > li > a {
+  display: block;
+  padding: 4px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #767676
+}
+
+.boc-docs-sidebar .nav > li > a:focus, .boc-docs-sidebar .nav > li > a:hover {
+  padding-left: 19px;
+  color: #563d7c;
+  text-decoration: none;
+  background-color: transparent;
+  border-left: 1px solid #563d7c
+}
+
+.boc-docs-sidebar .nav > .active:focus > a, .boc-docs-sidebar .nav > .active:hover > a, .boc-docs-sidebar .nav > .active > a {
+  padding-left: 18px;
+  font-weight: 700;
+  color: #563d7c;
+  background-color: transparent;
+  border-left: 2px solid #563d7c
+}
+
+.boc-docs-sidebar .nav .nav {
+  display: none;
+  padding-bottom: 10px
+}
+
+.boc-docs-sidebar .nav .nav > li > a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 30px;
+  font-size: 12px;
+  font-weight: 400
+}
+
+.boc-docs-sidebar .nav .nav > li > a:focus, .boc-docs-sidebar .nav .nav > li > a:hover {
+  padding-left: 29px
+}
+
+.boc-docs-sidebar .nav .nav > .active:focus > a, .boc-docs-sidebar .nav .nav > .active:hover > a, .boc-docs-sidebar .nav .nav > .active > a {
+  padding-left: 28px;
+  font-weight: 500
+}
+
+h3{
+  background: red;
+  color: #fff;
+  padding: 20px 10px;
+}
+
+.boc-docs-sidebar{
+  position: fixed;
+}

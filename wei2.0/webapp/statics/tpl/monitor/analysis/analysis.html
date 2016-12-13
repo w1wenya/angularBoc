@@ -1,0 +1,239 @@
+<div class="clearfix script-content" ng-task-main-router="">
+    <div class="wrapper-md" ng-controller="analysisCtrl">
+        <tabset class="tab-container">
+            <tab ng-controller="trendCtrl" ng-click="getData(1)">
+                <tab-heading>
+                    趋势分析
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <form class="form-horizontal form-validation" name="queryMonitorForm">
+                            <div class="legend">查询条件</div>
+                            <div class="search-content1">
+                                <div class="form-group height-34">
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">IP：</label>
+                                        <div class="col-lg-10 control-input width-74">
+                                            <input name="IP" ng-model="searchByIP" validator="required,ip" class="form-control input-sm" placeholder="请输入IP" aria-controls="DataTables_Table_3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">监控项：</label>
+                                        <div class="col-lg-10 control-input width-74">
+                                            <select class="form-control input-sm" ng-model="searchByMonitorItem" ng-change="change(0)">
+                                                <option value="">--请选择--</option>
+                                                <option ng-repeat="row in itemData" ng-selected="row.key==searchByMonitorItem" value="{{row.key}}" ng-bind="row.value"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">聚合函数：</label>
+                                        <div class="col-lg-10 control-input width-74">
+                                            <select class="form-control input-sm" ng-model="function" ng-change="change(1)">
+                                                <option value="">--请选择--</option>
+                                                <option ng-repeat="row in functionData" ng-selected="row.value==function" value="{{row.value}}" ng-bind="row.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group height-34">
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">开始时间：</label>
+                                        <div class="col-lg-10 control-input width-74">
+                                            <input class="form-control input-sm" ui-jq="daterangepicker" ui-options="dateRangeOptions" placeholder="请选择开始时间" ng-model="datePicker.date1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">结束时间：</label>
+                                        <div class="col-lg-10 control-input width-74">
+                                            <input class="form-control input-sm" ui-jq="daterangepicker" ui-options="dateRangeOptions" placeholder="请选择结束时间" ng-model="datePicker.date2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">时间单位：</label>
+                                        <div class="col-lg-7 control-input" style="width:50%;">
+                                            <input type="number" min="1" name="timeUnits" ng-model="searchByTimeUnits" class="form-control input-sm" placeholder="请输入时间单位" aria-controls="DataTables_Table_3">
+                                        </div>
+                                        <div class="selcet-style">
+                                            <select class="form-control input-sm" ng-model="timeUnit" >
+                                                <option ng-repeat="row in timeData" ng-selected="row.value==timeUnit" value="{{row.value}}" ng-bind="row.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group height-34">
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">标签：</label>
+                                        <div class="col-lg-7 control-input width-74">
+                                            <input name="tag" ng-model="searchByTag" class="form-control input-sm" placeholder="请输入标签" aria-controls="DataTables_Table_3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-2 control-label">图表类型：</label>
+                                        <div class="col-lg-10 control-input width-74">
+                                            <select class="form-control input-sm" ng-model="type" ng-change="change(2)">
+                                                <option ng-repeat="row in typeData" ng-selected="row.value==type" value="{{row.value}}" ng-bind="row.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="search-btn">
+                            <button class="btn btn-primary w-xs m-r" validation-submit="queryMonitorForm" ng-disabled="(queryMonitorForm.$invalid|| isFail)" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+                            <button class="btn btn-info w-xs m-r" ng-click="exportTrigger($event)" ng-disabled="isShowBtn"><i class="glyphicon glyphicon-log-out"></i>导出报表</button>
+                        </div>
+                    </div>
+                    <iframe id="analysisexport1" style="display: none;"></iframe>
+                    <div class="col-md-12" style="border: 1px solid #ddd;" ng-show="isImageData">
+                        <div class="dataTables_wrapper form-inline">
+                            <div class="row">
+                                <div class="col-sm-12" style="margin-top: -10px;">
+                                    <h5 class="console-title" ng-bind="name"></h5>
+                                    <div class="console-content" ng-repeat="row in queryData">
+                                        <div line-echarts class="panel-body chart-query" xaxis-data="xAxis" measurement="row.measurement" unit="row.unit" monitor-data="row.data" timeline="timeline" type="type"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab ng-controller="defaultCtrl" ng-click="getData(1)">
+                <tab-heading>
+                    默认报表
+                </tab-heading>
+                <div class="row panel" style="padding-top: 10px">
+                    <div class="col-md-12 search-box m-b-md">
+                        <div class="legend">查询条件</div>
+                        <div class="search-content1">
+                            <div class="form-group height-34">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">数据中心：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchData.dcId">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in datacenterList" ng-selected="row.id==searchData.dcId" value="{{row.id}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">机房：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchData.roomId">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in roomList" ng-selected="row.id==searchData.roomId" value="{{row.id}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">机柜：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchData.rackId">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in rackList" ng-selected="row.id==searchData.rackId" value="{{row.id}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group height-34">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">主机：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchData.serverId">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in serverList" ng-selected="row.id==searchData.serverId" value="{{row.id}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">虚拟机：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchData.vmId">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in vmList" ng-selected="row.id==searchData.vmId" value="{{row.id}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">监控项：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <select class="form-control input-sm" ng-model="searchData.measurementType">
+                                            <option value="">--请选择--</option>
+                                            <option ng-repeat="row in itemData" ng-selected="row.key==searchData.measurementType" value="{{row.key}}" ng-bind="row.value"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group height-34">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">时间范围：</label>
+                                    <div class="col-lg-10 control-input width-74">
+                                        <input class="form-control input-sm" ui-jq="daterangepicker" ui-options="dateRangeOptions" ng-model="datePicker.date" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="col-lg-2 control-label">时间单位：</label>
+                                    <div class="col-lg-7 control-input" style="width:50%;">
+                                        <input type="number" min="1" name="timeUnits" ng-model="searchByTimeUnits" class="form-control input-sm" placeholder="请输入时间单位" aria-controls="DataTables_Table_3">
+                                    </div>
+                                    <div class="selcet-style">
+                                        <select class="form-control input-sm" ng-model="timeUnit" >
+                                            <option ng-repeat="row in timeData" ng-selected="row.value==timeUnit" value="{{row.value}}" ng-bind="row.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-btn">
+                            <button class="btn btn-primary w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>
+                            <button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+                            <button class="btn btn-info w-xs m-r" ng-click="exportTrigger($event)" ng-disabled="isImageData"><i class="glyphicon glyphicon-log-out"></i>导出报表</button>
+                        </div>
+                    </div>
+                    <iframe id="analysisexport" style="display: none;"></iframe>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-light m-b-xxs">
+                                <thead style="background: #fefefe">
+                                <tr>
+                                    <th width="20%" class="font-15 text-center">监控项</th>
+                                    <th width="25%" class="font-15 text-center">项目名称</th>
+                                    <th width="15%" class="font-15 text-center">监控项明细</th>
+                                    <th width="10%" class="font-15 text-center">数值单位</th>
+                                    <th width="10%" class="font-15 text-center">平均值</th>
+                                    <th width="10%" class="font-15 text-center">最大值</th>
+                                    <th width="10%" class="font-15 text-center">最小值</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="table-content" ng-repeat="row in defaultData" ng-if="!isImageData">
+                                    <td width="20%" class="font-15 text-center text-overflow" style="max-width:210px;" title="{{row.measurementType}}" ng-bind="row.measurementType"></td>
+                                    <td width="25%" class="font-15 text-center text-overflow" style="max-width:262px;" title="{{row.measureName}}" ng-bind="row.measureName"></td>
+                                    <td width="15%" class="font-15 text-center text-overflow" style="max-width:157px;" title="{{row.measureItemName}}" ng-bind="row.measureItemName"></td>
+                                    <td width="10%" class="font-15 text-center text-overflow" style="max-width:104px;" title="{{row.unit}}" ng-bind="row.unit"></td>
+                                    <td width="10%" class="font-15 text-center text-overflow" style="max-width:104px;" title="{{row.mean}}" ng-bind="row.mean"></td>
+                                    <td width="10%" class="font-15 text-center text-overflow" style="max-width:104px;" title="{{row.mean}}" ng-bind="row.max"></td>
+                                    <td width="10%" class="font-15 text-center text-overflow" style="max-width:104px;" title="{{row.mean}}" ng-bind="row.min"></td>
+                                </tr>
+                                <tr ng-if="isImageData">
+                                    <td class="td-nodata" colspan="7">暂无数据</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="col-sm-6" style="padding:7px 15px;">
+                                    <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

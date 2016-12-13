@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "data": {
+    "container":[
+      {"label":"容器1","data":"20"},
+      {"label":"容器2","data":"20"},
+      {"label":"容器3","data":"20"},
+      {"label":"容器4","data":"20"}
+    ],
+    "host":[
+      {"label":"主机1","data":"20"},
+      {"label":"主机2","data":"20"},
+      {"label":"主机3","data":"20"},
+      {"label":"主机4","data":"20"}
+    ],
+    "business":[
+      {"label":"已部署","data":"10"},
+      {"label":"未部署","data":"10"}
+    ],
+    "physics":[
+      {"label":"已部署","data":"10"},
+      {"label":"未部署","data":"10"}
+    ],
+    "containerNum":10,
+    "businessNum":10,
+    "clusterNum":10,
+    "hostNum":10,
+    "physicsNum":10,
+    "dockerNum":10,
+    "repertoryNum":10,
+    "subgroupNum":10,
+    "balanceNum":10
+  }
+}

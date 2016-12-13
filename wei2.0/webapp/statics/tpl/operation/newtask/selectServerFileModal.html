@@ -1,0 +1,45 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title">服务器文件列表</p>
+</div>
+<div class="modal-body panel-body">
+	<table st-table="displayListData" st-safe-src="serverListData" class="table table-striped">
+		<thead>
+		<tr>
+			<th colspan="5">
+				<input st-search placeholder="通过软件名称、分组、状态进行过滤" class="input-sm form-control" type="search"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label class="i-checks m-b-none" ng-click="selectAll()"><input type="checkbox" ng-model="isSelectAll"><i></i></label>
+			</th>
+			<th>软件名称</th>
+			<th>文件路径</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="row in displayListData">
+			<td>
+				<label class="i-checks m-b-none"><input type="checkbox" ng-model="row.isSelected"><i></i></label>
+			</td>
+			<td ng-bind="row.name"></td>
+			<td ng-bind="row.path"></td>
+		</tr>
+		</tbody>
+		<tfoot>
+		<tr>
+			<td colspan="2" class="text-left">
+				<div>每页{{itemsByPage}}条，共{{total}}条</div>
+			</td>
+			<td colspan="3" class="text-right">
+				<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7" class="no-margin"></div>
+			</td>
+		</tr>
+		</tfoot>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

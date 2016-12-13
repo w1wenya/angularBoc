@@ -1,0 +1,79 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size">绑定资源</p>
+</div>
+<div class="modal-body panel-body">
+	<div class="col-md-12 search-box m-b-md">
+			<div class="legend">查询条件</div>
+			<div class="search-content">
+				<div class="form-group">
+					<label class="control-label">IP地址：</label>
+					<input type="text" class="form-control" ng-model="ip" placeholder="请输入IP地址"/>
+				</div>
+				<div class="form-group">
+					<label class="control-label">平台名称：</label>
+					<input type="text" class="form-control" ng-model="platform" placeholder="请输入平台名称"/>
+				</div>
+			</div>
+			<div class="search-btn">
+				<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+			</div>
+		</div>
+	<div class="col-md-12">
+			<div class="table-responsive">
+				<table class="table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">
+							<label class="i-checks m-b-none" ng-click="selectAll()"><input type="checkbox" ng-model="isSelectAll"><i></i></label>
+						</th>
+						<th class="text-center">名称</th>
+						<th class="text-center">状态</th>
+						<th class="text-center">IP地址</th>
+						<th class="text-center">类型</th>
+						<th class="text-center">型号</th>
+						<th >是否使用</th>
+						<th >是否共享</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="(key,row) in listData">
+						<td class="text-center">
+							<label class="i-checks m-b-none"><input type="checkbox" ng-model="row.isSelected" ng-click="selectItem($event,row)"><i></i></label>
+						</td>
+						<td class="text-center" ng-bind="row.name"></td>
+						<td class="text-center" ng-bind="row.status"></td>
+						<td class="text-center" ng-bind="row.ip"></td>
+						<td class="text-center" ng-bind="row.category|cn:'category'"></td>
+						<td class="text-center" ng-bind="row.catalog|cn:'catalog'"></td>
+						<td >
+								<label class="i-switch bg-info">
+									<input type="checkbox" ng-model="row.used">
+									<i></i>
+								</label>
+						</td>
+						<td >
+							<label class="i-switch bg-success">
+								<input type="checkbox" ng-model="row.shared">
+								<i></i>
+							</label>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<div class="clearfix">
+					<div class="col-sm-5">
+						<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+						</div>
+					</div>
+					<div class="col-sm-7 text-right m-t">
+						<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="6" ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

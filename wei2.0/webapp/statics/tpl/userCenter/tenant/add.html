@@ -1,0 +1,84 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <p class="modal-title panel-title-size">新增租户</p>
+</div>
+<div class="modal-body panel-body">
+    <form class="form-horizontal form-validation" name="addTenantForm">
+        <div class="form-group">
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">租户名称：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="name" class="form-control" ng-model="addData.name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">租户电话：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="tenantPhone" class="form-control" ng-model="addData.tenantPhone" validator="required,phone">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">公司名称：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="company" class="form-control" ng-model="addData.company" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">公司地址：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="address" class="form-control" ng-model="addData.address" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">联系人员：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="contacter" class="form-control" ng-model="addData.contacter" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">联系电话：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="contactPhone" class="form-control" ng-model="addData.contactPhone" validator="required,phone">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">联系邮箱：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="contactEmail" class="form-control" ng-model="addData.contactEmail" ng-blur="checkContactEmail()" validator="required,email" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="col-lg-2 control-label">其他属性：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="moreProp" class="form-control" ng-model="addData.moreProp" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">租户描述：</label>
+                <div class="col-lg-10 control-input">
+                    <textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12" style="border-top: 1px dotted #ddd;padding: 0 20px;background-color: #f7f7f9;">
+                <label class="col-lg-12 control-label" style="width:120px;">给租户授权权限：</label>
+                <div class="col-lg-12">
+                    <div easy-tree id="myTree" tree-data="permissiondata" id-data="idData" identification="identification" class="easy-tree"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" validation-submit="addTenantForm" ng-disabled="addTenantForm.$invalid" ng-click="ok()">确认</button>
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

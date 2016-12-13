@@ -1,0 +1,126 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+</div>
+<div class="modal-body panel-body">
+		<form class="form-horizontal form-validation" name="addCabinetForm">
+			<div class="form-group">
+				<div class="col-lg-6">
+					<label class="control-label">数据中心：</label>
+					<div class="control-input">
+						<select class="form-control" name="centerId" ng-change="loadRoomData(dcId)" validator="required" ng-model="dcId" ng-disabled="disableSelect">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in dataCenterData" ng-selected="item.id == dcId" value="{{item.id}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<label class="control-label">选择机房：</label>
+					<div class="control-input">
+						<select class="form-control" name="roomId" ng-change="changeRoom(roomId)" validator="required" ng-model="roomId" ng-disabled="disableSelect">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in roomData" ng-selected="item.id == roomId" value="{{item.id}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">机柜名称：</label>
+					<div class="control-input">
+						<input class="form-control" name="name" placeholder="机柜名称" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">机柜规格：</label>
+					<div class="control-input">
+						<input class="form-control" name="specs" placeholder="长/宽/高/单位：米" ng-model="specs" validator="required,specNumber" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">机柜类型：</label>
+					<div class="control-input">
+						<select class="form-control" name="type" validator="required" required-error-message="机柜类型" ng-model="type">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in dataType" ng-selected="item.id == id" value="{{item.value}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">U数：</label>
+					<div class="control-input">
+						<input class="form-control" name="unit" placeholder="U数" ng-model="unit" min="1" maxlength="4" maxlength-error-message="最多输入4个字符" validator="required,positiveNumber" type="number" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">供应商家：</label>
+					<div class="control-input">
+						<input class="form-control" name="vendor" placeholder="供应商家" ng-model="vendor" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">卡槽数量：</label>
+					<div class="control-input">
+						<input class="form-control" name="slotAmount" placeholder="卡槽数量" ng-blur="roundFouse(id)" ng-model="slotAmount" min="1" maxlength="8" maxlength-error-message="最多输入8个字符" validator="required,positiveNumber" type="number" />
+					</div>
+				</div>
+		</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">机柜行位：</label>
+					<div class="control-input">
+						<input class="form-control" name="axisX" placeholder="机柜行位" ng-model="axisX" ng-disabled="inpit_Y" ng-blur="outFouse(id)" min="1" validator="required,positiveNumber" type="number" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">机柜列位：</label>
+					<div class="control-input">
+						<input class="form-control" name="axisY"  placeholder="机柜列位" ng-model="axisY" ng-disabled="inpit_Y" ng-blur="outFouse(id)" min="1" validator="required,positiveNumber" type="number" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">生产日期：</label>
+					<div class="control-input">
+						<input type="text" name="date" class="form-control"  style="background: #fff" ui-jq="daterangepicker" ui-options="{format: 'YYYY-MM-DD',singleDatePicker: true,maxDate:today}" ng-model="productDate" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<label class="control-label">出厂编号：</label>
+					<div class="control-input">
+						<input class="form-control" name="productSn" placeholder="出厂编号" ng-model="productSn" validator="required,snNumber" type="text" />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">机柜材质：</label>
+					<div class="control-input">
+						<select class="form-control" name="material" validator="required" required-error-message="机柜材质" ng-model="material">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in dataMaterial" ng-selected="item.id == id" value="{{item.value}}" ng-bind="item.name"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<label class="control-label">质保期：</label>
+					<div class="control-input">
+						<input class="form-control" name="warranty" placeholder="质保期/单位：月" ng-model="warranty" validator="required,warrantyNumber" type="text" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-12">
+					<label class="control-label">机柜描述：</label>
+					<div class="control-input">
+						<textarea class="form-control" name="remark" placeholder="机柜描述" ng-model="remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail || isRoundFail)" ng-click="ok()">确认</button>
+		<button class="btn btn-default" ng-click="cancle()">取消</button>
+	</div>

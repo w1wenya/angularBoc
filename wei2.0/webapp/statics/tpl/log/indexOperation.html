@@ -1,0 +1,74 @@
+<div ng-controller="indexOperationCtrl" class="clearfix script-content">
+	<div class="wrapper-md">
+		<div class="row panel panel-default" style="padding:0;">
+		  <div class="panel-heading">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">索引操作记录列表</span>&nbsp;&nbsp;<span ng-bind="indexName"></span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+			<div class="col-md-12">		 
+		    <div class="table-responsive">
+						<table class="table table-striped b-light m-b-xxs table-navy">
+							<thead style="background: #fefefe">
+							<tr>
+							    <th class="text-center">备份/归档名称</th>
+							    <th class="text-center">文件路径</th>
+							    <th class="text-center">状态</th>
+								<th class="text-center">创建时间</th>
+								<th class="text-center">大小(MB)</th>
+								<th class="text-center">操作类型</th>								
+								<th class="text-center">操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="(key,row) in listData">
+							    <td class="text-center" title="{{row.fileName}}"><div ng-bind="row.fileName"></div></td>
+							     <td class="text-center" title="{{row.filePath}}"><div ng-bind="row.filePath"></div></td>
+								 <td class="text-center"> 							 
+							 <button class="btn btn-xs disabled" style="width:50px;" ng-class="{'VALID':'btn-success','DELETE':'btn-warning'}[row.status]" 
+								    title="{{row.status|cnLogIndexStatus:'status'}}" ng-bind="row.status|cnLogIndexStatus:'status'"></button>  
+								</td>
+								<td class="text-center" title="{{row.gmtCreate}}"><div ng-bind="row.gmtCreate">></div></td>
+								<td class="text-center" title="{{row.size}}"><div ng-bind="(row.size/(1024*1024)).toFixed(3)"></div></td>
+								<td class="text-center" >
+                                 <button class="btn btn-xs disabled" style="width:50px;" ng-class="{'BACKUP':'btn-success','ARCHIVE':'btn-success','RESTORE':'btn-warning'}[row.type]" 
+								    title="{{row.type|cnIndexOpType:'status'}}" ng-bind="row.type|cnIndexOpType:'status'"></button>
+								</td>								
+								<td class="text-center"> 
+								<button ng-show="(row.status == 'VALID')"  class="btn btn-success btn-sm" ng-click="restortConfirm(row)">
+                                                <i class="fa fa-pencil-square-o"></i>                                                
+                                                <span class="" ng-bind="row.type|cnIndexOperation:'status'">禁用</span>
+                                </button>
+                                <button ng-show="(row.status != 'VALID')"  class="btn btn-warning btn-sm">
+                                                <i class="fa fa-pencil-square-o"></i>                                                
+                                                <span class="" >禁用</span>
+                                </button>
+                                <button ng-show="(row.status == 'VALID')" class="btn btn-danger btn-sm" ng-click="deleteConfirm(row)">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                <span class="" ng-bind="row.type|cnBackupDelete:'status'">禁用</span>
+                                </button>
+                                 <button ng-show="(row.status != 'VALID')" class="btn btn-warning btn-sm">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                <span class="">禁用</span>
+                                </button>
+                                </td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<div class="col-sm-6">
+								<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+								</div>
+							</div>
+							<div class="col-sm-6 text-right">
+								<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+								            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

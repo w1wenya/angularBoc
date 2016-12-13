@@ -1,0 +1,91 @@
+.dashborad .panel-info {
+  border-color: #bce8f1;
+}
+.dashborad .col-md-12{
+  padding:0 15px ;
+}
+.dashborad .cell{
+  display: block;
+  cursor: pointer;
+}
+.dashborad .line{
+  border-right: 1px solid #ccc;
+}
+.dashborad .count-box{
+  height: 266px;
+}
+.dashborad .panel {
+  margin:10px 0 10px 0;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+.dashborad .panel-detail{
+  padding: 10px;
+}
+.dashborad .panel-info > .panel-heading {
+  color: #31708f;
+  background-color: #F6F8F8;
+  border-color: #bce8f1;
+}
+.cell img{
+  width: 80px;
+  height: 80px;
+}
+
+
+
+
+/*---------作业dashborad----------*/
+.small-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin: 20px 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  height: 155px;
+  color: #fff;
+}
+.small-box-h {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+  height: 100%;
+  padding-top: 20px;
+}
+.small-box-count{
+  width: 65%;
+  padding: 10px 5px 5px 20px;
+}
+.font-large{
+  font-size: 40px;
+}
+.s-bg-primary{
+  background-color: #7C79B6;
+}
+.bg-primary-h{
+  background-color: #7270A8;
+}
+.s-bg-green{
+  background-color: #58C386;
+}
+.bg-green-h{
+  background-color: #51B47B;
+}
+.s-bg-yellow{
+  background-color: #EFB04E;
+}
+.bg-yellow-h{
+  background-color: #DCA249;
+}
+.s-bg-aqua {
+  background-color: #4C9CFF;
+}
+.bg-aqua-h {
+  background-color: #4790EB !important;
+}
+.dashborad-task .chart{
+  height: 400px;
+  padding-top: 15px
+}

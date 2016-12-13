@@ -1,0 +1,111 @@
+<div class="content-byc image-content" ng-controller="userDetailCtrl">
+	<div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+	     ng-if="showDetail==1">
+		<div class="wrapper-md">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default" style="padding:0;">
+						<div class="panel-heading font-bold">
+							<!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+							<span class="p-l-6">用户详情</span>
+							<button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+								<i class="fa fa-reply icon-font"></i> 返回
+							</button>
+						</div>
+						<div class="panel-body pmb-block" style="border:none;">
+							<div class="form-horizontal">
+								<div class="">
+									<div class="pmbb-header">
+										<h5 class="console-title">基本信息</h5>
+									</div>
+									<div class="pmbb-body p-l-30">
+										<div class="form-group">
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>用户名称：</dt>
+													<dd ng-bind="userDetail.username"></dd>
+												</dl>
+											</div>
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>用户状态：</dt>
+													<dd>
+														<button class="btn btn-xs disabled" style="width:50px;" ng-class="{'NORMAL':'btn-success','ABNORMAL':'btn-warning'}[userDetail.status]" title="{{userDetail.status|cnUser:'status'}}" ng-bind="userDetail.status|cnUser:'status'"></button>
+													</dd>
+												</dl>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>组织机构：</dt>
+													<dd ng-bind="userDetail.departName"></dd>
+												</dl>
+											</div>
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>CPU核数：</dt>
+													<dd>{{userDetail.cpu}}核</dd>
+												</dl>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>内存大小：</dt>
+													<dd>{{userDetail.memory}}G</dd>
+												</dl>
+											</div>
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>磁盘大小：</dt>
+													<dd>{{userDetail.disk}}G</dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="">
+									<div class="pmbb-header">
+										<h5 class="console-title">联系方式</h5>
+									</div>
+									<div class="pmbb-body p-l-30">
+										<div class="form-group">
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>用户座机：</dt>
+													<dd ng-bind="userDetail.phone"></dd>
+												</dl>
+											</div>
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>移动电话：</dt>
+													<dd ng-bind="userDetail.mobile"></dd>
+												</dl>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>用户邮箱：</dt>
+													<dd ng-bind="userDetail.email"></dd>
+												</dl>
+											</div>
+											<div class="col-lg-6">
+												<dl class="dl-horizontal">
+													<dt>用户描述：</dt>
+													<dd ng-bind="userDetail.remark"></dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,76 @@
+<div ng-controller="AlarmDetailCtrl" class="clearfix detail" >
+	<div class="row wrapper-md">
+		<div class="col-md-12 m-t">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>告警策略详情</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<div class="search-box m-t-md">
+						<div class="legend">基本信息</div>
+						<div class="search-content">
+							<div class="form-group">
+								<div class="col-lg-6">
+									<label class="control-label">策略名称：</label>
+									<input class="form-control" ng-model="detailData.name"  type="text" disabled/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-box m-t-lg border-info" ng-repeat="(key,row) in thresholds">
+						<div class="legend">策略项</div>
+						<div class="search-content">
+							<div class="form-group">
+								<div class="col-lg-6 input-error-info">
+									<label class="control-label">监控项：</label>
+									<input class="form-control"  ng-model="row.measurement" type="text" disabled/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-6 input-error-info">
+									<label class="control-label">函数：</label>
+									<input class="form-control"  ng-model="row.fn" type="text" disabled/>
+								</div>
+								<div class="col-lg-6 input-error-info">
+									<label class="control-label">周期：</label>
+									<input class="form-control"  ng-model="row.period" type="text" disabled/>
+								</div>
+							</div>
+							<div class="search-box m-b-md border-success" ng-repeat="(key,item) in row.thresholds track by $index">
+								<div class="legend">监控子项</div>
+								<div class="search-content">
+									<div class="form-group">
+										<div class="col-lg-6 input-error-info">
+											<label class="control-label">监控子项：</label>
+											<input class="form-control"  ng-model="item.instance" type="text" disabled/>
+										</div>
+										<div class="col-lg-6 input-error-info">
+											<label class="control-label">运算方式：</label>
+											<input class="form-control"  ng-model="item.sign" type="text" disabled/>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-lg-6">
+											<label class="control-label text-info">提醒阙值：</label>
+											<input class="form-control"  ng-model="item.remind" type="text" disabled/>
+										</div>
+										<div class="col-lg-6">
+											<label class="control-label text-warning">警告阙值：</label>
+											<input class="form-control"  ng-model="item.warn" type="text" disabled/>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-lg-6">
+											<label class="control-label text-danger">严重阙值：</label>
+											<input class="form-control"  ng-model="item.danger" type="text" disabled/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

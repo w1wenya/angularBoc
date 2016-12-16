@@ -1,0 +1,89 @@
+<div class="content-byc image-content" ng-controller="securityDetailModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">安全组详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>安全组ID：</dt>
+                                                    <dd ng-bind="securityDetail.id"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>安全组名：</dt>
+                                                    <dd ng-bind="securityDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>创建时间：</dt>
+                                                    <dd ng-bind="securityDetail.gmtCreate"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>所在区域：</dt>
+                                                    <dd ng-bind="securityDetail.regionName"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">详细信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>租户ID：</dt>
+                                                    <dd ng-bind="securityDetail.tenantId"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>uuid：</dt>
+                                                    <dd ng-bind="securityDetail.uuid"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>描述：</dt>
+                                                    <dd ng-bind="securityDetail.remark"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

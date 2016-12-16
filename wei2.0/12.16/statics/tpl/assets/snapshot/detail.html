@@ -1,0 +1,68 @@
+<div class="content-byc image-content" ng-controller="snapshotDetailModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">快照详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;padding-top:0;">
+                            <div class="form-horizontal">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>快照ID：</dt>
+                                                    <dd ng-bind="snapshotDetail.snapshotId"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>快照名称：</dt>
+                                                    <dd ng-bind="snapshotDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>快照状态：</dt>
+                                                    <dd ng-bind="snapshotDetail.status1"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>云硬盘ID：</dt>
+                                                    <dd ng-bind="snapshotDetail.volumeId"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>大小：</dt>
+                                                    <dd ng-bind="snapshotDetail.size"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

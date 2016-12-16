@@ -1,0 +1,65 @@
+<div class="content-byc image-content" ng-controller="integrateJobCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">任务列表</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="col-md-12">
+                                    <table class="table table-striped b-light m-b-xxs">
+                                        <thead class="table-header">
+                                        <tr>
+                                            <th width="15%" class="font-15 text-center">任务名称</th>
+                                            <th width="25%" class="font-15 text-center">作业地址</th>
+                                            <th width="15%" class="font-15 text-center">创建时间</th>
+                                            <th class="text-center td-operate font-15" width="15%">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="table-content" ng-repeat="row in ciJobList" ng-if="!isImageData">
+                                            <td width="15%" class="font-15 text-center text-overflow" style="max-width:221px;" title="{{row.name}}"  ng-bind="row.name"></td>
+                                            <td width="25%" class="font-15 text-center text-overflow" style="max-width:365px;" title="{{row.jobUrl}}" ng-bind="row.jobUrl"></td>
+                                            <td width="15%" class="font-15 text-center" style="max-width:221px;" title="{{row.gmtCreate}}" ng-bind="row.gmtCreate"></td>
+                                            <td width="15%" class="td-operate text-center">
+                                                <button class="btn btn-primary btn-sm" ng-click="goDeploy(row)">
+                                                    <i class="fa fa-reorder"></i>
+                                                    <span class="">立即构建</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="isImageData">
+                                            <td class="td-nodata" colspan="5">暂无数据</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix">
+                                        <div class="col-sm-6">
+                                            <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                        </div>
+                                        <div class="col-sm-6 text-right" style="margin-top: 10px;">
+                                            <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="go-back" ng-click="goBack()">-->
+                    <!--<div class="head"><i class="glyphicon glyphicon-chevron-left"></i></div>-->
+                    <!--<div class="content">返回列表</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+    </div>
+</div>

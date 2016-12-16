@@ -1,0 +1,100 @@
+.dashborad .cell{
+  display: block;
+  cursor: default;
+}
+.cell img{
+  width: 80px;
+  height: 80px;
+}
+.small-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin: 20px 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  height: 155px;
+  color: #fff;
+}
+.small-box-h {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+  height: 100%;
+  padding-top: 20px;
+}
+.small-box-h .small-box-p{
+  margin: 0;
+  font-size:50px;
+  height: 80px;
+  overflow: hidden;
+}
+.small-box-h img{
+  width: 90px;
+}
+.small-box-count{
+  width: 65%;
+  padding: 10px 5px 5px 20px;
+}
+.font-large{
+  font-size: 40px;
+}
+.s-bg-primary{
+  background-color: #7C79B6;
+}
+.bg-primary-h{
+  background-color: #7270A8;
+}
+.s-bg-green{
+  background-color: #58C386;
+}
+.bg-green-h{
+  background-color: #51B47B;
+}
+.s-bg-yellow{
+  background-color: #EFB04E;
+}
+.bg-yellow-h{
+  background-color: #DCA249;
+}
+.s-bg-aqua {
+  background-color: #4C9CFF;
+}
+.bg-aqua-h {
+  background-color: #4790EB !important;
+}
+.dashborad-task .chart{
+  height: 400px;
+  padding-top: 15px
+}
+.graph-detail{
+  display: none;
+  min-width: 220px;
+  color: #fff;
+  position: absolute;
+  border-radius: 4px;
+  top: 10px;
+  left: 20px;
+}
+.graph-detail .detail-title{
+  padding: 10px;
+  text-align: center;
+  background: #000;
+  opacity:0.8;
+}
+.graph-detail .detail-content{
+  background: #333;
+  opacity:0.8;
+  padding: 10px;
+}
+.entry-trangle{
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  top: -8px;
+  left: 20px;
+  border-width: 0 8px 8px;
+  border-bottom-color: #000;
+}

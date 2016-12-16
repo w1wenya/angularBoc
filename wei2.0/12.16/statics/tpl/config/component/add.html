@@ -1,0 +1,72 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+	<p class="modal-title panel-title-size">新增组件</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addUserForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="col-lg-2 control-label">名称：</label>
+				<div class="col-lg-10 control-input">
+					<select class="form-control" validator="required" name="name" ng-model="name" ng-change="change(name)">
+						<option value="">--请选择--</option>
+						<option value="CPU">CPU</option>
+						<option value="MEMORY">MEMORY</option>
+						<option value="DISK">DISK</option>
+					</select>
+					<!--<input type="text" name="name" class="form-control" validator="required" ng-model="name">-->
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="col-lg-2 control-label">类型：</label>
+				<div class="col-lg-10 control-input">
+					<input type="number" name="type" class="form-control" pattern="^[0-9]*[1-9][0-9]*$" validator="required" ng-model="type">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="col-lg-2 control-label">价格：</label>
+				<div class="col-lg-10 control-input">
+					<input type="number" name="number" style='width: 85%;' class="col-lg-10 form-control" validator="required" ng-model="price">
+					<span class="col-lg-1" style='line-height: 34px;position: absolute;top: 0;right: 25px;'>元</span>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="col-lg-2 control-label">周期：</label>
+				<div class="col-lg-10 control-input">
+					<input type="number" name="period" style='width: 85%;' pattern="^[0-9]*[1-9][0-9]*$" class="col-lg-10 form-control" validator="required" ng-model="period">
+					<span class="col-lg-1" style='line-height: 34px;position: absolute;top: 0;right: 25px;'>月</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="col-lg-2 control-label">时间范围：</label>
+				<div class="col-lg-10 control-input">
+					<input class="form-control" ui-jq="daterangepicker"
+						ui-options="{format: 'YYYY/MM/DD'}"
+						name="text" validator="required" readonly="readonly" ng-model="addPriceTime" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="col-lg-2 control-label">单位：</label>
+				<div class="col-lg-10 control-input">
+					<input type="text" name="company" readonly="readonly" class="form-control" validator="required" ng-model="unit">
+				</div>
+			</div>
+			<!--<div class="col-lg-6">
+				<label class="col-lg-2 control-label">结束时间：</label>
+				<div class="col-lg-10 control-input">
+					<input class="form-control" ui-jq="daterangepicker"
+						ui-options="{format: 'YYYY/MM/DD',singleDatePicker: true}"
+						name="text" readonly="readonly" validator="required" ng-model="priceEnd" />
+				</div>
+			</div>-->
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addUserForm" ng-disabled="addUserForm.$invalid" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

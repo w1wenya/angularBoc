@@ -1,0 +1,76 @@
+<div ng-controller="DataCenterCtrl" class="content-byc">
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12 search-box m-b-md">
+				<div class="legend">查询条件</div>
+				<div class="search-content">
+					<div class="form-group">
+						<label class="control-label">中心名称：</label>
+						<input type="text" class="form-control" ng-model="name" placeholder="请输入数据中心名称"/>
+					</div>
+				</div>
+				<div class="search-btn">
+					<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+					<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+					<button class="btn btn-info w-xs" ng-click="add($event)"><i class="fa fa-plus"></i> 新增</button>
+				</div>
+			</div>
+			<div class="col-md-12 cart_body">
+				<div class="col-md-12 list-byc">
+					<ul class="list-ul" ng-if="totalCount">
+						<li class="list-li" ng-repeat="(key,row) in dataCenterList" ng-click="goDetail($event,row.id)">
+							<div class="list-li-div" ng-class="{true:'border-color',false:'normal-border-color'}[row.isChose]">
+								<div class="name" title="{{row.name}}" ng-bind="row.name"></div>
+								<div class="operation">
+									<i class="fa fa-bars icon-font" aria-hidden="true"></i>
+
+									<div class="operation-box operation-box-hidden">
+										<div class="operation-box-icon" ng-click="update($event,row.id)"><a href="javascript:void(0)"><i
+												class="fa fa-pencil-square-o icon-font1"></i>&nbsp;修改</a></div>
+										<div class="operation-box-icon" ng-click="remove($event,row.id)"><a href="javascript:void(0)"><i
+												class="fa fa-minus-circle icon-font1"></i>&nbsp;删除</a></div>
+										<div class="operation-box-icon" ng-click="goDetail($event,row.id)"><a href="javascript:void(0)"><i
+												class="fa fa-info-circle icon-font1"></i>&nbsp;详情</a></div>
+										<!--<div class="operation-box-icon" ng-click="goMonitor($event,row.id)"><a href="javascript:void(0)"><i-->
+												<!--class="fa fa-pie-chart icon-font1"></i>&nbsp;监控</a></div>-->
+									</div>
+								</div>
+								<div class="text">
+									<p title="{{row.status}}">状态：{{row.status|cn:'status'}}</p>
+
+									<p title="{{row.remark}}">描述：{{row.remark}}</p>
+								</div>
+								<div class="shadow-content" ng-if="isbacthmanage">
+									<div class="shadow"></div>
+									<div class="check" ng-class="{true:'check-position'}[row.isChose]"
+									     ng-click="chooseRepository($event,row.id)">
+										<img src="/statics/img/check.png" width="32" height="32" ng-show="row.isChose">
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<!--<div class="" ng-if="!totalCount">-->
+					<!--<div class="byc_addnode">-->
+					<!--<p class="byc_addpage">你可以添加一个集群</p>-->
+					<!--<div class="byc_btnsize" ng-click="addCluster($event)">-->
+					<!--<button type="submit" class="btn sub-btn byc_addbtn" tabindex="0">新增</button>-->
+					<!--</div>-->
+					<!--</div>-->
+					<!--</div>-->
+					<div class="col-md-12 clearfix">
+						<div class="col-sm-6">
+							<div class="paginationTables_info_one">总共<span ng-bind="totalCount"></span>条, 每页<span
+									ng-bind="param.rows"></span>条
+							</div>
+						</div>
+						<div class="col-sm-6 text-right" style="margin-top:-10px;">
+							<pagination boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getClusterList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

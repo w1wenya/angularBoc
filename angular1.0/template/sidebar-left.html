@@ -29,51 +29,64 @@
             <a href="" toggle-submenu><i class="zmdi zmdi-view-compact"></i> 基础设施</a>
 
             <ul>
-                <li><a data-ui-sref-active="active" data-ui-sref="basis.host" data-ng-click="mactrl.sidebarStat($event)">主机管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="basis.image-logo" data-ng-click="mactrl.sidebarStat($event)">集群管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="basis.image-logo" data-ng-click="mactrl.sidebarStat($event)">网络管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="basis.mainmenu-on-top" data-ng-click="mactrl.sidebarStat($event)">镜像仓库</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="basis.mainmenu-on-top" data-ng-click="mactrl.sidebarStat($event)">负载均衡</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.host" data-ng-click="mactrl.sidebarStat($event)">资源池</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.storage" data-ng-click="mactrl.sidebarStat($event)">存储券</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.network" data-ng-click="mactrl.sidebarStat($event)">网络管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="basis.warehouse" data-ng-click="mactrl.sidebarStat($event)">镜像仓库</a></li>
             </ul>
         </li>
 
-        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('widgets') }">
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('collocate') }">
             <a href="" toggle-submenu><i class="zmdi zmdi-widgets"></i> 配置中心</a>
 
             <ul>
-                <li><a data-ui-sref-active="active" data-ui-sref="widgets.widget-templates" data-ng-click="mactrl.sidebarStat($event)">环境管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="widgets.widgets" data-ng-click="mactrl.sidebarStat($event)">参数管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="widgets.widgets" data-ng-click="mactrl.sidebarStat($event)">弹性策略</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="collocate.resource" data-ng-click="mactrl.sidebarStat($event)">资源配置</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="collocate.applycollocate" data-ng-click="mactrl.sidebarStat($event)">应用配置</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="collocate.files" data-ng-click="mactrl.sidebarStat($event)">文件配置</a></li>
              </ul>
         </li>
         
-        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('tables') }">
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('application') }">
             <a href="" toggle-submenu><i class="zmdi zmdi-view-list"></i> 应用管理</a>
 
             <ul>
-                <li><a data-ui-sref-active="active" data-ui-sref="tables.tables" data-ng-click="mactrl.sidebarStat($event)">应用集成</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="tables.data-table" data-ng-click="mactrl.sidebarStat($event)">构建应用</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="tables.tables" data-ng-click="mactrl.sidebarStat($event)">应用镜像</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="tables.data-table" data-ng-click="mactrl.sidebarStat($event)">应用发布</a></li>
-
+                <li><a data-ui-sref-active="active" data-ui-sref="application.image" data-ng-click="mactrl.sidebarStat($event)">应用镜像</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="application.deploy" data-ng-click="mactrl.sidebarStat($event)">应用部署</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="application.tasklist" data-ng-click="mactrl.sidebarStat($event)">应用编排</a></li>
             </ul>
         </li>
         
-        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('form') }">
-            <a href="" toggle-submenu><i class="zmdi zmdi-collection-text"></i> 系统维护</a>
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('system') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-apps"></i> 系统维护</a>
 
             <ul>
-             <li><a data-ui-sref-active="active" data-ui-sref="form.form-validations" data-ng-click="mactrl.sidebarStat($event)">日志管理</a></li>
+             <li><a data-ui-sref-active="active" data-ui-sref="system.s_control" data-ng-click="mactrl.sidebarStat($event)">接入控制</a></li>
+             <li><a data-ui-sref-active="active" data-ui-sref="system.s_vocabulary" data-ng-click="mactrl.sidebarStat($event)">数据字典</a></li>
+             <li><a data-ui-sref-active="active" data-ui-sref="system.s_availability" data-ng-click="mactrl.sidebarStat($event)">高可用</a></li>
             </ul>
         </li>
-
-        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('user-interface') }">
-            <a href="" toggle-submenu><i class="zmdi zmdi-swap-alt"></i>用户中心</a>
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('monitoring') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-trending-up"></i>监控中心</a>
             <ul>
-                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.ui-bootstrap" data-ng-click="mactrl.sidebarStat($event)">租户管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.colors" data-ng-click="mactrl.sidebarStat($event)">用户管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.animations" data-ng-click="mactrl.sidebarStat($event)">角色管理</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.other-components" data-ng-click="mactrl.sidebarStat($event)">权限管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="monitoring.m_resource" data-ng-click="mactrl.sidebarStat($event)">资源监控</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="monitoring.m_apply" data-ng-click="mactrl.sidebarStat($event)">应用监控</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="monitoring.m_serve" data-ng-click="mactrl.sidebarStat($event)">服务监控</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('log') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-collection-text"></i>日志中心</a>
+            <ul>
+                <li><a data-ui-sref-active="active" data-ui-sref="log.l_system" data-ng-click="mactrl.sidebarStat($event)">系统日志</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="log.l_apply" data-ng-click="mactrl.sidebarStat($event)">应用日志</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="log.l_gather" data-ng-click="mactrl.sidebarStat($event)">日志收集</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('user-interface') }">
+            <a href="" toggle-submenu><i class="zmdi zmdi-account"></i>用户中心</a>
+            <ul>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.users" data-ng-click="mactrl.sidebarStat($event)">用户管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.role" data-ng-click="mactrl.sidebarStat($event)">角色管理</a></li>
+                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.jurisdiction" data-ng-click="mactrl.sidebarStat($event)">权限管理</a></li>
             </ul>
         </li>
 

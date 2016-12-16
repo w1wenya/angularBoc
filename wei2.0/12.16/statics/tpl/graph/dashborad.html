@@ -1,0 +1,135 @@
+<div  class="clearfix">
+	<div class="row wrapper dashborad" ng-controller="DashboradGraphCtrl">
+		<div class="col-md-12">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">平台总体情况</div>
+				<div class="panel-detail">
+					<div class="col-md-3">
+						<div class="small-box s-bg-primary">
+							<div class="small-box-h text-center bg-primary-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/status_general.png" alt=""></p>
+								<p>总体状态</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.platform.status|cn:'status'"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="small-box s-bg-green">
+							<div class="small-box-h text-center bg-green-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/status_case.png" alt=""></p>
+								<p>实例数</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.platform.instances"></div>
+								<div>
+									<div>开机：{{dashboradData.platform.onlines}}</div>
+									<div>关机：{{dashboradData.platform.offlines}}</div>
+									<div>异常：{{dashboradData.platform.errors}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="small-box s-bg-yellow">
+							<div class="small-box-h text-center bg-yellow-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/tenant.png" alt=""></p>
+								<p>租户数量</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.platform.tenants"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="small-box s-bg-aqua">
+							<div class="small-box-h text-center bg-aqua-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/alarm.png" alt=""></p>
+								<p>告警数量</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large">{{dashboradData.platform.alarms}}</div>
+								<div>
+									<div>提醒：{{dashboradData.platform.reminds}}</div>
+									<div>警告：{{dashboradData.platform.warns}}</div>
+									<div>危险：{{dashboradData.platform.dangers}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 m-b">
+			<div class="panel panel-default">
+				<div class="panel-heading">资源统计信息</div>
+				<div class="panel-detail">
+					<div class="col-md-4 m-b">
+						<a class="cell">
+							<img src="/statics/img/dashborad/datacenter.png" alt=""/>
+							<span ng-bind="dashboradData.resource.centers"></span>个数据中心
+						</a>
+						<a class="cell">
+							<img src="/statics/img/dashborad/room.png" alt=""/>
+							<span ng-bind="dashboradData.resource.rooms"></span>个机房
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a class="cell">
+							<img src="/statics/img/dashborad/rack.png" alt=""/>
+							<span ng-bind="dashboradData.resource.racks"></span>个机柜
+						</a>
+						<a class="cell">
+							<img src="/statics/img/dashborad/host.png" alt=""/>
+							<span ng-bind="dashboradData.resource.servers"></span>个主机
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a class="cell">
+							<img src="/statics/img/dashborad/host_cloud.png" alt=""/>
+							<span ng-bind="dashboradData.resource.cloudServers"></span>个云主机
+						</a>
+						<a class="cell">
+							<img src="/statics/img/dashborad/database.png" alt=""/>
+							<span ng-bind="dashboradData.resource.databases"></span>个云数据库
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 m-b">
+			<div class="panel panel-default">
+				<div class="panel-heading">平台资源分布</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 360px" ng-graph-dashborad-pie-chart="" theme="'平台资源分布'"  data="dashboradData.distributeResource">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 m-b">
+			<div class="panel panel-default">
+				<div class="panel-heading">租户资源分布</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 360px" ng-graph-dashborad-pie-chart="" theme="'租户资源分布'" data="dashboradData.tenantResource">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">告警状态统计</div>
+				<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 360px" ng-graph-dashborad-pie-chart="" theme="'告警状态统计'" data="dashboradData.alarms">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">租户告警统计</div>
+				<div class="panel-detail chart" ng-if="isDataLoad" style="height: 360px" ng-graph-dashborad-bar-chart="" data="dashboradData.tenantAlarm">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

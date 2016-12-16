@@ -1,0 +1,85 @@
+<div class="clearfix script-content" ng-controller="MachineListCtrl" >
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12 search-box m-b-md">
+					<div class="legend">查询条件</div>
+					<div class="search-content">
+						<div class="form-group">
+							<label class="control-label">Ip：</label>
+							<input type="text" class="form-control" ng-model="name" placeholder="请输入Ip"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">状态：</label>
+							<select class="form-control"ng-model="level">
+								<option value="">全部</option>
+								<option ng-repeat="(key,item) in levelData" value="{{item.value}}" ng-bind="item.name"></option>
+
+							</select>
+						</div>
+
+					</div>
+					<div class="search-btn m-t">
+						<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+						<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+						<button class="btn btn-info" ng-click="import()"><i class="fa fa-plus"></i> 导入</button>
+						<button class="btn btn-info" ng-click="export()"><i class="fa fa-plus"></i> 导出</button>
+						<button class="btn btn-info" ng-click="install()"><i class="fa fa-plus"></i> 安装</button>
+						<button class="btn btn-info" ng-click="refresh()"><i class="fa fa-plus"></i> 刷新</button>
+					</div>
+				</div>
+			<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-striped b-light m-b-xxs">
+							<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center">
+									<label class="i-checks m-b-none" ng-click="selectAll()"><input type="checkbox" ng-model="isSelectAll"><i></i></label>
+								</th>
+								<th class="text-center" >主机名称</th>
+								<th class="text-center">IP</th>
+								<th class="text-center">管理口IP</th>
+								<th class="text-center">MAC地址</th>
+								<th class="text-center">S/N</th>
+								<th class="text-center">操作系统版本</th>
+								<th class="text-center">状态</th>
+								<th class="text-center">电源状态</th>
+								<th class="text-center">日志</th>
+								<th class="text-center" style="min-width: 200px">操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="(key,row) in listData">
+								<td class="text-center">
+									<label class="i-checks m-b-none"><input ng-bind="row.id" type="checkbox" ng-model="row.isSelected"><i></i></label>
+								</td>
+								<td class="text-center" ng-bind="row.name"></td>
+								<td class="text-center" ng-bind="row.measurement"></td>
+								<td class="text-center" ng-bind="row.measurement2"></td>
+								<td class="text-center" ng-bind="row.mac"></td>
+								<td class="text-center" ng-bind="row.sn"></td>
+								<td class="text-center" ng-bind="row.configId"></td>
+								<td class="text-center" ng-bind="row.status"></td>
+								<td class="text-center" ng-bind="row.nesstatus"></td>
+								<td class="text-center" ng-bind="row.log"></td>
+								<td class="text-center">
+
+									<button class="btn btn-sm btn-danger" ng-click="remove(row.id)"><i class="fa fa-trash-o icon-font"></i> 删除</button>
+									<button class="btn btn-sm btn-info" ng-click="goDetail(row.id)"><i class="fa fa-info"></i> 详情</button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<div class="col-sm-6">
+								<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+								</div>
+							</div>
+							<div class="col-sm-6 text-right">
+								<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

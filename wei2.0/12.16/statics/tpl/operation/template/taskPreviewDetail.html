@@ -1,0 +1,367 @@
+<div class="search-box m-t-md">
+			<div class="legend">基本信息</div>
+			<div class="search-content">
+				<div class="form-group">
+					<div class="col-md-6">
+						<label class="control-label">作业名称：</label>
+						<input type="text" name="name" class="form-control task-name-input" ng-model="detailData.name" disabled/>
+					</div>
+					<div class="col-md-6">
+						<label class="control-label">应用场景：</label>
+						<input type="text" name="scenne" class="form-control task-name-input" ng-model="detailData.remark" disabled/>
+					</div>
+				</div>
+			</div>
+			<div class="search-btn m-t-sm">
+				<button class="btn btn-danger w-sm m-r-md"  ng-click="execute()" ><i class="fa fa-life-saver"></i>&nbsp;执行</button>
+				<button class="btn btn-success w-sm" ng-click="goPage(1)"><i class="fa fa-reply icon-font"></i> 返回</button>
+			</div>
+		</div>
+<div class="search-box m-t-md">
+		<div class="legend">节点信息</div>
+		<div class="search-content" style="border-bottom: none">
+			<div class="panel">
+					<canvas id="canvasdetail">sorry,your browser do not support canvas label</canvas>
+			</div>
+		</div>
+	</div>
+<div class="search-box m-t-md">
+	<div class="legend">节点详情</div>
+	<div class="row search-content task-node-detail" ng-show="!isShowInfo">
+		请点击节点获取相应信息
+	</div>
+	<div class="row search-content task-node-detail" ng-if="isShowInfo">
+		<div class="col-md-12 task-node m-b" ng-if="(nodeData.type=='SCRIPT')">
+				<table class="task-table table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">节点名称</th>
+						<th class="text-center">认证方式</th>
+						<th class="text-center">执行账户</th>
+						<th class="text-center w-sm">服务器数</th>
+						<th class="text-center">脚本参数</th>
+						<th class="text-center w">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.name" disabled></span>
+						</td>
+						<td class="text-center">
+						  <span class="form-control" ng-bind="nodeData.identMode|cn:'identMode'" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.username" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.targets.length" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.params" disabled ></span>
+						</td>
+						<td class="text-center">
+							<label class="i-checks m-t-xs"><input type="checkbox" ng-model="nodeData.suspendable" disabled><i></i>完成暂停</label>
+							<label class="i-checks m-t-xs"><input type="checkbox" ng-model="nodeData.failover" disabled><i></i>失败重试</label>
+						</td>
+					</tr>
+					<tr ng-if="nodeData.suspendable">
+						<td class="text-center" colspan="3">
+							<label>暂停描述：</label>
+							<input type="text" class="inline form-control" style="width:70%" ng-model="nodeData.description" disabled/>
+						</td>
+						<td class="text-center" colspan="3"></td>
+					</tr>
+					<tr ng-if="nodeData.failover">
+						<td class="text-center" colspan="3">
+							<label>重试次数：</label>
+							<input type="number" class="inline form-control" style="width:70%"  ng-model="nodeData.retryTime" disabled/>
+						</td>
+						<td class="text-center" colspan="3">
+							<label>重试时间/秒：</label>
+							<input type="number" class="inline form-control" style="width:70%" ng-model="nodeData.intervalTime" disabled/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<form>
+								<div class="col-md-12 m-b">
+									<label class="control-label">脚本内容：</label>
+									<div class="control-input" ng-code-mirror2="" data="nodeData.script.content" >
+										<div class="code-type">
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="SHELL" ng-model="nodeData.script.type" disabled><i></i> shell
+											</label>
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="BAT"  ng-model="nodeData.script.type" disabled><i></i> bat
+											</label>
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="PERL"  ng-model="nodeData.script.type" disabled><i></i> perl
+											</label>
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="PYTHON"  ng-model="nodeData.script.type" disabled><i></i> python
+											</label>
+											<a href="">
+												<i class="icon-size-fullscreen pull-right m-t-sm m-r-sm" ></i>
+											</a>
+										</div>
+										<textarea class="textarea"></textarea>
+									</div>
+								</div>
+								<div class="col-md-12 m-b-sm">
+									<label class="control-label">超时时间：</label>
+									<input type="number" class="form-control control-input" ng-model="nodeData.timeout" style="width: 72%"/>
+								</div>
+								<div class="col-md-12">
+									<label class="control-label">服务器集：</label>
+									<div class="server-list">
+										<table st-table="displayListData" st-safe-src="nodeData.targets" class="table table-striped">
+											<thead>
+											<tr>
+												<th class=""> IP</th>
+												<th>状态</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-if="(serverListData.length==0)">
+												<td class="text-center" colspan="3">请选择服务器</td>
+											</tr>
+											<tr ng-repeat="row in displayListData">
+												<td class="text-left" ng-bind="row.ip"></td>
+												<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+												<td class="text-center">
+													<button class="btn btn-xs w-xxs btn-danger" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+											<tfoot>
+											<tr>
+												<td colspan="2" class="text-left">
+													<div>每页5条，共选择{{cell.targets.length}}条</div>
+												</td>
+												<td colspan="3" class="text-right">
+													<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+													     st-displayed-pages="7" class="no-margin"></div>
+												</td>
+											</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		<div class="col-md-12 task-node m-b" ng-if="(nodeData.type=='FILE')">
+				<table class="task-table table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">节点名称</th>
+						<th class="text-center">认证方式</th>
+						<th class="text-center">执行账户</th>
+						<th class="text-center w-sm">目标机器</th>
+						<th class="text-center">目标路径</th>
+						<th class="text-center w">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.name" disabled></span>
+						</td>
+						<td class="text-center">
+						<span class="form-control" ng-bind="nodeData.identMode|cn:'identMode'" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.username" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.targets.length" disabled ></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.targetPath" disabled></span>
+						</td>
+						<td class="text-center">
+							<label class="i-checks m-t-xs"><input type="checkbox" ng-model="nodeData.suspendable" disabled><i></i>完成暂停</label>
+							<label class="i-checks m-t-xs"><input type="checkbox" ng-model="nodeData.failover" disabled><i></i>失败重试</label>
+						</td>
+					</tr>
+					<tr ng-if="nodeData.suspendable">
+						<td class="text-center" colspan="3">
+							<label>暂停描述：</label>
+							<input type="text" class="inline form-control" style="width:70%" ng-model="nodeData.description" disabled/>
+						</td>
+						<td class="text-center" colspan="3"></td>
+					</tr>
+					<tr ng-if="nodeData.failover">
+						<td class="text-center" colspan="3">
+							<label>重试次数：</label>
+							<input type="number" class="inline form-control" style="width:70%"   ng-model="nodeData.retryTime" disabled/>
+						</td>
+						<td class="text-center" colspan="3">
+							<label>重试时间/秒：</label>
+							<input type="number" class="inline form-control" style="width:70%"  ng-model="nodeData.intervalTime" disabled/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<form>
+								<div class="col-md-12">
+									<label class="control-label">文件列表：</label>
+									<div class="server-list">
+										<table class="table table-striped b-light">
+											<thead>
+											<tr>
+												<th class="text-center">文件列表</th>
+												<th class="text-center">服务器地址</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="row in nodeData.files">
+												<td class="text-center" ng-bind="row.name"></td>
+												<td class="text-center">-</td>
+												<td class="text-center">
+													<button type="button" class="btn btn-default btn-xs" disabled>修改</button>
+													<button type="button" class="btn btn-default btn-xs" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-12 m-b-sm">
+									<label class="control-label">超时时间：</label>
+									<input type="number" class="form-control control-input" ng-model="nodeData.timeout" style="width: 72%"/>
+								</div>
+								<div class="col-md-12">
+									<label class="control-label">服务器集：</label>
+									<div class="server-list">
+										<table st-table="displayListData" st-safe-src="nodeData.targets" class="table table-striped">
+											<thead>
+											<tr>
+												<th class=""> IP</th>
+												<th>状态</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="row in displayListData">
+												<td class="text-left" ng-bind="row.ip"></td>
+												<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+												<td class="text-center">
+													<button class="btn btn-xs w-xxs btn-danger" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+											<tfoot>
+											<tr>
+												<td colspan="2" class="text-left">
+													<div>每页5条，共选择{{cell.targets.length}}条</div>
+												</td>
+												<td colspan="3" class="text-right">
+													<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+													     st-displayed-pages="7" class="no-margin"></div>
+												</td>
+											</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		<div class="col-md-12 task-node m-b" ng-if="(nodeData.type=='BACKUP')">
+				<table class="task-table table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">节点名称</th>
+						<th class="text-center">认证方式</th>
+						<th class="text-center">执行账户</th>
+						<th class="text-center w-sm">服务器数</th>
+						<th class="text-center">备份路径</th>
+						<th class="text-center w">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.name" disabled></span>
+						</td>
+						<td class="text-center">
+						<span class="form-control" ng-bind="nodeData.identMode|cn:'identMode'" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.username" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.targets.length" disabled></span>
+						</td>
+						<td class="text-center">
+							<span class="form-control" ng-bind="nodeData.sourcePath" disabled></span>
+						</td>
+						<td class="text-center">
+							<label class="i-checks m-t-xs"><input type="checkbox" ng-model="nodeData.failover" disabled><i></i>失败重试</label>
+						</td>
+					</tr>
+					<tr ng-if="nodeData.failover">
+						<td class="text-center" colspan="3">
+							<label>重试次数：</label>
+							<input type="number" class="inline form-control" style="width:70%"   ng-model="nodeData.retryTime" disabled/>
+						</td>
+						<td class="text-center" colspan="3">
+							<label>重试时间/秒：</label>
+							<input type="number" class="inline form-control" style="width:70%"  ng-model="nodeData.intervalTime" disabled/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<form>
+								<div class="col-md-12">
+									<label class="control-label">服务器集：</label>
+									<div class="server-list">
+										<table st-table="displayListData" st-safe-src="nodeData.targets" class="table table-striped">
+											<thead>
+											<tr>
+												<th class=""> IP</th>
+												<th>状态</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="row in displayListData">
+												<td class="text-left" ng-bind="row.ip"></td>
+												<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+												<td class="text-center">
+													<button class="btn btn-xs w-xxs btn-danger" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+											<tfoot>
+											<tr>
+												<td colspan="2" class="text-left">
+													<div>每页5条，共选择{{nodeData.targets.length}}条</div>
+												</td>
+												<td colspan="3" class="text-right">
+													<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+													     st-displayed-pages="7" class="no-margin"></div>
+												</td>
+											</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+</div>

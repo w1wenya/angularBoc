@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <p class="modal-title panel-title-size">新增软件</p>
+</div>
+<div class="modal-body panel-body">
+    <form class="form-horizontal form-validation" name="addManageSoftwareForm">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">软件名称：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="name" class="form-control" ng-model="addData.name" validator="required" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">软件分组：</label>
+                <div class="col-lg-10 addcombotree2">
+                    <div software-combotree id="mycombotree2" tree-data="treeData" path="path" group-id="groupId" index="index" class="easyui-combotree control-input"></div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">文件路径：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="path" class="form-control" ng-model="path" validator="required,path" maxlength="64">
+                </div>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">文件上传：</label>
+                <div class="col-lg-8" ng-if="isShowUploadFile" style="padding:0;margin:0 8px 0 15px;width:75%;">
+                    <input type="file" id="arrangement_upApp" name="arrangement_upApp" class="form-control" style="padding:4px 12px 3px 12px;" custom-on-change="uploadFile">
+                </div>
+                <div class="" style="margin-top:0px;margin-left:-22px;" ng-if="isShowUploadFile">
+                    <button type="submit" class="btn btn-success" ng-disabled="isUploadFile&&groupId" ng-click="submitUploadFile($event)">上传</button>
+                </div>
+                <div class="col-lg-10" style="margin-top:10px;" ng-if="!isShowUploadFile">
+                    <div class="" style="width:100%;">
+                        <div class="num-column" style="border:none;">
+                            <span ng-bind="showUploadFileName"></span>
+                            <progressbar value="uploadFileRate" class="progress-xs upload-file-bar" animate="true" type="success"></progressbar>
+                            <span class="pull-right text-info dataCenter-barnum1 upload-file-rate">{{uploadFileRate+'%'}}<i class="fa fa-times" aria-hidden="true" ng-show="isDeleteUploadFile" ng-click="deleteUploadFile($event)" style="padding-left: 5px;"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8" style="margin-left:85px;margin-top: 5px;" ng-show="isCheckUploadFileName">
+                    <span class="choose-uploadfile" ng-bind="checkUploadMessage"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">软件描述：</label>
+                <div class="col-lg-10 control-input">
+                    <textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" validation-submit="addManageSoftwareForm" ng-disabled="addManageSoftwareForm.$invalid" ng-click="ok()">确认</button>
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

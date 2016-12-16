@@ -1,0 +1,77 @@
+
+<section id="content" >
+	<div class="container c-alt">
+	<div class="wrapper-md">
+		<div class="panel panel-default" ng-controller="TaskTplCtrl" >
+			<div class="col-sm-12 col-xs-12btn-demo card-header">
+				<div class="col-sm-2 col-xs-6 operation-icon" ng-click="addTpl(10,'')">
+					<button  class="btn btn-info "> <i class="zmdi zmdi-compass"></i> 新建模板</button>
+				</div>
+
+				<ul class="actions">
+					<li class="dropdown" uib-dropdown>
+						<a href="" uib-dropdown-toggle>
+							<i class="zmdi zmdi-more-vert"></i>
+						</a>
+
+						<ul class="dropdown-menu dropdown-menu-right center">
+							<li><a href="">移入集群</a></li>
+							<li><a href="">移出集群</a> </li>
+							<li><a href="">批量删除</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+			<div>
+				<div class="card-body table-responsive">
+					<table class="table center">
+						<thead>
+						<tr>
+							<th class="text-center">作业名称</th>
+							<th class="text-center">步骤数</th>
+							<th class="text-center">创建人</th>
+							<th class="text-center">最后修改人</th>
+							<th class="text-center">创建时间</th>
+							<th class="text-center">最后修改时间</th>
+							<th class="text-center" style="width: 300px">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="(key,row) in taskTplListData">
+							<td class="text-center" ng-bind="row.name"></td>
+							<td class="text-center" ng-bind="row.stepSize"></td>
+							<td class="text-center" ng-bind="row.creator"></td>
+							<td class="text-center" ng-bind="row.mender"></td>
+							<td class="text-center" ng-bind="row.gmtCreate"></td>
+							<td class="text-center" ng-bind="row.gmtModify"></td>
+							<td class="text-center">
+								<button class="btn btn-sm btn-primary" ng-click="goEdit(row.id,2)"><i class="fa fa-pencil"></i> 编辑</button>
+								<button class="btn btn-sm btn-danger" ng-click="remove(row.id)"><i class="fa fa-trash-o icon-font"></i>删除</button>
+								<div class="btn-group uib-dropdown table-operation" uib-dropdown="">
+									<a class="btn btn-info btn-addon" uib-dropdown-toggle=""><i class="fa fa-reorder" ></i>操作</a>
+									<ul class="uib-dropdown-menu dropdown-menu-right">
+										<li ng-click="goPreviewTask(row.id)"><a href="">执行</a></li>
+										<li ng-click="createTimeTask(row)" ><a href="">定时启动</a></li>
+										<li ng-click="goEdit(row.id,3)"><a href="">克隆</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<div class="clearfix">
+		
+						<div class="col-sm-12 text-right">
+							<uib-pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+										ng-model="param.page" ng-change="getTaskList(param.page)" previous-text="&lsaquo;"
+										next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</div>
+</section>

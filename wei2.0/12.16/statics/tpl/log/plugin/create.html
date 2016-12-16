@@ -1,0 +1,80 @@
+<div ng-controller="PluginCreateCtrl" class="clearfix detail">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>{{title}}</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal form-validation" name="addForm">
+						<div class="search-box m-t-md">
+							<div class="legend">基本信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">插件名称：</label>
+										<input type="text" name="name" class="form-control" ng-model="name" placeholder="请输入插件名称" validator="required"/>
+									</div>
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">插件类型：</label><!-- ng-change="pluginTypeChange()" -->
+										<select class="form-control" ng-model="type" name="type" validator="required" >
+											<option ng-repeat="(key,item) in pluginTypeData"  ng-selected="type==key"  value="{{key}}" ng-bind="item"></option>
+										</select>
+								</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-6 input-error-info">
+										<label class="control-label">属性名称：</label>
+										 <input type="text" name="property" class="form-control" ng-model="property" placeholder="请输入属性名称" validator="required"/> 
+										<!--<select class="form-control" ng-model="property" name="property" validator="required">
+											<option value="">--请选择--</option>
+											<option ng-repeat="(key,item) in pluginTypePropertyData" ng-selected="property==key"  value="{{key}}" ng-bind="item"></option>
+										</select>-->
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12 input-error-info">
+										<label class="control-label m-t-n-70">插件描述：</label>
+										<textarea class="form-control" name="remark" placeholder="插件描述" ng-model="remark" maxlength="256"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="search-box m-t-md">
+							<div class="legend">配置信息</div>
+							<div class="search-content">
+								<div class="form-group" ng-repeat="item in settingList track by $index">
+									<div class="col-md-5 input-error-info m-b-sm">
+										<label class="control-label">配置项：</label>
+										<input type="text" class="form-control" name="key{{$index}}" ng-model="item.key" placeholder="请输入KEY值" validator="required"/>
+									</div>
+									<div class="col-md-5 input-error-info">
+										<label class="control-label">描述：</label>
+										<input type="text" class="form-control" name="desp{{$index}}" ng-model="item.desp" placeholder="请输入描述" validator="required"/>
+									</div>
+									<div class="col-md-2 input-error-info m-t-xs">
+										<label class="i-checks"><input type="checkbox" ng-model="item.require"><i></i>是否必须</label>
+									</div>
+									<div class="col-md-11 input-error-info">
+										<label class="control-label">默认值：</label>
+										<input type="text" class="form-control" name="value{{$index}}" ng-model="item.value"
+										       placeholder="请输入VALUE值" validator="required"/>
+									</div>
+									<div class="col-md-1">
+										<button class="btn btn-xs w-3x btn-danger m-t-xs" ng-click="removeSetting($index)"><i
+												class="fa fa-minus"></i></button>
+									</div>
+								</div>
+									<button class="btn w-md btn-info m-l m-b-sm" ng-click="addSetting()"><i class="fa fa-plus"></i></button>
+							</div>
+						</div>
+					</form>
+					<div class="col-md-12 m-t-md m-b-sm btn-list" >
+						<div class="col-md-6"><button type="submit" class="btn btn-primary" validation-submit="addForm" ng-disabled="addForm.$invalid" ng-click="save()">确认</button></div>
+						<div class="col-md-6"><button class="btn btn-default" ng-click="goBack()">取消</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,102 @@
+<div ng-controller="AlarmStrategyAddCtrl" class="clearfix detail">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>告警策略配置</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal form-validation" name="addForm">
+						<div class="search-box m-t-md">
+							<div class="legend">基本信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-lg-6 input-error-info">
+										<label class="control-label">策略名称：</label>
+										<input class="form-control" name="name" placeholder="请输入策略名称" ng-model="name"  type="text" validator="required"/>
+									</div>
+								</div>
+								<div class="form-group">
+										<div class="col-md-12 input-error-info">
+											<label class="control-label m-t-n-70">策略描述：</label>
+											<textarea class="form-control" name="remark" placeholder="策略描述" ng-model="remark" maxlength="256"></textarea>
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="search-box m-t-lg border-info" ng-repeat="(key,row) in thresholds">
+							<i class="fa fa-times alarm-delete" ng-click="removeGroup(key,thresholds)"></i>
+							<div class="legend">策略项</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-lg-6 input-error-info">
+										<label class="control-label">监控项：</label>
+										<select class="form-control" name="measurement{{key}}" validator="required" ng-model="row.measurement" ng-change="getMeasureItem(row,key)">
+												<option value="">--请选择--</option>
+												<option ng-repeat="(key,item) in measurementData" ng-selected="item.value == row.measurement" value="{{item.value}}" ng-bind="item.name"></option>
+											</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-lg-6 input-error-info">
+										<label class="control-label">函数：</label>
+										<select class="form-control" name="fn{{key}}" validator="required" ng-model="row.fn">
+												<option ng-repeat="(key,item) in fnData" ng-selected="item.name == row.fn" value="{{item.name}}" ng-bind="item.name"></option>
+											</select>
+									</div>
+									<div class="col-lg-6 input-error-info">
+										<label class="control-label">周期/秒：</label>
+										<input class="form-control" name="period{{key}}" placeholder="周期/秒" ng-model="row.period" validator="required,number" type="text" />
+									</div>
+								</div>
+								<div class="search-box m-t-md border-success" ng-repeat="(key,item) in row.thresholds track by $index">
+									<i class="fa fa-times alarm-delete" ng-click="removeItem(key,row.thresholds)"></i>
+									<div class="legend">监控子项</div>
+									<div class="search-content">
+										<div class="form-group">
+											<div class="col-lg-6 input-error-info">
+												<label class="control-label">监控子项：</label>
+												<select class="form-control" name="instance{{key}}" validator="required" ng-model="item.instance" ng-change="changeItem(item.instance,row.thresholds,key)">
+													<option value="">--请选择--</option>
+													<option ng-repeat="(key,cell) in row.measureItemData" ng-selected="cell.value == item.instance" value="{{cell.value}}" ng-bind="cell.name"></option>
+												</select>
+											</div>
+											<div class="col-lg-6 input-error-info">
+												<label class="control-label">运算方式：</label>
+												<select class="form-control" name="sign{{key}}" validator="required" ng-model="item.sign">
+													<option ng-repeat="(key,cell) in signData" ng-selected="cell.name == item.sign" value="{{cell.name}}" ng-bind="cell.name"></option>
+												</select>
+										</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-6 input-error-info">
+												<label class="control-label text-info">提醒阈值：</label>
+												<input class="form-control" name="remind{{key}}" placeholder="提醒阈值" ng-blur="validateValue(item,'remind')" ng-model="item.remind" validator="required,number" type="text" />
+											</div>
+											<div class="col-lg-6 input-error-info">
+												<label class="control-label text-warning">警告阈值：</label>
+												<input class="form-control" name="waarn{{key}}" placeholder="警告阈值" ng-blur="validateValue(item,'warn')" ng-model="item.warn" validator="required,number" type="text" />
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-6 input-error-info">
+												<label class="control-label text-danger">严重阈值：</label>
+												<input class="form-control" name="danger{{key}}" placeholder="严重阈值" ng-blur="validateValue(item,'danger')" ng-model="item.danger" validator="required,number" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<button class="btn w-sm btn-success m-l m-b-sm m-t" ng-click="addItem(row)"><i class="fa fa-plus"></i> 添加子项</button>
+							</div>
+						</div>
+						<button class="btn w-md btn-info m-t" ng-click="addGroup()"><i class="fa fa-plus"></i> 添加策略项</button>
+					</form>
+					<div class="col-md-12 m-t-md m-b-sm btn-list" >
+						<div class="col-md-6"><button type="submit" class="btn btn-primary" validation-submit="addForm" ng-disabled="addForm.$invalid" ng-click="save()">保存</button></div>
+						<div class="col-md-6"><button class="btn btn-default" ng-click="goBack()">取消</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

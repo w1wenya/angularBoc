@@ -1,0 +1,27 @@
+<div  class="content-byc" ng-controller="InfrastructureCtrl">
+	<div class="wrapper-md">
+		<tabset class="tab-container">
+			<tab select="getList()" ng-controller="ServerCtrl" active="isHost">
+				<tab-heading>
+					物理主机
+				</tab-heading>
+				<div class="row panel pad-10" data-ng-include="'/statics/tpl/assets/infrastructure/server/list.html'">
+				</div>
+			</tab>
+			<tab  select="getList()" ng-controller="NetworkCtrl" active="isNetwork">
+				<tab-heading>
+					网络设备
+				</tab-heading>
+				<div class="row panel pad-10"  data-ng-include="'/statics/tpl/assets/infrastructure/network/list.html'">
+				</div>
+			</tab>
+			<tab select="getList()" ng-controller="StorageCtrl" active="isStorage">
+				<tab-heading>
+					存储设备
+				</tab-heading>
+				<div class="row panel pad-10"  data-ng-include="'/statics/tpl/assets/infrastructure/storage/list.html'">
+				</div>
+			</tab>
+		</tabset>
+	</div>
+</div>

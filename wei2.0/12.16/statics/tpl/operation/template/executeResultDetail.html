@@ -1,0 +1,100 @@
+<div class="row">
+	<div class="col-md-12 m-b">
+		<button class="btn btn-info pull-right" ng-click="goPage(1)" tabindex="0"><i class="fa fa-reply icon-font"></i> 返回</button>
+	</div>
+	<div class="col-md-12 m-b-sm">
+		<progressbar class="progress-striped active m-b-sm" value="progress" type="{{taskDetailData.status == 'FAIL'?'danger':'success'}}" animate="true"></progressbar>
+	</div>
+	<div class="col-md-12 search-box m-b-sm" style="padding-bottom: 0">
+		<div class="legend">基本信息</div>
+		<div class="search-content basic-info">
+			<div class="form-group">
+				<label class="control-label font-bold">作业名称：</label>
+				<span ng-bind="taskDetailData.name"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label font-bold">执行结果：</label>
+				<button class="btn btn-primary btn-xs disabled" ng-class="{'SUCCESS':'btn-success','FAIL':'btn-danger'}[taskDetailData.status]" ng-bind="taskDetailData.status|cn:'taskStatus'"></button>
+			</div>
+			<div class="form-group">
+				<label class="control-label font-bold">启动人：</label>
+				<span ng-bind="taskDetailData.operator"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label font-bold">开始时间：</label>
+				<span ng-bind="taskDetailData.startTime"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label font-bold">结束时间：</label>
+				<span ng-bind="taskDetailData.endTime"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label font-bold">总耗时(s)：</label>
+				<span ng-bind="taskDetailData.cost"></span>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 pad-0">
+		<div class="panel panel-default pad-0 step">
+			<div class="panel-heading font-bold bg-success">作业步骤</div>
+			<div class="panel-body">
+				<div class="col-md-12 step-cell" ng-repeat="row in taskDetailData.records">
+					<i class="fa bg-blue" ng-bind="($index+1)"></i>
+					<div class="col-md-12 redo-title" ng-if="row.type=='FILE'">
+						<img src="/statics/img/w.png" class="redo-title-img"/>
+						<span class="title-text">步骤名称：{{row.name}}</span>
+					</div>
+					<div class="col-md-12 script-title" ng-if="row.type=='SCRIPT'">
+						<img src="/statics/img/j.png" class="redo-title-img"/>
+						<span class="title-text">步骤名称：{{row.name}}</span>
+					</div>
+					<div class="col-md-12 file-backup-title" ng-if="row.type=='BACKUP'">
+						<img src="/statics/img/j.png" class="redo-title-img"/>
+						<span class="title-text">步骤名称：{{row.name}}</span>
+					</div>
+					<div class="file-list m-t-lg">
+						<table class="table bg-white-only b-a">
+							<thead>
+							<tr>
+								<th class="text-center">序号</th>
+								<th class="text-center" ng-if="row.type=='FILE'">任务名称</th>
+								<th class="text-center" ng-if="row.type=='SCRIPT'">脚本名称</th>
+								<th class="text-center" ng-if="row.type=='BACKUP'">文件名称</th>
+								<th class="text-center">执行主机数</th>
+								<th class="text-center">开始时间</th>
+								<th class="text-center">结束时间</th>
+								<th class="text-center">总时间(s)</th>
+								<th class="text-center">状态</th>
+								<th class="text-center">操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="item in row.records">
+								<td class="text-center" ng-bind="($index+1)"></td>
+								<td class="text-center" ng-bind="item.name"></td>
+								<td class="text-center" ng-bind="item.hostNumber"></td>
+								<td class="text-center" ng-bind="item.startTime"></td>
+								<td class="text-center" ng-bind="item.endTime"></td>
+								<td class="text-center" ng-bind="item.cost"></td>
+								<td class="text-center">
+									<button class="btn btn-primary btn-xs disabled" ng-class="{'SUCCESS':'btn-success','FAIL':'btn-danger'}[item.status]" ng-bind="item.status|cn:'taskStatus'"></button>
+								</td>
+								<td class="text-center">
+									<button type="button" class="btn btn-info btn-xs" ng-click="goJobDetail(item.id)">详情</button>
+									<span  ng-if="(taskDetailData.status != 'CANCEL' && taskDetailData.status != 'SUCCESS' && taskDetailData.status != 'FAIL' && item.suspended)">
+										<button type="button" class="btn btn-primary btn-xs" ng-click="continue(item.id)">继续</button>
+									  <button type="button" class="btn btn-danger btn-xs" ng-click="cancel()">取消</button>
+									</span>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-12 step-cell">
+					<i class="fa fa-power-off bg-green"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

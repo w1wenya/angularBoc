@@ -1,0 +1,97 @@
+<div ng-controller="DataCenterDetailCtrl" class="clearfix detail" >
+	<div class="row wrapper-md">
+		<button class="btn btn-info m-t-n-57 pull-right" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">基本信息</div>
+				<div class="panel-body">
+					<p class="detail-line">
+						<span class="detail-title">中心名称：</span>
+						<span class="detail-content" ng-bind="centerDetail.name"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">中心状态：</span>
+						<span class="detail-content" ng-bind="centerDetail.status|cn:'status'"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">所在地址：</span>
+						<span class="detail-content" ng-bind="centerDetail.address"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">联系人：</span>
+						<span class="detail-content" ng-bind="centerDetail.contacter"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">联系电话：</span>
+						<span class="detail-content" ng-bind="centerDetail.contactPhone"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">联系邮箱：</span>
+						<span class="detail-content" ng-bind="centerDetail.contactEmail"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">承建商：</span>
+						<span class="detail-content" ng-bind="centerDetail.vendor"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">总面积：</span>
+						<span class="detail-content" ng-bind="centerDetail.totalArea"></span>
+					</p>
+				</div>
+		</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">统计信息</div>
+				<div class="panel-body">
+					<p class="col-md-4 detail-line">
+						<img src="/statics/img/dashborad/room.png" alt="">
+						<span class="detail-content">{{centerDetail.rooms}}个机房</span>
+					</p>
+					<p class="col-md-4 detail-line">
+						<img src="/statics/img/dashborad/rack.png" alt="">
+						<span class="detail-content">{{centerDetail.racks}}个机柜</span>
+					</p>
+					<p class="col-md-4 detail-line">
+						<img src="/statics/img/dashborad/host.png" alt="">
+						<span class="detail-content">{{centerDetail.servers}}个服务器</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 m-t">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">机房列表</div>
+				<div class="panel-body" style="padding: 0" data-ng-include="'/statics/tpl/assets/room/list.html'" >
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 m-t">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">告警服务器</div>
+				<div class="panel-body">
+					<table class="table table-striped b-light m-b-xxs">
+						<thead style="background: #fefefe">
+						<tr>
+							<th class="text-center">名称</th>
+							<th class="text-center">IP</th>
+							<th class="text-center">状态</th>
+							<th class="text-center">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="(key,row) in alarmData">
+							<td class="text-center" ng-bind="row.name"></td>
+							<td class="text-center" ng-bind="row.managerIp"></td>
+							<td class="text-center" ng-bind="row.status"></td>
+							<td class="text-center">
+								<button class="btn btn-sm btn-info m-r-sm" ng-click="goDetail(row.id)"><i class="fa fa-info-circle fa-fw"></i> 详情</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

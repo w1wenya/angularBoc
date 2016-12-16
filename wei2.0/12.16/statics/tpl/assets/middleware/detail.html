@@ -1,0 +1,153 @@
+<div class="content-byc image-content" ng-controller="detailmiddlewareModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==3">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <span class="p-l-6">中间件详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>资产编号：</dt>
+                                                    <dd ng-bind="middlewareDetail.assetNum"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>开始时间：</dt>
+                                                    <dd ng-bind="middlewareDetail.startTime"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>到期时间：</dt>
+                                                    <dd ng-bind="middlewareDetail.expiredTime"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>提供商：</dt>
+                                                    <dd ng-bind="middlewareDetail.serviceVendor"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>联系方式：</dt>
+                                                    <dd ng-bind="middlewareDetail.contact"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>合同号：</dt>
+                                                    <dd ng-bind="middlewareDetail.contractNum"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">配置信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>名称：</dt>
+                                                    <dd>{{middlewareDetail.name}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>访问地址：</dt>
+                                                    <dd>{{middlewareDetail.address}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>应用系统：</dt>
+                                                    <dd>{{middlewareDetail.applicationSystem}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>字符集：</dt>
+                                                    <dd>{{middlewareDetail.xcode}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>版本：</dt>
+                                                    <dd>{{middlewareDetail.version}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>类别：</dt>
+                                                    <dd>{{middlewareDetail.category|cn:'middlewareCategory'}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>主机IP：</dt>
+                                                    <dd>{{middlewareDetail.ip}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>端口：</dt>
+                                                    <dd>{{middlewareDetail.port}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>用户名：</dt>
+                                                    <dd>{{middlewareDetail.username}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>密码：</dt>
+                                                    <dd>{{middlewareDetail.password}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>描述：</dt>
+                                                    <dd ng-bind="middlewareDetail.remark"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

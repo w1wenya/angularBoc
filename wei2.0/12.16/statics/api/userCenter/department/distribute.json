@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "data":{
+    "rows":[
+      {
+        "id": 1,
+        "name":"server1",
+        "category":"Computer",
+        "ip":"192.168.1.217",
+        "status":"NORMAL",
+        "shared":true,
+        "catalog":"PHYSICAL",
+        "cpu":1,
+        "memory":2,
+        "disk":4
+      }
+    ],
+    "total":30
+  },
+  "msg": "hello"
+}

@@ -48,12 +48,12 @@ materialAdmin
             //------------------------------
             .state ('basis', {
             url: '/basis',
-            templateUrl: 'views/common-2.html'
+            templateUrl: '/views/common-2.html'
         })
 
             .state('basis.host', {
                 url: '/host',
-                templateUrl: 'views/basis/host/host.html',
+                templateUrl: '/views/basis/host/host.html',
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
@@ -68,10 +68,7 @@ materialAdmin
                                 files: [
                                     'vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
                                     'vendors/bower_components/nouislider/jquery.nouislider.css',
-                                    'vendors/farbtastic/farbtastic.css',
-                                    'vendors/bower_components/summernote/dist/summernote.css',
-                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-                                    'vendors/bower_components/chosen/chosen.min.css'
+                                    'vendors/farbtastic/farbtastic.css'
                                 ]
                             },
                             {
@@ -83,119 +80,330 @@ materialAdmin
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                     'vendors/bower_components/summernote/dist/summernote.min.js',
                                     'vendors/fileinput/fileinput.min.js',
-                                    'vendors/bower_components/chosen/chosen.jquery.js',
-                                    'vendors/bower_components/angular-chosen-localytics/chosen.js',
+                                ]
+                            }
+                        ])
+                    }
+                }
+
+            })
+
+            .state('basis.hostDetail', {
+                url: '/centerdetail/:id',
+                templateUrl: '/views/basis/host/detail.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/basis/hostDetail.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			      .state('basis.storage', {
+                url: '/storage',
+                templateUrl: '/views/basis/storage/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/basis/storage.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			      .state('basis.network', {
+                url: '/network',
+                templateUrl: '/views/basis/network/network.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/basis/network.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			      .state('basis.warehouse', {
+                url: '/warehouse',
+                templateUrl: '/views/basis/warehouse/warehouse.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/basis/warehouse.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			//配置中心
+			.state ('collocate', {
+            url: '/collocate',
+            templateUrl: '/views/common-2.html'
+        })
+		      .state('collocate.resource', {
+                url: '/resource',
+                templateUrl: '/views/collocate/resource/resource.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/collocate/resource.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			.state('collocate.applycollocate', {
+                url: '/applycollocate',
+                templateUrl: '/views/collocate/applycollocate/applycollocate.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/collocate/applycollocate.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			.state('collocate.files', {
+                url: '/files',
+                templateUrl: '/views/collocate/files/files.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/collocate/files.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			
+			//  应用管理
+			 .state ('application', {
+                url: '/application',
+                templateUrl: 'views/common-2.html'
+            })
+			   .state('application.image', {
+                url: '/image',
+                templateUrl: '/views/application/image/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/application/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			   .state('application.deploy', {
+                url: '/deploy',
+                templateUrl: '/views/application/deploy/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/application/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+            .state('application.tasklist', {
+                url: '/tasklist',
+                templateUrl: '/views/application/tasklist/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/application/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+            .state('application.tasktpl', {
+                url: '/newtask/:flag/:id',
+                templateUrl: '/views/application/newtaskcopy/newtask.html',
+                resolve: {
+                loadPlugin: function($ocLazyLoad) {
+                return $ocLazyLoad.load ([
+                    {
+                        name: 'css',
+                        files: [
+
+                            '/vendors/codemirror/codemirror.css',
+                            '/vendors/codemirror/theme/erlang-dark.css',
+                            '/vendors/angular-ui-select/dist/select.min.css',
+
+
+                        ]
+                    },
+                {
+                name: 'js',
+                files: [
+                'js/controllers/application/newtaskcopy.js',
+                    '/vendors/jquery.ui/jquery.ui.min.js',
+                    '/vendors/angular-ui-select/dist/select.min.js',
+                    '/vendors/codemirror/codemirror-min.js',
+                    '/vendors/angular-sanitize/angular-sanitize.min.js'
+
+                ]
+                }
+                ])
+                }
+                 }
+            })
+
+            //------------------------------
+            // 系统维护
+            //------------------------------
+        
+            .state ('system', {
+                url: '/system',
+                templateUrl: 'views/common-2.html'
+            })
+	   .state('system.s_control', {
+                url: '/s_control',
+                templateUrl: '/views/system/s_control/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/system/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+				   .state('system.s_vocabulary', {
+                url: '/s_vocabulary',
+                templateUrl: '/views/system/s_vocabulary/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/system/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+				   .state('system.s_availability', {
+                url: '/s_availability',
+                templateUrl: '/views/system/s_availability/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/system/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+
+            //------------------------------
+            // 监控中心
+            //------------------------------
+        
+            .state ('monitoring', {
+                url: '/monitoring',
+                templateUrl: 'views/common-2.html'
+            })
+
+        	   .state('monitoring.m_resource', {
+                url: '/m_resource',
+                templateUrl: '/views/monitoring/m_resource/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/monitoring/serverlist.js',
+
                                     'vendors/sparklines/jquery.sparkline.min.js',
                                     'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
-                                    'vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js'
-
                                 ]
                             }
                         ])
                     }
                 }
-
             })
 
-            .state('basis.image-logo', {
-                url: '/image-logo',
-                templateUrl: 'views/basis/image-logo.html'
-            })
-
-            .state('basis.mainmenu-on-top', {
-                url: '/mainmenu-on-top',
-                templateUrl: 'views/basis/mainmenu-on-top.html'
-            })
-
-
-            //------------------------------
-            // TYPOGRAPHY
-            //------------------------------
-        
-            .state ('typography', {
-                url: '/typography',
-                templateUrl: 'views/typography.html'
-            })
-
-
-            //------------------------------
-            // WIDGETS
-            //------------------------------
-        
-            .state ('widgets', {
-                url: '/widgets',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('widgets.widgets', {
-                url: '/widgets',
-                templateUrl: 'views/widgets.html',
+           	   .state('monitoring.m_apply', {
+                url: '/m_apply',
+                templateUrl: '/views/monitoring/m_apply/list.html',
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
                             {
-                                name: 'css',
-                                insertBefore: '#app-level',
+                                name: 'js',
                                 files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelementplayer.css',
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelement-and-player.js',
-                                    'vendors/bower_components/autosize/dist/autosize.min.js'
+                                    'js/controllers/monitoring/tasktpl.js'
                                 ]
                             }
                         ])
                     }
                 }
             })
-
-            .state ('widgets.widget-templates', {
-                url: '/widget-templates',
-                templateUrl: 'views/widget-templates.html',
-            })
-
-
-            //------------------------------
-            // TABLES
-            //------------------------------
-        
-            .state ('tables', {
-                url: '/tables',
-                templateUrl: 'views/common.html'
-            })
-            
-            .state ('tables.tables', {
-                url: '/tables',
-                templateUrl: 'views/tables.html'
-            })
-            
-            .state ('tables.data-table', {
-                url: '/data-table',
-                templateUrl: 'views/data-table.html'
-            })
-
-        
-            //------------------------------
-            // FORMS
-            //------------------------------
-            .state ('form', {
-                url: '/form',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('form.basic-form-elements', {
-                url: '/basic-form-elements',
-                templateUrl: 'views/form-elements.html',
+				   .state('monitoring.m_serve', {
+                url: '/m_serve',
+                templateUrl: '/views/monitoring/m_serve/list.html',
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
                             {
-                                name: 'vendors',
+                                name: 'js',
                                 files: [
-                                    'vendors/bower_components/autosize/dist/autosize.min.js'
+                                    'js/controllers/monitoring/tasktpl.js'
                                 ]
                             }
                         ])
@@ -203,126 +411,116 @@ materialAdmin
                 }
             })
 
-            .state ('form.form-components', {
-                url: '/form-components',
-                templateUrl: 'views/form-components.html',
+
+            //------------------------------
+            // 日志中心--------------------
+        
+            .state ('log', {
+                url: '/log',
+                templateUrl: 'views/common-2.html'
+            })
+            
+             .state('log.l_system', {
+                url: '/l_system',
+                templateUrl: '/views/log/l_system/list.html',
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
                             {
-                                name: 'css',
-                                insertBefore: '#app-level',
+                                name: 'js',
                                 files: [
-                                    'vendors/bower_components/nouislider/jquery.nouislider.css',
-                                    'vendors/farbtastic/farbtastic.css',
-                                    'vendors/bower_components/summernote/dist/summernote.css',
-                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-                                    'vendors/bower_components/chosen/chosen.min.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/input-mask/input-mask.min.js',
-                                    'vendors/bower_components/nouislider/jquery.nouislider.min.js',
-                                    'vendors/bower_components/moment/min/moment.min.js',
-                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-                                    'vendors/bower_components/summernote/dist/summernote.min.js',
-                                    'vendors/fileinput/fileinput.min.js',
-                                    'vendors/bower_components/chosen/chosen.jquery.js',
-                                    'vendors/bower_components/angular-chosen-localytics/chosen.js',
-                                    'vendors/bower_components/angular-farbtastic/angular-farbtastic.js'
+                                    'js/controllers/log/tasktpl.js'
                                 ]
                             }
                         ])
                     }
                 }
             })
-        
-            .state ('form.form-examples', {
-                url: '/form-examples',
-                templateUrl: 'views/form-examples.html'
-            })
-        
-            .state ('form.form-validations', {
-                url: '/form-validations',
-                templateUrl: 'views/form-validations.html'
-            })
-        
             
-            //------------------------------
-            // USER INTERFACE
-            //------------------------------
+            .state('log.l_apply', {
+                url: '/l_apply',
+                templateUrl: '/views/log/l_apply/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/log/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			   .state('log.l_gather', {
+                url: '/l_gather',
+                templateUrl: '/views/log/l_gather/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/log/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+
         
+            //------------------------------
+            // 用户中心
+            //------------------------------
             .state ('user-interface', {
                 url: '/user-interface',
-                templateUrl: 'views/common.html'
-            })
-        
-            .state ('user-interface.ui-bootstrap', {
-                url: '/ui-bootstrap',
-                templateUrl: 'views/ui-bootstrap.html'
+                templateUrl: 'views/common-2.html'
             })
 
-            .state ('user-interface.colors', {
-                url: '/colors',
-                templateUrl: 'views/colors.html'
-            })
-
-            .state ('user-interface.animations', {
-                url: '/animations',
-                templateUrl: 'views/animations.html'
-            })
-        
-            .state ('user-interface.box-shadow', {
-                url: '/box-shadow',
-                templateUrl: 'views/box-shadow.html'
-            })
-        
-            .state ('user-interface.buttons', {
-                url: '/buttons',
-                templateUrl: 'views/buttons.html'
-            })
-        
-            .state ('user-interface.icons', {
-                url: '/icons',
-                templateUrl: 'views/icons.html'
-            })
-        
-            .state ('user-interface.alerts', {
-                url: '/alerts',
-                templateUrl: 'views/alerts.html'
-            })
-
-            .state ('user-interface.preloaders', {
-                url: '/preloaders',
-                templateUrl: 'views/preloaders.html'
-            })
-
-            .state ('user-interface.notifications-dialogs', {
-                url: '/notifications-dialogs',
-                templateUrl: 'views/notification-dialog.html'
-            })
-        
-            .state ('user-interface.media', {
-                url: '/media',
-                templateUrl: 'views/media.html',
+          .state('user-interface.users', {
+                url: '/users',
+                templateUrl: '/views/user-interface/users/list.html',
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
                             {
-                                name: 'css',
-                                insertBefore: '#app-level',
+                                name: 'js',
                                 files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelementplayer.css',
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
+                                    'js/controllers/user-interface/tasktpl.js'
                                 ]
-                            },
+                            }
+                        ])
+                    }
+                }
+            })
+			  .state('user-interface.role', {
+                url: '/role',
+                templateUrl: '/views/user-interface/role/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
                             {
-                                name: 'vendors',
+                                name: 'js',
                                 files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelement-and-player.js',
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
+                                    'js/controllers/user-interface/tasktpl.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+			  .state('user-interface.jurisdiction', {
+                url: '/jurisdiction',
+                templateUrl: '/views/user-interface/jurisdiction/list.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'js',
+                                files: [
+                                    'js/controllers/user-interface/tasktpl.js'
                                 ]
                             }
                         ])
@@ -330,262 +528,5 @@ materialAdmin
                 }
             })
         
-            .state ('user-interface.other-components', {
-                url: '/other-components',
-                templateUrl: 'views/other-components.html'
-            })
-            
-        
-            //------------------------------
-            // CHARTS
-            //------------------------------
-            
-            .state ('charts', {
-                url: '/charts',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('charts.flot-charts', {
-                url: '/flot-charts',
-                templateUrl: 'views/flot-charts.html',
-            })
-
-            .state ('charts.other-charts', {
-                url: '/other-charts',
-                templateUrl: 'views/other-charts.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/sparklines/jquery.sparkline.min.js',
-                                    'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-        
-        
-            //------------------------------
-            // CALENDAR
-            //------------------------------
-            
-            .state ('calendar', {
-                url: '/calendar',
-                templateUrl: 'views/calendar.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/moment/min/moment.min.js',
-                                    'vendors/bower_components/fullcalendar/dist/fullcalendar.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-        
-        
-            //------------------------------
-            // PHOTO GALLERY
-            //------------------------------
-            
-             .state ('photo-gallery', {
-                url: '/photo-gallery',
-                templateUrl: 'views/common.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-
-            //Default
-        
-            .state ('photo-gallery.photos', {
-                url: '/photos',
-                templateUrl: 'views/photos.html'
-            })
-        
-            //Timeline
-    
-            .state ('photo-gallery.timeline', {
-                url: '/timeline',
-                templateUrl: 'views/photo-timeline.html'
-            })
-        
-        
-            //------------------------------
-            // GENERIC CLASSES
-            //------------------------------
-            
-            .state ('generic-classes', {
-                url: '/generic-classes',
-                templateUrl: 'views/generic-classes.html'
-            })
-        
-            
-            //------------------------------
-            // PAGES
-            //------------------------------
-            
-            .state ('pages', {
-                url: '/pages',
-                templateUrl: 'views/common.html'
-            })
-            
-        
-            //Profile
-        
-            .state ('pages.profile', {
-                url: '/profile',
-                templateUrl: 'views/profile.html'
-            })
-        
-            .state ('pages.profile.profile-about', {
-                url: '/profile-about',
-                templateUrl: 'views/profile-about.html'
-            })
-        
-            .state ('pages.profile.profile-timeline', {
-                url: '/profile-timeline',
-                templateUrl: 'views/profile-timeline.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-
-            .state ('pages.profile.profile-photos', {
-                url: '/profile-photos',
-                templateUrl: 'views/profile-photos.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-        
-            .state ('pages.profile.profile-connections', {
-                url: '/profile-connections',
-                templateUrl: 'views/profile-connections.html'
-            })
-        
-        
-            //-------------------------------
-        
-            .state ('pages.listview', {
-                url: '/listview',
-                templateUrl: 'views/list-view.html'
-            })
-        
-            .state ('pages.messages', {
-                url: '/messages',
-                templateUrl: 'views/messages.html'
-            })
-        
-            .state ('pages.pricing-table', {
-                url: '/pricing-table',
-                templateUrl: 'views/pricing-table.html'
-            })
-        
-            .state ('pages.contacts', {
-                url: '/contacts',
-                templateUrl: 'views/contacts.html'
-            })
-        
-            .state ('pages.invoice', {
-                url: '/invoice',
-                templateUrl: 'views/invoice.html'
-            })
-                                
-            .state ('pages.wall', {
-                url: '/wall',
-                templateUrl: 'views/wall.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'vendors',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/autosize/dist/autosize.min.js',
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelement-and-player.js',
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-            
-            //------------------------------
-            // BREADCRUMB DEMO
-            //------------------------------
-            .state ('breadcrumb-demo', {
-                url: '/breadcrumb-demo',
-                templateUrl: 'views/breadcrumb-demo.html'
-            })
+         
     });

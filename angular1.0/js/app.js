@@ -8,6 +8,7 @@ var materialAdmin = angular.module('materialAdmin', [
     'angular-loading-bar',
     'oc.lazyLoad',
     'nouislider',
+    'ngSanitize',
     'ngTable',
     'http.load',
     'validation',

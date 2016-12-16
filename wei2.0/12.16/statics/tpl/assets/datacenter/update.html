@@ -1,0 +1,100 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+	<p class="modal-title panel-title-size">编辑数据中心</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="updatedataCenterForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">中心名称：</label>
+				<div class="control-input">
+					<input type="text" name="name" class="form-control" ng-model="updateData.name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">具体地址：</label>
+				<div class="control-input">
+					<input type="text" name="address" class="form-control" ng-model="updateData.address" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+				</div>
+			</div>			
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">联系电话：</label>
+				<div class="control-input">
+					<input type="text" name="contactPhone" class="form-control" ng-model="updateData.contactPhone" validator="required,cellphone">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">联系人名：</label>
+				<div class="control-input">
+					<input type="text" name="contacter" class="form-control" ng-model="updateData.contacter" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+				</div>
+			</div>			
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">联系邮箱：</label>
+				<div class="control-input">
+					<input type="text" name="contactEmail" class="form-control" ng-model="updateData.contactEmail" validator="required,email" maxlength="64" maxlength-error-message="最多输入64个字符">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">紧急电话：</label>
+				<div class="control-input">
+					<input type="text" name="emergencyPhone" class="form-control" ng-model="updateData.emergencyPhone" validator="required,phone"> 
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">承建商名：</label>
+				<div class="control-input">
+					<input type="text" name="vendor" class="form-control" ng-model="updateData.vendor" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">投产日期：</label>
+				<div class="control-input">
+					<input type="text" name="date" class="form-control"  style="background: #fff" ui-jq="daterangepicker" ui-options="{format:'YYYY-MM-DD',singleDatePicker:true,maxDate:today}" ng-model="updateData.commissionDate" readonly>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+			<label class="control-label">物理位置：</label>
+			<div class="control-input special-select m-r-xxs">
+				<select class="form-control" name="province" ng-model="provinceItem" validator="required" ng-change="selectProvince()">
+					<option value="">--请选择--</option>
+					<option ng-repeat="item in chinaMap" ng-selected="item.name==updateData.province" value="{{item}}" ng-bind="item.name"></option>
+				</select>
+			</div>
+			<div class="control-input  special-select">
+				<select class="form-control" name="city" ng-model="cityItem" validator="required">
+					<option value="">--请选择--</option>
+					<option ng-repeat="item in cityData" ng-selected="item.name==updateData.city" value="{{item}}" ng-bind="item.name"></option>
+				</select>
+			</div>
+		</div>
+			<div class="col-lg-6">
+				<label class="control-label">总共面积：</label>
+				<div class="control-input-span">
+					<input type="number" name="totalArea" class="form-control" ng-model="updateData.totalArea" validator="required,positiveNumber" min="1" required-error-message="请输入内容">
+				</div>
+				<div class="sup col-lg-1">m<sup>2</sup></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">详细描述：</label>
+				<div class="control-input">
+					<textarea name="remark" class="form-control" ng-model="updateData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" validation-submit="updatedataCenterForm" ng-disabled="updatedataCenterForm.$invalid" ng-click="ok()">确定</button>
+	<button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

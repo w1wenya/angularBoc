@@ -1,0 +1,328 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="form-group">
+			<label class="control-label">作业名称：</label>
+			<input type="text" class="form-control task-name-input" ng-model="detailData.name" disabled/>
+			<button class="btn btn-info pull-right" ng-click="goPage(1)" tabindex="0"><i class="fa fa-reply icon-font"></i> 返回</button>
+		</div>
+	</div>
+	<div class="col-md-12 step" ng-repeat="item in detailData.steps">
+		<div ng-if="(item.type=='SCRIPT')">
+			<div class="col-md-12 script-title"><img src="/statics/img/j.png" class="task-title-img"/>
+				<div class="form-group inline"><label class="control-label">步骤名称：</label>
+					<input type="text" class="form-control task-name-input" ng-model="item.name" style="width: 200px"  disabled/></div>
+				<div class="btn-list pull-right">
+					<button class="btn btn-default m-r-xs" ng-click="showDetail()" ng-show="isShowDetail"><i class="fa fa-chevron-up"></i></button>
+					<button class="btn btn-default m-r-xs" ng-click="showDetail()" ng-show="!isShowDetail"><i class="fa fa-chevron-down"></i></button>
+				</div>
+			</div>
+			<div class="col-md-12 task-node">
+				<table class="task-table table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">节点名称</th>
+						<th class="text-center">执行账户</th>
+						<th class="text-center">服务器数</th>
+						<th class="text-center">脚本参数</th>
+						<th class="text-center">操作</th>
+					</tr>
+					</thead>
+					<tbody ng-repeat="cell in item.jobs">
+					<tr>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.name" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.username" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.targets.length" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.params" disabled/>
+						</td>
+						<td class="text-center operation">
+							<a  class="btn-showdetail-job" data="{{cell.scrit.content}}" href="javascript:void(0)"><i class="glyphicon glyphicon-eye-open"></i></a>
+						</td>
+					</tr>
+					<tr ng-if="cell.suspendable">
+						<td class="text-center"colspan="5">
+							<label>暂停描述：</label>
+							<input type="text" class="inline form-control" style="width:60%" ng-model="cell.description" disabled/>
+						</td>
+					</tr>
+					<tr class="content">
+						<td colspan="5">
+							<form>
+								<div class="col-md-12 m-b">
+									<label class="control-label">脚本内容：</label>
+									<div class="control-input" ng-code-mirror2="" data="cell.script.content" >
+										<div class="code-type">
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="SHELL" ng-model="cell.script.type" disabled><i></i> shell
+											</label>
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="BAT"  ng-model="cell.script.type" disabled><i></i> bat
+											</label>
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="PERL"  ng-model="cell.script.type" disabled><i></i> perl
+											</label>
+											<label class="i-checks i-checks-sm">
+												<input type="radio" name="codetype" value="PYTHON"  ng-model="cell.script.type" disabled><i></i> python
+											</label>
+											<a href="">
+												<i class="icon-size-fullscreen pull-right m-t-sm m-r-sm" ></i>
+											</a>
+										</div>
+										<textarea class="textarea"></textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="control-label">服务器集：</label>
+									<div class="server-list">
+										<table st-table="displayListData" st-safe-src="cell.targets" class="table table-striped">
+											<thead>
+											<tr>
+												<th class=""> IP</th>
+												<th>状态</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-if="(serverListData.length==0)">
+												<td class="text-center" colspan="3">请选择服务器</td>
+											</tr>
+											<tr ng-repeat="row in displayListData">
+												<td class="text-left" ng-bind="row.ip"></td>
+												<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+												<td class="text-center">
+													<button class="btn btn-xs w-xxs btn-danger" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+											<tfoot>
+											<tr>
+												<td colspan="2" class="text-left">
+													<div>每页5条，共选择{{cell.targets.length}}条</div>
+												</td>
+												<td colspan="3" class="text-right">
+													<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+													     st-displayed-pages="7" class="no-margin"></div>
+												</td>
+											</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div ng-if="(item.type=='FILE')">
+			<div class="col-md-12 file-title"><img src="/statics/img/w.png" class="task-title-img"/>
+				<div class="form-group inline"><label class="control-label">步骤名称：</label>
+					<input type="text" class="form-control task-name-input" ng-model="item.name" style="width: 200px"  disabled/></div>
+				<div class="btn-list pull-right">
+					<button class="btn btn-default m-r-xs" ng-click="showDetail()" ng-show="isShowDetail"><i class="fa fa-chevron-up"></i></button>
+					<button class="btn btn-default m-r-xs" ng-click="showDetail()" ng-show="!isShowDetail"><i class="fa fa-chevron-down"></i></button>
+				</div>
+			</div>
+			<div class="col-md-12 task-node">
+				<table class="task-table table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">节点名称</th>
+						<th class="text-center">执行账户</th>
+						<th class="text-center">目标机器</th>
+						<th class="text-center">目标路径</th>
+						<th class="text-center">操作</th>
+					</tr>
+					</thead>
+					<tbody ng-repeat="cell in item.jobs">
+					<tr>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.name" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.username" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.targets.length" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.targetPath" disabled/>
+						</td>
+						<td class="text-center operation">
+							<a  class="btn-showdetail-job"  href="javascript:void(0)"><i class="glyphicon glyphicon-eye-open"></i></a>
+						</td>
+					</tr>
+					<tr ng-if="cell.suspendable">
+						<td class="text-center"colspan="5">
+							<label>暂停描述：</label>
+							<input type="text" class="inline form-control" style="width:60%" ng-model="cell.description" disabled/>
+						</td>
+					</tr>
+					<tr class="content" style="display: none">
+						<td colspan="5">
+							<form>
+								<div class="col-md-12">
+									<label class="control-label">文件列表：</label>
+									<div class="server-list">
+										<table class="table table-striped b-light">
+											<thead>
+											<tr>
+												<th class="text-center">文件列表</th>
+												<th class="text-center">服务器地址</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="row in cell.files">
+												<td class="text-center" ng-bind="row.name"></td>
+												<td class="text-center">-</td>
+												<td class="text-center">
+													<button type="button" class="btn btn-default btn-xs" disabled>修改</button>
+													<button type="button" class="btn btn-default btn-xs" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="control-label">服务器集：</label>
+									<div class="server-list">
+										<table st-table="displayListData" st-safe-src="cell.targets" class="table table-striped">
+											<thead>
+											<tr>
+												<th class=""> IP</th>
+												<th>状态</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-if="(serverListData.length==0)">
+												<td class="text-center" colspan="3">请选择服务器</td>
+											</tr>
+											<tr ng-repeat="row in displayListData">
+												<td class="text-left" ng-bind="row.ip"></td>
+												<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+												<td class="text-center">
+													<button class="btn btn-xs w-xxs btn-danger" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+											<tfoot>
+											<tr>
+												<td colspan="2" class="text-left">
+													<div>每页5条，共选择{{cell.targets.length}}条</div>
+												</td>
+												<td colspan="3" class="text-right">
+													<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+													     st-displayed-pages="7" class="no-margin"></div>
+												</td>
+											</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div ng-if="(item.type=='BACKUP')">
+			<div class="col-md-12 file-backup-title"><img src="/statics/img/j.png" class="task-title-img"/>
+				<div class="form-group inline"><label class="control-label">步骤名称：</label>
+					<input type="text" class="form-control task-name-input" ng-model="item.name" style="width: 200px"  disabled/></div>
+				<div class="btn-list pull-right">
+					<button class="btn btn-default m-r-xs" ng-click="showDetail()" ng-show="isShowDetail"><i class="fa fa-chevron-up"></i></button>
+					<button class="btn btn-default m-r-xs" ng-click="showDetail()" ng-show="!isShowDetail"><i class="fa fa-chevron-down"></i></button>
+				</div>
+			</div>
+			<div class="col-md-12 task-node">
+				<table class="task-table table table-striped b-light m-b-xxs">
+					<thead style="background: #fefefe">
+					<tr>
+						<th class="text-center">节点名称</th>
+						<th class="text-center">执行账户</th>
+						<th class="text-center">服务器数</th>
+						<th class="text-center">备份路径</th>
+						<th class="text-center">操作</th>
+					</tr>
+					</thead>
+					<tbody ng-repeat="cell in item.jobs">
+					<tr>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.name" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.username" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.targets.length" disabled/>
+						</td>
+						<td class="text-center">
+							<input type="text" class="form-control" ng-model="cell.sourcePath" disabled/>
+						</td>
+						<td class="text-center operation">
+							<a  class="btn-showdetail-job" data="{{cell.script.content}}" href="javascript:void(0)"><i class="glyphicon glyphicon-eye-open"></i></a>
+						</td>
+					</tr>
+					<tr class="content" style="display: none">
+						<td colspan="5">
+							<form>
+								<div class="col-md-12">
+									<label class="control-label">服务器集：</label>
+									<div class="server-list">
+										<table st-table="displayListData" st-safe-src="cell.targets" class="table table-striped">
+											<thead>
+											<tr>
+												<th class=""> IP</th>
+												<th>状态</th>
+												<th class="text-center" style="width: 180px">操作</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-if="(serverListData.length==0)">
+												<td class="text-center" colspan="3">请选择服务器</td>
+											</tr>
+											<tr ng-repeat="row in displayListData">
+												<td class="text-left" ng-bind="row.ip"></td>
+												<td class="text-left" ng-bind="row.status|cn:'status'"></td>
+												<td class="text-center">
+													<button class="btn btn-xs w-xxs btn-danger" disabled>删除</button>
+												</td>
+											</tr>
+											</tbody>
+											<tfoot>
+											<tr>
+												<td colspan="2" class="text-left">
+													<div>每页5条，共选择{{cell.targets.length}}条</div>
+												</td>
+												<td colspan="3" class="text-right">
+													<div st-pagination="" st-item-data="serverListData" st-items-by-page="5"
+													     st-displayed-pages="7" class="no-margin"></div>
+												</td>
+											</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 text-center m-t-md action-button">
+		<button class="btn btn-danger w-xs" ng-click="execute()" ><i class="fa fa-life-saver"></i>&nbsp执行</button>
+	</div>
+</div>

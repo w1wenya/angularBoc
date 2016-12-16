@@ -1,0 +1,155 @@
+<div class="content-byc image-content" ng-controller="middlewareUpdateCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==2">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading">
+                            <span class="p-l-6">编辑中间件</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="col-md-12 margin-top-12">
+                                    <form class="form-horizontal form-validation" name="addvmOpenstackForm">
+                                        <div class="col-md-12 search-box m-b-md" style="float:none;">
+                                            <div class="legend">基本信息</div>
+                                            <div class="search-content1 search-content2">
+                                                <div class="form-group">
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">资产编号：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="name" class="form-control input-sm" placeholder="资产编号" ng-model="updateData.assetNum">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">服务时间：</label>
+                                                        <div class="control-input width-74">
+                                                            <input class="form-control input-sm" ui-jq="daterangepicker" ui-options="dateRangeOptions" placeholder="请选择服务时间" ng-model="datePicker.date" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">合同号：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="moreProp" class="form-control" placeholder="服务合同号" ng-model="updateData.contractNum" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">提供商：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="name" class="form-control input-sm" placeholder="服务提供商" ng-model="updateData.serviceVendor">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">联系方式：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="tags" class="form-control input-sm" placeholder="联系方式" ng-model="updateData.contact" validator="phone_opt">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 search-box m-b-md" style="float:none;">
+                                            <div class="legend">配置信息</div>
+                                            <div class="search-content1 search-content2">
+                                                <div class="form-group">
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">名称：<span>*</span></label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="name" class="form-control input-sm" placeholder="名称" ng-model="updateData.name" validator="required,name" maxlength="64">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">访问地址：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="address" class="form-control input-sm" placeholder="访问地址" ng-model="updateData.address" validator="address_opt">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">应用系统：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="applicationSystem" class="form-control input-sm" placeholder="应用系统" ng-model="updateData.applicationSystem" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">字符集：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="xcode" class="form-control input-sm" placeholder="字符集" ng-model="updateData.xcode">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">版本：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="version" class="form-control input-sm" placeholder="版本" ng-model="updateData.version">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">类别：<span>*</span></label>
+                                                        <div class="control-input width-74">
+                                                            <select class="form-control input-sm" ng-model="updateData.category">
+                                                                <option value="">--请选择--</option>
+                                                                <option ng-repeat="row in typeData" ng-selected="row.value==updateData.category" value="{{row.value}}" ng-bind="row.name"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">主机IP：<span>*</span></label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="ip" class="form-control input-sm" placeholder="主机IP" ng-model="updateData.ip" validator="required,ip" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">端口：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="port" class="form-control input-sm" placeholder="端口" ng-model="updateData.port" validator="required,number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">用户名：</label>
+                                                        <div class="control-input width-74">
+                                                            <input type="text" name="username" class="form-control input-sm" placeholder="用户名" ng-model="updateData.username" validator="name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-4">
+                                                        <label class="control-label">密码：</label>
+                                                        <div class="control-input width-74">
+                                                            <input class="form-control input-sm" name="password" placeholder="密码" validator="required" maxlength="18" ng-model="updateData.password" type="{{showPass_os?'text':'password'}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-12">
+                                                        <label class="control-label">备注：</label>
+                                                        <div class="control-input width-74">
+                                                            <textarea class="form-control input-sm" name="remark" placeholder="备注" ng-model="updateData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="col-md-12" style="margin:10px 0;">
+                                        <div class="col-md-6"><button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;" validation-submit="addvmOpenstackForm" ng-disabled="addvmOpenstackForm.$invalid" ng-click="ok()">确认</button></div>
+                                        <div class="col-md-6"><button class="btn btn-default" style="width:95%;height:35px;margin-bottom:15px;" ng-click="cancel()">取消</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

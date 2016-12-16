@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "id":112,
+    "name":"用户1",
+    "assetNum":"1",
+    "serviceVendor":2048,
+    "contact":4,
+    "startTime":"2012-1-1",
+    "endTime":"2012-1-1",
+    "contractNum":"数据中心1",
+    "assetNum":"1",
+    "serviceVendor":2048,
+    "address":4,
+    "applicationSystem":1,
+    "character":"dlfa;l;d",
+    "version":"1",
+    "category":"WEBLOGIC",
+    "ip":"192.168.1.91",
+    "port":8080,
+    "username":"dlfa;l;d",
+    "password":129304
+  }
+}

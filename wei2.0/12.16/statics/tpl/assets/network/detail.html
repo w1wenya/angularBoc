@@ -1,0 +1,181 @@
+<div class="content-byc image-content" ng-controller="networkDetailModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold">
+                            <!--<i class="fa fa-reply icon-font" aria-hidden="true"></i>-->
+                            <span class="p-l-6">网络详情</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;padding-top:0;" ng-show="openstackNetworkTable==1">
+                            <div class="form-horizontal">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>网络ID：</dt>
+                                                    <dd ng-bind="volumeDetail.networkId"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>网络名称：</dt>
+                                                    <dd ng-bind="volumeDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>网络类型：</dt>
+                                                    <dd ng-bind="volumeDetail.type"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>状态：</dt>
+                                                    <dd ng-bind="volumeDetail.status1"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>云供应商：</dt>
+                                                    <dd ng-bind="volumeDetail.vendorName"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>所属区域：</dt>
+                                                    <dd ng-bind="volumeDetail.regionName"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>是否共享：</dt>
+                                                    <dd ng-bind="volumeDetail.shared1"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">子网列表</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-md-12" style="padding:0;margin-bottom: 20px;">
+                                                <div class="panel panel-default" style="padding:0">
+                                                    <div class="panel-body" style="border:none;">
+                                                        <table class="table table-striped b-light m-b-xxs">
+                                                            <thead class="table-header">
+                                                            <tr>
+                                                                <th width="20%" class="text-center font-15">名称</th>
+                                                                <!--<th width="30%" class="text-center font-15">cidr</th>-->
+                                                                <th width="20%" class="text-center font-15">网关</th>
+                                                                <th width="30%" class="text-center font-15">IP版本</th>
+                                                                <th class="text-center font-15" width="20%">操作</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="table-content" ng-repeat="row in subnetList" ng-if="!isImageData">
+                                                                <td width="20%" class="text-center font-15 text-overflow" style="max-width:209px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                                                <!--<td width="30%" class="text-center font-15 text-overflow" style="max-width:312px;" title="{{row.cidr}}" ng-bind="row.cidr"></td>-->
+                                                                <td width="20%" class="text-center font-15 text-overflow" style="max-width:208px;" title="{{row.gateway}}" ng-bind="row.gateway"></td>
+                                                                <td width="30%" class="text-center font-15 text-overflow" style="max-width:104px;" title="{{row.status}}" ng-bind="row.ipVersion"></td>
+                                                                <td width="20%" class="td-operate text-center">
+                                                                    <button class="btn btn-danger btn-sm" ng-click="remove($event,row.id)">
+                                                                        <i class="fa fa-trash-o"></i>
+                                                                        <span class="">删除</span>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr ng-if="isImageData">
+                                                                <td class="td-nodata" colspan="3">暂无数据</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="clearfix">
+                                                            <div class="col-sm-6" style="padding:7px 15px;">
+                                                                <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                                            </div>
+                                                            <div class="col-sm-6 text-right">
+                                                                <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getOperateData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body pmb-block" style="border:none;padding-top:0;" ng-show="otherNetworkTable==1">
+                            <div class="form-horizontal">
+                                <div class="">
+                                    <div class="pmbb-header">
+                                        <h5 class="console-title">基本信息</h5>
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>网络ID：</dt>
+                                                    <dd ng-bind="volumeDetail.networkId"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>网络名称：</dt>
+                                                    <dd ng-bind="volumeDetail.name"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>云供应商：</dt>
+                                                    <dd ng-bind="volumeDetail.vendorName"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>所属区域：</dt>
+                                                    <dd ng-bind="volumeDetail.regionName"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <dl class="dl-horizontal">
+                                                    <dt>cidr：</dt>
+                                                    <dd ng-bind="volumeDetail.cidr"></dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

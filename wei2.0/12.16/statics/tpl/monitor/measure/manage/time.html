@@ -1,0 +1,103 @@
+<div ng-controller="MonitorMeasureUploadCtrl" class="clearfix detail">
+    <div class="row wrapper-md">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold"><span>采集间隔下发</span>
+                    <button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal form-validation" name="addForm">
+                        <div class="search-box m-t-md">
+                            <div class="legend">基本信息</div>
+                            <div class="search-content">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label class="col-lg-2 control-label" style="width:105px;">采集间隔(秒)：</label>
+                                        <div class="col-lg-10 control-input">
+                                            <input type="text" name="interval" class="form-control" ng-model="interval" validator="required,positiveNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="col-lg-2 control-label" style="width:105px;">操作类别：</label>
+                                        <div class="col-lg-10 control-input">
+                                            <select class="form-control" ng-model="actionType" data-content="必填项">
+                                                <option value="">--请选择--</option>
+                                                <option ng-repeat="item in actionTypeData" value="{{item.value}}" ng-bind="item.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-box m-t-md">
+                            <div class="legend">目标信息</div>
+                            <div class="search-content operation-box">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label class="col-lg-2 control-label" style="width:105px;">执行账户：</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control" ng-model="identId" data-content="必填项">
+                                                <option value="">--请选择--</option>
+                                                <option ng-repeat="item in accountData" value="{{item.id}}" ng-bind="item.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label class="col-lg-2 control-label" style="width:105px;">目标机器：</label>
+                                        <div class="col-lg-10 control-input">
+                                            <button class="btn btn-sm btn-success" ng-click="selectServer()" data-content="必填项" value="{{serverListData.length}}"><i class="fa fa-desktop"></i> 选择服务器</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="isShowServer">
+                                    <div class="col-lg-12 servers-list">
+                                        <table st-table="displayListData" st-safe-src="serverListData" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>IP</th>
+                                                <th>状态</th>
+                                                <th class="text-center" style="width: 180px">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-if="(serverListData.length==0)">
+                                                <td class="text-center" colspan="3">请选择服务器</td>
+                                            </tr>
+                                            <tr ng-repeat="row in displayListData">
+                                                <td ng-bind="row.ip"></td>
+                                                <td ng-bind="row.status|cn:'status'"></td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-xs w-xxs btn-danger" ng-click="delServer($index)">删除</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="2" class="text-left">
+                                                    <div>每页{{itemsByPage}}条，共选择{{totalSelect}}条</div>
+                                                </td>
+                                                <td colspan="3" class="text-right">
+                                                    <div st-pagination="" st-item-data="serverListData" st-items-by-page="itemsByPage"
+                                                         st-displayed-pages="7" class="no-margin"></div>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-12 m-t-md m-b-sm btn-list" >
+                        <div class="col-md-6"><button type="submit" class="btn btn-primary" validation-submit="addForm" ng-disabled="addForm.$invalid" ng-click="save()">下发</button></div>
+                        <div class="col-md-6"><button class="btn btn-default" ng-click="goBack()">取消</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

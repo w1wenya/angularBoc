@@ -1,0 +1,40 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title">脚本详情</p>
+</div>
+<div class="modal-body panel-body edit-content">
+	<div class="form-group">
+		<label class="control-label">脚本名称：</label>
+		<input type="text" class="form-control control-input" ng-model="detailData.name" disabled/>
+	</div>
+	<div class="form-group">
+		<label class="control-label">脚本分组：</label>
+		<input type="text" class="form-control control-input" ng-model="detailData.groupName" disabled/>
+	</div>
+	<div class="form-group m-b" style="height: 340px">
+		<label class="control-label">脚本内容：</label>
+		<div class="control-input" ng-code-mirrors="" code-mirror="codeMirror" >
+			<div class="code-type">
+				<label class="i-checks i-checks-sm">
+					<input type="radio" name="codetype" value="SHELL" ng-model="detailData.type" disabled><i></i> shell
+				</label>
+				<label class="i-checks i-checks-sm">
+					<input type="radio" name="codetype" value="BAT" ng-model="detailData.type" disabled>><i></i> bat
+				</label>
+				<label class="i-checks i-checks-sm">
+					<input type="radio" name="codetype" value="PERL" ng-model="detailData.type" disabled>><i></i> perl
+				</label>
+				<label class="i-checks i-checks-sm">
+					<input type="radio" name="codetype" value="PYTHON" ng-model="detailData.type" disabled><i></i> python
+				</label>
+				<a href="">
+					<i class="icon-size-fullscreen pull-right m-t-sm m-r-sm" ></i>
+				</a>
+			</div>
+			<textarea class="textarea"></textarea>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-default" ng-click="cancle()">关闭</button>
+</div>

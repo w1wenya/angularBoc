@@ -1,0 +1,10 @@
+{
+    "success" : true,
+    "data" : {
+       "id": 2,
+       "user": {"id":111}
+    },
+    "message" : "信息",
+    "code" : 1111,         
+    "solution" : " "        
+}

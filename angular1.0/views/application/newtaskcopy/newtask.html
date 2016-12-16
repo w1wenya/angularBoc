@@ -1,0 +1,76 @@
+<section id="content" ng-controller="HostCtrl">
+	<div class="container c-alt">
+		<div class="block-header">
+			<h2>欢迎来到应用发布<small>应用发布是平台的核心功能，通过选择应用基础环境，应用模板以及一些基础信息，能够快速方便的提供对外服务的应用。</small></h2>
+		</div>
+
+			<div class="card">
+				<div class="card-body"  ng-controller="NewTaskCopyCtrl" >
+					<form class="form-horizontal form-validation" name="taskForm">
+						<div class=" card-padding">
+
+							<div class="search-content">
+								<div class="input-group col-md-6">
+									<span class="input-group-addon">模板名称 ：</span>
+									<div class="fg-line">
+										<input type="text" class="form-control" placeholder="模板名称" name="name" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" >
+									</div>
+								</div>
+								<div class="input-group col-md-6">
+									<span class="input-group-addon">应用场景 ：</span>
+									<div class="fg-line">
+										<input type="text" name="scenne" class="form-control task-name-input" ng-model="remark" />
+												</div>
+								</div>
+
+							</div>
+							<div class="  card-header">
+								<button class="btn btn-info w-sm m-r-md" validation-submit="taskForm" ng-disabled="taskForm.$invalid" ng-click="execute(1)"ng-show="!isHideSave"><i class="fa fa-save"></i>&nbsp;保存</button>
+								<button class="btn btn-danger w-sm m-r-md" validation-submit="taskForm" ng-disabled="taskForm.$invalid" ng-click="execute()" ng-show="!isHideExecute"><i class="fa fa-life-saver"></i>&nbsp;去执行</button>
+								<button class="btn btn-success w-sm" ng-click="goList()"><i class="fa fa-reply icon-font"></i> 返回</button>
+							</div>
+						</div>
+					</form>
+					<div class="card m-t-md">
+						<div class="card-header">节点信息</div>
+						<div class="search-content" style="border-bottom: none">
+							<div class="col-md-12 task-tab">
+								<div  class="item" ng-repeat="item in nodeData" type="{{item.nodeType}}">
+									<img class="node-img" ng-src="/statics/img/topology/{{item.Image}}" />
+									<span>{{item.text}}</span>
+								</div>
+							</div>
+							<div class="panel">
+								<div id="contentmain">
+									<canvas id="canvas">sorry,your browser do not support canvas label</canvas>
+								</div>
+								<ul class="node-menu" id="contextmenu" style="display:none;">
+									<li><a tip="1">编辑</a></li>
+									<li><a tip="6">连线</a></li>
+									<li><a tip="2">顺时针旋转</a></li>
+									<li><a tip="3">逆时针旋转</a></li>
+									<li><a tip="4">删除该节点</a></li>
+									<li><a tip="5">取消</a></li>
+								</ul>
+								<ul class="node-menu" id="contextmenustart" style="display:none;">
+									<li><a tip="6">连线</a></li>
+									<li><a tip="2">顺时针旋转</a></li>
+									<li><a tip="3">逆时针旋转</a></li>
+									<li><a tip="5">取消</a></li>
+								</ul>
+								<ul class="node-menu" id="linkmenu" style="display:none;">
+									<li><a tip="1">删除连线</a></li>
+									<li><a tip="2">取消</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default" ng-task-preview-detail="" ng-if="(routerStatus == 2)"></div>
+				<div class="panel panel-default" ng-task-execute-detail="" ng-if="(routerStatus == 3)"></div>
+			</div>
+
+
+	</div>
+</section>
+

@@ -1,0 +1,48 @@
+<div class="content-byc image-content" ng-controller="detailAccountModalCtrl">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading font-bold" ng-click="goBack()">
+                            <i class="fa fa-reply icon-font" aria-hidden="true"></i>
+                            <span class="p-l-6">认证详情</span>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="pmbb-header">
+                                        <!-- <h5><i class="glyphicon glyphicon-user icon m-r-10"></i>基本信息</h5>-->
+                                    </div>
+                                    <div class="pmbb-body p-l-30">
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>认证名称：</dt>
+                                                <dd ng-bind="accountDetail.username"></dd>
+                                            </dl>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>认证密码：</dt>
+                                                <dd ng-bind="accountDetail.password"></dd>
+                                            </dl>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <dl class="dl-horizontal">
+                                                <dt>是否sudo：</dt>
+                                                <dd ng-bind="accountDetail.isSudo|cn:'isSudo'"></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

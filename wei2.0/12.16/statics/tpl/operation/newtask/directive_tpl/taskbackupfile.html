@@ -1,0 +1,21 @@
+<div class="col-md-12 file-backup-title" ng-drag-modal=""><img src="/statics/img/w.png" class="task-title-img"/>
+		<div class="form-group inline"><label class="control-label">步骤名称：</label>
+			<input type="text" name="stepname{{stepIndex}}" validator="required" data-content="必填项" class="form-control task-name-input" ng-model="itemData.name" style="width: 200px"/></div>
+		<div class="btn-list pull-right">
+			<button class="btn btn-default m-r-xs btn-job-show-all"><i class="fa fa-chevron-down"></i></button>
+			<button class="btn btn-default m-r-sm btn-remove-step"><i class="fa fa-close"></i></button>
+		</div>
+	</div>
+<div class="col-md-12 task-node">
+		<table class="task-table table table-striped b-light m-b-xxs">
+			<thead style="background: #fefefe">
+			<tr>
+				<th class="text-center">任务名称</th>
+				<th class="text-center">执行账户</th>
+				<th class="text-center">服务器数</th>
+				<th class="text-center">备份路径</th>
+				<th class="text-center">操作</th>
+			</tr>
+		</table>
+	   <div class="col-md-12 add-task-node" ng-click="addTaskNode()"><i class="fa fa-plus"></i>&nbsp;新增节点</div>
+	</div>

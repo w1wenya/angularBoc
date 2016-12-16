@@ -1,0 +1,48 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size">添加申请</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">申请名称：</label>
+				<div class="control-input">
+					<input class="form-control" name="name" placeholder="申请名称" ng-model="name" validator="required,name" maxlength="64" type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">申请命令：</label>
+				<div class="control-input">
+					<select class="form-control" name="command" validator="required" ng-model="commandId">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in commandData" ng-selected="item.id == commandId" value="{{item.id}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">处理者：</label>
+				<div class="control-input">
+					<select class="form-control" name="handler" validator="required" ng-model="handler">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in userData" ng-selected="item.id == handler" value="{{item.id}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">应用场景：</label>
+				<div class="control-input">
+					<textarea class="form-control" name="remark" placeholder="应用场景" ng-model="remark" maxlength="256"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

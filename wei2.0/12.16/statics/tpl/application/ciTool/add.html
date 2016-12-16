@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <p class="modal-title panel-title-size">新增集成工具</p>
+</div>
+<div class="modal-body panel-body">
+    <form class="form-horizontal form-validation" name="addApplicationForm">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">集成名称：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="name" class="form-control" ng-model="addData.name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">管理用户：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="username" class="form-control" ng-model="addData.username" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">管理密码：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="password" name="password" class="form-control" ng-model="addData.password" validator="required,password" maxlength="18">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">服务地址：</label>
+                <div class="col-lg-10 control-input">
+                    <input type="text" name="address" class="form-control" ng-model="addData.address" validator="required">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label class="col-lg-2 control-label">集成描述：</label>
+                <div class="col-lg-10 control-input">
+                    <textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" validation-submit="addApplicationForm" ng-disabled="addApplicationForm.$invalid" ng-click="ok()">确认</button>
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+</div>

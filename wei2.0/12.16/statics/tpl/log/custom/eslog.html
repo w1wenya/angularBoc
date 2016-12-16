@@ -1,0 +1,178 @@
+<div ng-controller="CustomEsLogCtrl" class="clearfix script-content">
+	<div class="wrapper-md">
+		<div class="row panel panel-default">
+			<div class="col-md-12 search-box m-b-md">
+				<div class="legend">查询条件</div>
+				<form name="myCustomForm">
+					<div class="search-content">
+						<div class="form-group" style="width: 48%;">
+							<label class="control-label">时间范围：</label>
+							<select class="form-control" style="width: 33%;" ng-model="datecondition" ng-change="datechange()">
+	                           	<option value="">--限制条件--</option>
+	                           	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+							<input ng-disabled="!datecondition" style="width: 33%;" ng-model="date" class="form-control" ui-jq="daterangepicker"
+						      	 ui-options="{format: 'YYYY-MM-DD  hh:mm:ss'}" placeholder="请选择时间" />
+						</div>
+						<div class="form-group" style="width: 48%;">
+                            <label class="control-label">索引：</label>
+                            <select class="form-control" style="width: 33%;" ng-model="indexcondition" ng-change="indexchange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+							<select ng-disabled="!indexcondition" style="width: 33%;" class="form-control" ng-model="index">
+                                <option value="">全部</option>
+                                <option ng-repeat="row in indexListData"  value="{{row.index}}" ng-bind="row.index"></option>
+                            </select>
+                        </div>
+                        <div class="form-group"  style="width: 48%;">
+                            <label class="control-label">类型：</label>
+                            <select class="form-control" style="width: 33%;" ng-model="typecondition" ng-change="typechange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+                            <select ng-disabled="!typecondition" style="width: 33%;" class="form-control" ng-model="type">
+                                <option value="">全部</option>
+                                <option ng-repeat="row in typeListData"  value="{{row.type}}" ng-bind="row.type"></option>
+                            </select>
+                        </div>
+                        <div class="form-group"  style="width: 48%;">
+                            <label class="control-label">类型标记：</label>
+                            <select class="form-control" style="width: 33%;" ng-model="logflagcondition" ng-change="logflagchange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+                            <input ng-disabled="!logflagcondition" type="text" class="form-control"  style="width: 33%;" name="logflag" ng-model="logflag" ng-pattern="/^[a-zA-Z0-9._]+$/" placeholder="请输入类型标记"/>
+							<p ng-show="myCustomForm.logflag.$error.pattern" style="color: red;">请输入字母、数字、点、下划线</p>
+                        </div>
+						<div class="form-group"  style="width: 48%;">
+							<label class="control-label">主机名：</label>
+							<select class="form-control" style="width: 33%;" ng-model="hostcondition" ng-change="hostchange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+							<input ng-disabled="!hostcondition" type="text" style="width: 33%;" class="form-control" name="host" ng-model="host" ng-pattern="/^[a-zA-Z0-9._]+$/" placeholder="请输入请求主机名"/>
+							<p  ng-show="myCustomForm.host.$error.pattern" style="color: red;">请输入字母、数字、点、下划线</p>
+						</div>
+						<div class="form-group"  style="width: 48%;">
+							<label class="control-label">日志级别：</label>
+							<select class="form-control" style="width: 33%;" ng-model="loglevelcondition" ng-change="loglevelchange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+							<select ng-disabled="!loglevelcondition" style="width: 33%;" class="form-control" ng-model="loglevel">
+                                <option value="">全部</option>
+                                <option ng-repeat="row in loglevelListData"  value="{{row.loglevel}}" ng-bind="row.loglevel"></option>
+                            </select>
+						</div>
+						<div class="form-group"  style="width: 48%;">
+							<label class="control-label">日志内容：</label>
+							<select class="form-control" style="width: 33%;" ng-model="messagecondition" ng-change="messagechange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+							<input ng-disabled="!messagecondition" type="text" style="width: 33%;" class="form-control" name="message" ng-model="message" ng-pattern="/^[a-zA-Z0-9\u4e00-\u9fa5]+$/" placeholder="请输入日志内容"/>
+							<p ng-show="myCustomForm.message.$error.pattern" style="color: red;">请输入汉字、字母、数字</p>
+						</div>
+						<div class="form-group"  style="width: 48%;">
+							<label class="control-label">字段：</label>
+							<input type="text" class="form-control" style="width: 22%;" ng-model="custom" placeholder="自定义字段"/>
+							<select class="form-control" style="width: 22%;" ng-model="customcondition" ng-change="custonchange()">
+                            	<option value="">--限制条件--</option>
+                            	<option value="must">必须</option>
+                                <option value="must_not">必须不</option>
+                                <option value="should">可能</option>
+                            </select>
+							<input ng-disabled="!customcondition" type="text" style="width: 22%;" class="form-control" name="customvalue" ng-model="customvalue" ng-pattern="/^[a-zA-Z0-9\u4e00-\u9fa5]+$/" placeholder="请输入内容"/>
+							<p ng-show="myCustomForm.customvalue.$error.pattern" style="color: red;">请输入汉字、字母、数字</p>
+						</div>
+						<div class="form-group" id="tenantDiv" style="display: none;">
+                            <label class="control-label">用户类型：</label>
+                            <select class="form-control" ng-model="tenantid" style="width: 66%;">
+                                <option value="">全部</option>
+                                <option value="platform">平台用户</option>
+                                <option ng-repeat="row in tenantListData"  value="{{row.id}}" ng-bind="row.name"></option>
+                            </select>
+                        </div> 
+						<div class="form-group"  style="width: 48%;">
+							<label class="control-label">快捷查询：</label>
+							<a ng-click="preWeek()"><i class="fa fa-search"></i>上周</a>&nbsp;&nbsp;
+					        <a ng-click="currWeek()"><i class="fa fa-search"></i>本周</a>&nbsp;&nbsp;
+					        <a ng-click="sevenDays()"><i class="fa fa-search"></i>7天</a>&nbsp;&nbsp;
+					        <a ng-click="fifteenDays()"><i class="fa fa-search"></i>15天</a>&nbsp;&nbsp;
+					        <a ng-click="thirtyDays()"><i class="fa fa-search"></i>30天</a>&nbsp;&nbsp;    
+					        <a ng-click="preMonth()"><i class="fa fa-search"></i>上月</a>&nbsp;&nbsp;
+					        <a ng-click="currMonth()"><i class="fa fa-search"></i>本月</a>
+						</div>
+						
+					</div>
+					</form>
+					<div class="search-btn">
+						<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+						<button class="btn btn-success w-xs m-r" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+						<button class="btn btn-success w-xs" ng-click="export()"><i class="fa fa-export"></i> 导出</button>
+					</div>
+				</div>
+				<iframe id="eslogexport" style="display: none;"></iframe>
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-striped b-light m-b-xxs table-navy">
+						<thead style="background: #fefefe">
+						<tr>
+							<th class="text-center">索引名称</th>
+							<th class="text-center">类型</th>
+							<th class="text-center">类型标记</th>
+							<th class="text-center">主机名</th>
+							<th class="text-center">时间</th>
+							<th class="text-center">日志级别</th>
+							<th class="text-center">日志内容</th>
+							<th class="text-center">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="(key,row) in listData">
+							<td class="text-center" title="{{row.index}}"><div ng-bind="row.index"></div></td>
+							<td class="text-center" title="{{row.type}}"><div  ng-bind="row.type"></div></td>
+							<td class="text-center" title="{{row.logflag}}"><div  ng-bind="row.logflag"></div></td>
+							<td class="text-center" title="{{row.host}}"><div  ng-bind="row.host"></div></td>
+							<td class="text-center" title="{{row.timestamp}}"><div ng-bind="row.timestamp"></div></td>
+							<td class="text-center" title="{{row.loglevel}}"><div ng-bind="row.loglevel"></div></td>
+							<td class="text-center" title="{{row.message}}"><div ng-bind="row.message"></div></td>
+							<td width="10%" class="td-operate text-center">
+                                   <button class="btn btn-success btn-sm" ng-click="detail(row)">
+                                       <i class="fa fa-info-circle"></i>
+                                       <span class="">详情</span>
+                                   </button>
+                               </td>
+						</tr>
+						</tbody>
+					</table>
+					<div class="clearfix">
+						<div class="col-sm-6">
+							<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+							</div>
+						</div>
+						<div class="col-sm-6 text-right">
+							<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10"
+							            ng-model="param.page" ng-change="getList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>
+					</div>  
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

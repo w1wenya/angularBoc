@@ -1,0 +1,269 @@
+<div class="content-byc image-content" ng-controller="addVolumeModalCtrl2">
+    <div class="animated update-content" ng-class="{true:'bounceInRight',false:'bounceOutRight'}[isActive]"
+         ng-if="showDetail==1">
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="padding:0;">
+                        <div class="panel-heading">
+                            <span class="p-l-6">新建云硬盘</span>
+                            <button class="btn btn-info pull-right" style="margin-top: -7px;" ng-click="goBack()" tabindex="0">
+                                <i class="fa fa-reply icon-font"></i> 返回
+                            </button>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;" ng-if="showJd==1">
+                            <div class="form-horizontal">
+                                <div class="col-md-12 margin-top-12">
+                                    <form class="form-horizontal form-validation" name="addJdForm">
+                                        <div class="form-group">
+                                            <div class="col-lg-12 margin-10">
+                                                <label class="col-lg-3 control-label">可用区域：</label>
+                                                <div class="col-lg-9 control-input" style="width:calc(100% - 85px);">
+                                                    <div class="region region-box" style="width:118px;" ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion(row)" ng-repeat="row in regionData">
+                                                        <span class="region-txt" ng-bind="row.name"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <label class="col-lg-3 control-label">名称：</label>
+                                                <div class="col-lg-9 control-input">
+                                                    <input type="text" name="name" class="form-control" placeholder="名称" ng-model="addData.name" validator="required,name" maxlength="32" maxlength-error-message="最多输入32个字符">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <label class="col-lg-3 control-label">类型：</label>
+                                                <div class="col-lg-9 control-input">
+                                                    <div class="region region-box" style="width:80px;" ng-class="{true:'region-active'}[row.isTypeActive]" ng-click="chooseType(row)" ng-repeat="row in typeData1">
+                                                        <span class="region-txt" ng-bind="row.name"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-12 input-style">
+                                                <label class="col-lg-3 control-label line-height-54">容量：</label>
+                                                <div class="col-lg-9 control-input">
+                                                    <rzslider rz-slider-model="slider1.value"
+                                                              rz-slider-options="slider1.options"></rzslider>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-12 input-style">
+                                                <label class="col-lg-3 control-label">数量：</label>
+                                                <div class="col-lg-2 contentW">
+                                                    <a href="" class="calc {{addData.count<=1?'nobuy':''}}" ng-click="overdue()">-</a>
+                                                    <span ng-bind="addData.count"></span>
+                                                    <a href="" class="calc {{addData.count>=250?'nobuy':''}}" ng-click="add()">+</a>
+                                                </div>
+                                                <!--<div class="col-lg-2" style="padding:0;">-->
+                                                    <!--<i class="fa fa-info-circle" aria-hidden="true" style="color:#43bfe3;font-size:14px;"></i>-->
+                                                    <!--<span class="sup" style="font-size:12px;">最多可开通250块云硬盘</span>-->
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-12 input-style">
+                                                <label class="col-lg-3 control-label">描述：</label>
+                                                <div class="col-lg-9 control-input">
+                                                    <textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="col-md-12 search-box m-b-md" style="float:none;">-->
+                                            <!--<div class="legend">配置信息</div>-->
+                                            <!--<div class="search-content1">-->
+                                                <!-- -->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </form>
+                                    <div class="col-md-12" style="margin:10px 0;">
+                                        <div class="col-md-6"><button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;" validation-submit="addJdForm" ng-disabled="addJdForm.$invalid" ng-click="ok()">确认</button></div>
+                                        <div class="col-md-6"><button class="btn btn-default" style="width:95%;height:35px;margin-bottom:15px;" ng-click="cancel()">取消</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body pmb-block" style="border:none;" ng-if="showAli==1">
+                            <div class="form-horizontal">
+                                <div class="col-md-12 margin-top-12">
+                                    <form class="form-horizontal form-validation" name="addAliForm">
+                                        <div class="col-md-12 search-box m-b-md" style="float:none;">
+                                            <div class="legend">基本配置</div>
+                                            <div class="search-content1">
+                                                <div class="form-group">
+                                                    <div class="col-lg-12 margin-10" style="padding-right:15px;padding-left:10px;">
+                                                        <label class="col-lg-3 control-label">地域：</label>
+                                                        <div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">
+                                                            <div class="region region-box" style="width:130px;" ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion(row)" ng-repeat="row in regionData">
+                                                                <span class="region-txt" ng-bind="row.name"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <label class="control-label">可用区：</label>
+                                                        <div class="control-input width-74">
+                                                            <select class="form-control" ng-model="addData.zone">
+                                                                <option ng-repeat="row in availableRegion" ng-selected="row.value==addData.zone" value="{{row.value}}" ng-bind="row.name"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-12 input-style">
+                                                        <label class="col-lg-3 control-label">云硬盘：</label>
+                                                        <div class="control-input width-74" style="position:relative;">
+                                                            <div class="region region-box" style="width:80px;float:left;" ng-class="{true:'region-active'}[row.isTypeActive]" ng-click="chooseType(row)" ng-repeat="row in typeData2">
+                                                                <span class="region-txt" ng-bind="row.name"></span>
+                                                            </div>
+                                                            <input type="text" name="size" class="form-control volume-size-input" ng-model="addData.size" ng-blur="checkDiskRange()"  validator="required,positiveNumber">
+                                                            <span class="bk-disk-unit">GB</span>
+                                                            <i class="fa fa-info-circle" aria-hidden="true" style="color:#43bfe3;font-size:14px;margin-left: 30px;"></i>
+                                                            <span class="sup" style="font-size:12px;">容量范围：{{diskMin}} - {{diskMax}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <label class="col-lg-3 control-label">名称：</label>
+                                                        <div class="col-lg-9 control-input" style="padding:0;">
+                                                            <input type="text" name="name" class="form-control" placeholder="名称" ng-model="addData.name" validator="required,name" maxlength="32" maxlength-error-message="最多输入32个字符">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-12 input-style">
+                                                        <label class="col-lg-3 control-label">描述：</label>
+                                                        <div class="control-input width-74" style="padding:0;">
+                                                            <textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 search-box m-b-md" style="float:none;">
+                                            <div class="legend">购买量</div>
+                                            <div class="search-content1">
+                                                <div class="form-group">
+                                                    <div class="col-lg-12 input-style">
+                                                        <label class="col-lg-3 control-label">数量：</label>
+                                                        <div class="col-lg-2 contentW">
+                                                            <a href="" class="calc {{addData.count<=1?'nobuy':''}}" ng-click="overdue()">-</a>
+                                                            <span ng-bind="addData.count"></span>
+                                                            <a href="" class="calc {{addData.count>=250?'nobuy':''}}" ng-click="add()">+</a>
+                                                        </div>
+                                                        <div class="col-lg-2" style="padding:0;">
+                                                            <i class="fa fa-info-circle" aria-hidden="true" style="color:#43bfe3;font-size:14px;"></i>
+                                                            <span class="sup" style="font-size:12px;">最多可开通250块云硬盘</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="form-group">-->
+                                                    <!--<div class="col-lg-12 input-style">-->
+                                                        <!--<label class="control-label">描述：</label>-->
+                                                        <!--<div class="control-input width-74">-->
+                                                            <!--<textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="col-md-12" style="margin:10px 0;">
+                                        <div class="col-md-6"><button type="submit" class="btn btn-primary" style="width:95%;height:35px;margin-bottom:15px;" validation-submit="addAliForm" ng-disabled="addAliForm.$invalid" ng-click="ok()">确认</button></div>
+                                        <div class="col-md-6"><button class="btn btn-default" style="width:95%;height:35px;margin-bottom:15px;" ng-click="cancel()">取消</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<form class="form-horizontal form-validation" name="addvmForm" ng-if="showAli==1">-->
+    <!--<div class="form-group">-->
+        <!--<div class="col-lg-12 margin-10" style="padding-right: 15px;padding-left: 10px;">-->
+            <!--<label class="col-lg-3 control-label">地域：</label>-->
+            <!--<div class="col-lg-9 control-input" style="width:calc(100% - 85px);padding:0;">-->
+                <!--<div class="region region-box" style="width:118px;" ng-class="{true:'region-active'}[row.isRegionActive]" ng-click="chooseRegion(row)" ng-repeat="row in regionData">-->
+                    <!--<span class="region-txt" ng-bind="row.name"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-12 search-box m-b-md" style="float:none;">-->
+        <!--<div class="legend">基本信息</div>-->
+        <!--<div class="search-content1">-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-lg-6">-->
+                    <!--<label class="control-label">名称：</label>-->
+                    <!--<div class="control-input width-74">-->
+                        <!--<input type="text" name="name" class="form-control input-sm" placeholder="名称" ng-model="addData.name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-6">-->
+                    <!--<label class="control-label">类型：</label>-->
+                    <!--<div class="control-input width-74">-->
+                        <!--<select class="form-control input-sm" ng-model="addData.type" ng-change="selectImage()">-->
+                            <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+                            <!--<option ng-repeat="row in typeData2" ng-selected="row.value==addData.type" value="{{row.value}}" ng-bind="row.name"></option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-12 search-box m-b-md" style="float:none;">-->
+        <!--<div class="legend">配置信息</div>-->
+        <!--<div class="search-content1">-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-lg-12 input-style">-->
+                    <!--<label class="col-lg-3 control-label line-height-54">容量：</label>-->
+                    <!--<div class="col-lg-9 control-input">-->
+                        <!--<rzslider rz-slider-model="slider2.value"-->
+                                  <!--rz-slider-options="slider2.options"></rzslider>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-lg-12 input-style">-->
+                    <!--<label class="col-lg-3 control-label">数量：</label>-->
+                    <!--<div class="col-lg-2 contentW">-->
+                        <!--<a href="" class="calc {{addData.size<=1?'nobuy':''}}" ng-click="overdue()">-</a>-->
+                        <!--<span ng-bind="addData.size"></span>-->
+                        <!--<a href="" class="calc {{addData.size>=250?'nobuy':''}}" ng-click="add()">+</a>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div class="col-lg-6 control-input" style="padding:0;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input type="text" name="disk" class="form-control disk-input input-sm" style="width:91%;" placeholder="磁盘大小" ng-model="addData.size" validator="required,positiveNumber"  min="1" max="250"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="col-lg-1" style="padding:0;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="sup" style="margin-left: -30px;">块</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="col-lg-2" style="padding:0;">-->
+                        <!--<i class="fa fa-info-circle" aria-hidden="true" style="color:#43bfe3;font-size:14px;"></i>-->
+                        <!--<span class="sup" style="font-size:12px;">最多可开通250块云硬盘</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-lg-12 input-style">-->
+                    <!--<label class="control-label">描述：</label>-->
+                    <!--<div class="control-input width-74">-->
+                        <!--<textarea class="form-control" name="remark" ng-model="addData.remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->

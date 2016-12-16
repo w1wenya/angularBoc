@@ -1,0 +1,120 @@
+<div  class="row clearfix" ng-task-main-router-copy="">
+	<div class="wrapper dashborad" ng-show="(routerStatus == 1)"ng-controller="DashboradTaskCtrl">
+		<div class="col-md-12">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">统计信息</div>
+				<div class="panel-detail">
+					<div class="col-md-4">
+						<div class="small-box s-bg-primary">
+							<div class="small-box-h text-center bg-primary-h">
+								<p style="font-size:50px;"><i class="fa fa-list-alt"></i></p>
+								<p>常用作业数</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.digit.generals"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="small-box s-bg-green">
+							<div class="small-box-h text-center bg-green-h">
+								<p style="font-size:50px;"><i class="fa fa-calendar"></i></p>
+								<p>本月执行任务数</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.digit.monthTasks"></div>
+								<div>
+									<div>执行中：{{dashboradData.digit.runs}}</div>
+									<div>成功：{{dashboradData.digit.success}}</div>
+									<div>失败：{{dashboradData.digit.fails}}</div>
+									<div>取消：{{dashboradData.digit.cancels}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="small-box s-bg-yellow">
+							<div class="small-box-h text-center bg-yellow-h">
+								<p style="font-size:50px;"><i class="fa fa-clock-o"></i></p>
+								<p>定时任务数</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large">{{dashboradData.digit.cronTasks}}</div>
+								<div>
+									<div>未激活：{{dashboradData.digit.inactives}}</div>
+									<div>已激活：{{dashboradData.digit.actives}}</div>
+									<div>暂停中：{{dashboradData.digit.pauses}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">历史任务执行情况</div>
+				<div class="panel-detail chart" ng-if="isDataLoad" style="height: 400px" ng-task-dashborad-line-chart="" data="dashboradData.trend">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">任务执行时长统计</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 360px" ng-task-dashborad-pie-chart="" theme="'任务执行时长'" data="dashboradData.duration">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">任务执行结果统计</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 360px" ng-task-dashborad-pie-chart="" theme="'任务执行结果'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">最近任务执行记录
+				<div class="pull-right"><a ui-sref="app.operation.history">更多</a></div></div>
+				<div class="panel-detail">
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-striped b-light m-b-xxs">
+								<thead>
+								<tr>
+									<th class="text-center">任务名称</th>
+									<th class="text-center">执行人</th>
+									<th class="text-center">总耗时（s）</th>
+									<th class="text-center">执行时间</th>
+									<th class="text-center">任务状态</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="(key,row) in historyListData| limitTo:8">
+									<td class="text-center">
+										<a href="javascript:void(0)" ng-click="goTaskDetail(row.id)" ng-bind="row.name"></a>
+									</td>
+									<td class="text-center" ng-bind="row.operator"></td>
+									<td class="text-center" ng-bind="row.cost"></td>
+									<td class="text-center" ng-bind="row.startTime"></td>
+									<td class="text-center" >
+										<button class="btn btn-primary btn-xs disabled" ng-class="{'SUCCESS':'btn-success','FAIL':'btn-danger'}[row.status]" ng-bind="row.status|cn:'taskStatus'"></button>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-md" ng-if="(routerStatus == 3)">
+		<div class="panel panel-default" ng-task-execute-detail="" ></div>
+	</div>
+</div>
+

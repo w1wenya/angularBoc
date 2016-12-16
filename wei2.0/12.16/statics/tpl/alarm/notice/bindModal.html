@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size">绑定人员</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="row  form-group">
+			<div class="col-md-6">
+				<label>未选人员：</label>
+				<br>
+				<div class="node-select">
+						<span class="node-free-cell" ng-repeat="row in freeNodes" ng-dblclick="addNodes($index,row)">
+							<span ng-bind="row.name"></span>&nbsp;
+						</span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label>已选人员：</label>
+				<br>
+				<div class="node-select">
+						<span class="node-free-cell" ng-repeat="row in selectNodes">
+							<span ng-bind="row.name"></span>&nbsp;
+							<i class="fa fa-close fa-pull-right" style="margin-top: 5px" ng-click="removeNodes($index,row)"></i>
+						</span>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

@@ -1,0 +1,129 @@
+<div ng-controller="AddDbPhysisCtrl" class="clearfix details">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>{{modalName}}</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal form-validation" name="addDbForm" novalidate>
+						<div class="search-box m-t-md">
+							<div class="legend">基本信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">资产编号：</label>
+										<input type="text" name="assetTag" class="form-control" ng-model="itemData.assetTag" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">服务提供商：</label>
+										<input type="text" name="vendor" class="form-control" ng-model="itemData.vendor" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">服务商电话：</label>
+										<input type="text" name="vendorPhone" class="form-control" ng-model="itemData.vendorPhone" validator="phone_opt" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">服务合同号：</label>
+										<input type="text" name="contractNo" class="form-control" ng-model="itemData.contractNo" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">服务时间：</label>
+										<input ng-model="date" class="form-control" ui-jq="daterangepicker" ui-options="{format: 'YYYY/MM/DD hh:mm:ss'}" placeholder="请选择时间" ng-disabled="isDetail"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="search-box m-t-md">
+							<div class="legend">配置信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="i-checks m-t-xs control-label"><input type="checkbox" ng-model="itemData.isHa"><i></i>是否HA</label>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="i-checks m-t-xs"><input type="checkbox" ng-model="itemData.autoBackup"><i></i>是否自动备份</label>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="i-checks m-t-xs"><input type="checkbox" ng-model="itemData.hasDataguard"><i></i>是否有备库</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">数据库名称<span>*</span>：</label>
+										<input type="text" name="name" class="form-control" ng-model="itemData.name" validator="required,name" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">数据库类型<span>*</span>：</label>
+										<select class="form-control"   name="type" validator="required" ng-model="itemData.type" ng-disabled="isDetail">
+											<option ng-repeat="item in typeData" ng-selected="item == type" value="{{item}}" ng-bind="item"></option>
+										</select>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">所属IP<span>*</span>：</label>
+										<input type="text" name="managerIp" class="form-control" ng-model="itemData.managerIp" validator="required,ip" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">应用系统：</label>
+										<input type="text" name="itsSystem" class="form-control" ng-model="itemData.itsSystem" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">数据库版本：</label>
+										<input type="text"  class="form-control" ng-model="itemData.version"  ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">字符集：</label>
+										<input type="text" class="form-control" ng-model="itemData.charset" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">管理用户名<span>*</span>：</label>
+										<input type="text" name="account" class="form-control" ng-model="itemData.account" validator="required,account" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">管理密码<span>*</span>：</label>
+										<input class="form-control" name="osPassword"  maxlength="18" validator="required,passwords" ng-model="itemData.password" type="{{showPass_os?'text':'password'}}" ng-disabled="isDetail"/>
+										<span class="eye" ng-class="{'eye-show':itemData.password}" ng-click="showPassword('showPass_os')"></span>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">端口<span>*</span>：</label>
+										<input type="text" name="servicePort" class="form-control" ng-model="itemData.port" validator="port_opt" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">Binlog大小：</label>
+										<input type="text" name="binlog" class="form-control" ng-model="itemData.binlog" validator="number_opt" placeholder="单位:G" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">Redolog：</label>
+										<input type="text" name="redlog" class="form-control" ng-model="itemData.redlog" placeholder="单位:G" validator="number_opt" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">访问地址：</label>
+										<input type="text" name="url" class="form-control" ng-model="itemData.url" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12 input-error-info">
+										<label class="control-label m-t-n-70">备注：</label>
+										<textarea class="form-control" name="remark" placeholder="备注" ng-model="itemData.remark" maxlength="256" ng-disabled="isDetail"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-md-12 m-t-md m-b-sm btn-list" ng-hide="isDetail">
+						<div class="col-md-6"><button type="submit" class="btn btn-primary" validation-submit="addDbForm" ng-disabled="addDbForm.$invalid" ng-click="save()">确认</button></div>
+						<div class="col-md-6"><button class="btn btn-default" ng-click="goBack()">取消</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

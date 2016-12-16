@@ -1,0 +1,110 @@
+<div  class="clearfix">
+	<div class="wrapper row dashborad" ng-controller="InfrastructureGraphCtrl">
+		<div class="col-md-12">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">设施统计</div>
+				<div class="panel-detail">
+					<div class="col-md-3">
+						<div class="small-box s-bg-primary">
+							<div class="small-box-h text-center bg-primary-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/datacenter_white.png" alt=""></p>
+								<p>数据中心数量</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.resource.centers"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="small-box s-bg-aqua">
+							<div class="small-box-h text-center bg-aqua-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/room_white.png" alt=""></p>
+								<p>机房数量</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large">{{dashboradData.resource.rooms}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="small-box s-bg-green">
+							<div class="small-box-h text-center bg-green-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/rack_white.png" alt=""></p>
+								<p>机柜数量</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.resource.racks"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="small-box s-bg-yellow">
+							<div class="small-box-h text-center bg-yellow-h">
+								<p class="small-box-p"><img src="/statics/img/dashborad/host_white.png" alt=""></p>
+								<p>主机数量</p>
+							</div>
+							<div class="small-box-count">
+								<div class="font-large" ng-bind="dashboradData.resource.servers"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">物理机状态统计</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 400px" ng-graph-dashborad-pie-chart="" theme="'物理机状态统计'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">虚拟机状态统计</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 400px" ng-graph-dashborad-pie-chart="" theme="'虚拟机状态统计'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">云数据库状态统计</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 400px" ng-graph-dashborad-pie-chart="" theme="'云数据库状态统计'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">平台CPU分布</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 400px" ng-graph-dashborad-pie-chart="" theme="'物理机状态统计'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">平台内存分布</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 400px" ng-graph-dashborad-pie-chart="" theme="'虚拟机状态统计'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default m-b">
+				<div class="panel-heading">平台磁盘分布</div>
+				<div class="panel-detail">
+					<div class="col-md-12 chart" ng-if="isDataLoad" style="height: 400px" ng-graph-dashborad-pie-chart="" theme="'云数据库状态统计'" data="dashboradData.result">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -5,6 +5,8 @@
              ng-repeat="tab in tabs"
              ng-class="{active: tab.active}"
              tab-content-transclude="tab">
+            <div class="row panel pad-10" data-ng-include="'/views/basis/host/host.html'">
+            </div>
         </div>
     </div>
 </div> 

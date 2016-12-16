@@ -1,226 +1,114 @@
-<div ng-controller="HostDetailCtrl" class="clearfix all-height content-byc tpl-1">
-	<div class="row wrapper">
-		<div class="col-md-12 group-panel">
-			<div class="panel panel-default">
-				<div class="panel-heading"><a href="javascript:void(0)"
-				                              ng-click="goBack()"><i class="fa fa-arrow-left"></i></a>主机详请（{{hostDetailData.name}}）</div>
-				<div class="panel-body">
-					<div class="col-md-12 host-detail">
-						<div class="col-md-6">
-							<div class="panel panel-info">
-								<div class="panel-heading">主机基本信息</div>
-								<div  class="panel-detail">
-									<p class="cabinet-line">
-										<span class="cabinet-title">主机名称：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.name"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">主机状态：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.status|cn:'status'"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">用户账号：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.osAccount"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">IPMI账号：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.ipmiAccount"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">IPMI地址：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.ipmiAddress"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">管理地址：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.managerIp"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">管理端口：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.managerPort"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">主机标签：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.tags"></span>
-									</p>
+
+	<section id="content" ng-controller="HostDetailCtrl">
+		<div class="container ">
+	<div class="card">
+			<div class="card-body card-padding" >
+
+				<tabset class="tab-container">
+					<tab >
+						<tab-heading>
+							主机详情
+						</tab-heading>
+						<div class="pmb-block" data-ng-controller="profileCtrl as pctrl">
+							<div class="pmbb-header">
+								<h2><i class="zmdi zmdi-person m-r-5"></i> Basic Information</h2>
+
+								<ul class="actions dropdown-menu-right" data-ng-if="pctrl.editInfo === 0">
+									<li class="dropdown" uib-dropdown>
+										<a href="" uib-dropdown-toggle>
+											<i class="zmdi zmdi-more-vert"></i>
+										</a>
+
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li>
+												<a data-ng-click="pctrl.editInfo = 1" href="">Edit</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="pmbb-body p-l-30">
+								<div class="pmbb-view" data-ng-if="pctrl.editInfo === 0">
+									<dl class="dl-horizontal">
+										<dt>主机名称</dt>
+										<dd>{{ pctrl.fullName }}</dd>
+									</dl>
+									<dl class="dl-horizontal">
+										<dt>Gender</dt>
+										<dd>{{ pctrl.gender }}</dd>
+									</dl>
+									<dl class="dl-horizontal">
+										<dt>Birthday</dt>
+										<dd>{{ pctrl.birthDay }}</dd>
+									</dl>
+									<dl class="dl-horizontal">
+										<dt>Martial Status</dt>
+										<dd>{{ pctrl.martialStatus }}</dd>
+									</dl>
 								</div>
+
+								<form data-ng-submit="pctrl.submit('profileInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editInfo === 1">
+									<dl class="dl-horizontal">
+										<dt class="p-t-10">主机名称</dt>
+										<dd>
+											<div class="fg-line">
+												<input data-ng-model="pctrl.fullName" type="text" class="form-control" value="{{ pctrl.fullName }}" placeholder="eg. Mallinda Hollaway">
+											</div>
+
+										</dd>
+									</dl>
+									<dl class="dl-horizontal">
+										<dt class="p-t-10">Gender</dt>
+										<dd>
+											<div class="fg-line">
+												<select class="form-control">
+													<option>Female</option>
+													<option>Male</option>
+													<option>Other</option>
+												</select>
+											</div>
+										</dd>
+									</dl>
+									<dl class="dl-horizontal">
+										<dt class="p-t-10">Birthday</dt>
+										<dd>
+											<div class="dtp-container dropdown fg-line">
+												<input type='text' class="form-control" data-dt-picker="DD/MM/YYYY" uib-dropdown-toggle placeholder="eg. 23/06/1988">
+											</div>
+										</dd>
+									</dl>
+									<dl class="dl-horizontal">
+										<dt class="p-t-10">Martial Status</dt>
+										<dd>
+											<div class="fg-line">
+												<select class="form-control">
+													<option>Single</option>
+													<option>Married</option>
+													<option>Other</option>
+												</select>
+											</div>
+										</dd>
+									</dl>
+
+									<div class="m-t-30">
+										<button class="btn btn-primary btn-sm" type="submit">Save</button>
+										<button class="btn btn-link btn-sm" data-ng-click="pctrl.editInfo = 0" >Cancel</button>
+									</div>
+								</form>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="panel panel-info">
-								<div class="panel-heading">主机配置信息</div>
-								<div  class="panel-detail">
-									<p class="cabinet-line">
-										<span class="cabinet-title">CPU型号：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.processorMode"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">CPU数量：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.processorAmount"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">内存型号：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.memoryMode"></span>
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">内存大小：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.memoryCapacity"></span> MB
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">磁盘容量：</span>
-										<span class="cabinet-content" ng-bind="(hostDetailData.diskCapacity||'容量未知')"></span> GB
-									</p>
-									<p class="cabinet-line">
-										<span class="cabinet-title">内核版本：</span>
-										<span class="cabinet-content" ng-bind="hostDetailData.kernelVersion"></span>
-									</p>
-								</div>
-							</div>
+					</tab>
+					<tab >
+						<tab-heading>
+							网络设备
+						</tab-heading>
+						<div class="row  pad-10" >
+							ffffdffd
 						</div>
-					</div>
-					<div class="col-md-12" style="background-color: #fff">
-						<div class="col-md-12 page-info-round">
-							<div data-monitor="host.disk.in" 
-								data-width="12%"
-								data-dimensions="write"
-								data-title="磁盘写入"
-								data-units="%"
-								data-chart-library="easypiechart"
-								data-chart-type="area"
-								data-before="0" 
-								data-after="10000"
-								data-identification="{{hostDetailData.managerIp}}" 
-								data-colors="#DD4400"
-								class="netdata-container">
-							</div>					
-							<div data-monitor="host.disk.out" 
-								data-width="12%"
-								data-dimensions="read"
-								data-title="磁盘读取"
-								data-units="%"
-								data-chart-library="easypiechart"
-								data-before="0" 
-								data-after="10000"
-								data-identification="{{hostDetailData.managerIp}}" 
-								style="width: 12%; height: 120px;">
-							</div>					
-							<div data-monitor="host.cpu" 
-								data-width="12%"
-								data-title="CPU"
-								data-dimensions="used"
-								data-units="%"
-								data-chart-library="gauge"
-								data-gauge-max-value="100"
-								data-before="0" 
-								data-after="10000"
-								data-identification="{{hostDetailData.managerIp}}" >
-							</div>					
-							<div data-monitor="host.net.received" 
-								data-width="12%"
-								data-dimensions="received"
-								data-title="接收"
-								data-units="kbps/s"
-								data-chart-library="easypiechart"
-								data-before="0" 
-								data-after="10000"
-								data-identification="{{hostDetailData.managerIp}}" >
-							</div>					
-							<div data-monitor="host.net.sent" 
-								data-width="12%"
-								data-dimensions="sent"
-								data-title="发送"
-								data-units="kbps/s"
-								data-chart-library="easypiechart"
-								data-before="0" 
-								data-after="10000"
-								data-identification="{{hostDetailData.managerIp}}" >
-							</div>					
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="content-column">
-							<div class="table-bordered">
-								<div class="col-md-12 table-bordered-one">
-									<div class="panel-heading_title_table">
-										 <p class="title-content">CPU</p>
-				                     	 <p class="title-desc-txt">描述</p>
-				                    </div>
-									<div class="chart-content" style="padding: 10px">
-										<div data-monitor="host.cpu" 
-											data-width="100%" 
-											data-units="%"
-											data-before="0" 
-											data-after="10000"
-											data-identification="{{hostDetailData.managerIp}}"
-											data-colors=""
-											role="application" 
-											class="monitor-container-with-legend"
-											style="width: 100%; height: 180px;">
-										</div>
-									</div>
-								</div>
-								<div class="col-md-12 table-bordered-one">
-									<div class="panel-heading_title_table">
-										<p class="title-content">内存</p>
-	                        			 <p class="title-desc-txt">描述</p>
-									</div>
-									<div class="chart-content " style="padding: 10px">
-	<!-- 									<div class="doubleChart" double-chart="" data="IO" style="height:230px;width:100%;"></div> -->
-										<div data-monitor="host.mem" 
-											data-width="100%" 
-											data-units="%"
-											data-before="0" 
-											data-after="10000"
-											data-identification="{{hostDetailData.managerIp}}"
-											data-colors=""
-											role="application" 
-											class="monitor-container-with-legend"
-											style="width: 100%; height: 180px;">
-										</div>
-									</div>
-								</div>
-								<div class="col-md-12 table-bordered-one">
-									<div class="panel-heading_title_table">
-										<p class="title-content">磁盘</p>
-	                        			 <p class="title-desc-txt">描述</p>
-	                       			 </div>
-									<div class="chart-content " style="padding: 10px">
-										<div data-monitor="host.disk" 
-											data-width="100%" 
-											data-units="%"
-											data-before="0" 
-											data-after="10000"
-											data-identification="{{hostDetailData.managerIp}}"
-											data-colors=""
-											role="application" 
-											class="monitor-container-with-legend"
-											style="width: 100%; height: 180px;">
-										</div>
-									</div>	
-								</div>							
-								<div class="col-md-12 table-bordered-one">
-									<div class="panel-heading_title_table">
-										<p class="title-content">IO</p>
-				               			<p class="title-desc-txt">描述</p>
-									</div>
-									<div class="chart-content "style="padding: 10px">
-										<div data-monitor="host.net.bytes" 
-											data-width="100%" 
-											data-chart-library="dygraph"
-											data-before="0" 
-											data-after="10000"
-											data-identification="{{hostDetailData.managerIp}}"
-											data-colors=""
-											role="application" 
-											class="monitor-container-with-legend"
-											style="width: 100%; height: 180px;">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+					</tab>
+
+				</tabset>
 			</div>
-		</div>
 	</div>
-</div>
+		</div>
+	</section>

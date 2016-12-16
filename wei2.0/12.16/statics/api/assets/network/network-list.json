@@ -1,0 +1,34 @@
+{
+  "success" : true,
+  "data" :{
+    "rows": [
+      {
+        "id":1,
+        "name":"数据中心1",
+        "cidr":"1",
+        "status":"RUNNING"
+      },
+      {
+        "id":2,
+        "name":"数据中心2",
+        "cidr":"1",
+        "status":"RUNNING"
+      },
+      {
+        "id":3,
+        "name":"数据中心2",
+        "cidr":"1",
+        "status":"RUNNING"
+      },
+      {
+        "id":5,
+        "name":"数据中心4",
+        "cidr":"1",
+        "status":"RUNNING"
+      }],
+    "total":20
+  },
+  "message" : "信息",
+  "code" : 1111,
+  "solution" : " "
+}

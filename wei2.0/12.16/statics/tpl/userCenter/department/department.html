@@ -1,0 +1,20 @@
+<div ng-controller="departmentCtrl" class="clearfix script-content">
+    <div class="wrapper-md">
+        <div class="panel panel-default" ng-show="!showDetail">
+            <div class="">
+                <div class="search-btn" style="margin-left: 6px;margin-top: -10px;">
+                    <button class="btn btn-primary w-xs m-r" ng-click="add(1,{},$event)"><i class="fa fa-plus-circle"></i> 新增</button>
+                </div>
+                <div class="">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row">
+                            <div class="" style="margin:-10px 0 0 -10px;">
+                                <table easy-grid2 id="dg" tree-data="treeData" get-data="getData(param)" add="add(flag,item,$event)" remove="remove(item,$event)" detail="detail(item,$event)" bind="bindHost(item,$event)" class="easyui-treegrid"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

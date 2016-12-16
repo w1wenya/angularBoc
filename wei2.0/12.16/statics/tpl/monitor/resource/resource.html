@@ -1,0 +1,92 @@
+<div ng-controller="mResourceCtrl" class="content-byc">
+    <div class="wrapper-md">
+        <!-- menu -->
+        <div class="aside-wrap2">
+            <div class="col-lg-12 padding-0 query-title">
+                <label class="col-lg-2 control-label padding-0 query-label">名称：</label>
+                <div class="col-lg-6 padding-0 query-input">
+                    <input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">
+                </div>
+                <div class="col-lg-3">
+                    <button class="btn btn-info btn-sm m-r" ng-click="getTreeData(0)">查询</button>
+                </div>
+            </div>
+            <div class="navi-wrap">
+                <!-- nav -->
+                <treecontrol class="tree-dark" tree-model="dataForTheTree" expanded-nodes="expandedNodes" selected-node="selected" options="treeOptions">
+                    <!--<a ui-sref={{node.url}}>{{node.name}}</a>-->
+                     <span class="tree-span-style" ng-class="" ng-click="getData(1,node)">
+                       <i class="fa" ng-class="{'fa-cloud':node.action==1,'fa-folder':node.action==2,'fa-calculator':node.action==3}"></i>
+                       <span ng-class="{'action3-select action3':node.action==3}" title="{{node.name}}">{{node.name}}</span>
+                     </span>
+                </treecontrol>
+                <!-- nav -->
+            </div>
+        </div>
+        <!-- / menu -->
+
+        <div class="row panel panel-default" style="margin-left: 285px;">
+            <div class="">
+                <!--<div class="col-md-12 search-box m-b-md">-->
+                    <!--<div class="legend">查询条件</div>-->
+                    <!--<div class="search-content">-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label">名称：</label>-->
+                            <!--<input type="name" ng-model="searchByName" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_3">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="search-btn">-->
+                        <!--<button class="btn btn-info w-xs m-r" ng-click="getData(1)"><i class="fa fa-search"></i> 查询</button>-->
+                        <!--<button class="btn btn-primary w-xs m-r" ng-click="add($event)"><i class="fa fa-plus-circle"></i> 新增</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="col-md-12">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-top: -10px;">
+                                <table class="table table-striped b-light m-b-xxs">
+                                    <thead class="table-header">
+                                    <tr>
+                                        <th width="25%" class="text-center font-15">监控项名称</th>
+                                        <th width="30%" class="text-center font-15">采集方式</th>
+                                        <th width="30%" class="text-center font-15">采集间隔（秒）</th>
+                                        <th class="text-center td-operate font-15" width="15%">查看</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="table-content" ng-repeat="row in commandList" ng-if="!isImageData">
+                                        <td width="25%" class="text-center font-15 text-overflow" style="max-width:154px;" title="{{row.name}}" ng-bind="row.name"></td>
+                                        <td width="30%" class="text-center font-15 text-overflow" style="max-width:230px;" title="{{row.monitorWay}}" ng-bind="row.monitorWay"></td>
+                                        <!--<td width="30%" class="text-center font-15">-->
+                                            <!--<button class="btn btn-xs disabled" style="width:50px;" ng-class="{'DEADLY':'btn-danger','HIGH':'btn-warning','SERIOUS':'btn-primary','MEDIUM':'btn-info','COMMON':'btn-success'}[row.level]" title="{{row.level|cn:'level'}}" ng-bind="row.level|cn:'level'"></button>-->
+                                        <!--</td>-->
+                                        <td width="30%" class="text-center font-15 text-overflow" style="max-width:230px;" title="{{row.timeInterval}}" ng-bind="row.timeInterval"></td>
+                                        <td width="15%" class="td-operate text-center">
+                                            <button class="btn btn-success btn-sm" ng-click="goMonitor(row)">
+                                                <i class="fa fa-info-circle"></i>
+                                                <span class="">查看</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="isImageData">
+                                        <td class="td-nodata" colspan="4">暂无数据</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="clearfix">
+                                    <div class="col-sm-6" style="padding: 7px 15px;">
+                                        <div class="paginationTables_info">总共<span ng-bind="totalCount"></span>条, 每页<span ng-bind="param.rows"></span>条</div>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <pagination style="" boundary-links="true" total-items="totalCount" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getData(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

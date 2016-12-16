@@ -1,0 +1,105 @@
+<div ng-controller="AddStorageModalCtrl" class="clearfix details">
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold"><span>{{modalName}}</span>
+					<button class="btn btn-info pull-right m-t-n-7" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal form-validation" name="addForm">
+						<div class="search-box m-t-md" data-ng-include="'/statics/tpl/assets/infrastructure/basicInfo.html'"></div>
+						<div class="search-box m-t-md">
+							<div class="legend">配置信息</div>
+							<div class="search-content">
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">数据中心<span>*</span>：</label>
+										<select class="form-control" name="centerId" ng-change="loadSelectData(0,dcId)" validator="required" ng-model="itemData.dcId" ng-disabled="isDetail||sourceDisabled">
+											<option value="">--请选择--</option>
+											<option ng-repeat="item in dataCenterData" ng-selected="item.id == itemData.dcId" value="{{item.id}}" ng-bind="item.name"></option>
+										</select>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">机房列表<span>*</span>：</label>
+										<select class="form-control" name="roomId" ng-change="loadSelectData(1,roomId)" validator="required" ng-model="itemData.roomId" ng-disabled="isDetail||sourceDisabled">
+											<option value="">--请选择--</option>
+											<option ng-repeat="item in roomData" ng-selected="item.id == itemData.roomId"value="{{item.id}}" ng-bind="item.name"></option>
+										</select>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">机柜列表<span>*</span>：</label>
+										<select class="form-control"   name="rackId" validator="required" ng-model="itemData.rackId" ng-disabled="isDetail||sourceDisabled">
+											<option value="">--请选择--</option>
+											<option ng-repeat="item in cabinetData" ng-selected="item.id == itemData.rackId" value="{{item.id}}" ng-bind="item.name"></option>
+										</select>
+								</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">存储名称<span>*</span>：</label>
+										<input type="text" name="name" class="form-control" ng-model="itemData.name" validator="required,name" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">存储类型<span>*</span>：</label>
+										<select class="form-control"   name="type" validator="required" ng-model="itemData.type" ng-disabled="isDetail">
+											<option ng-repeat="item in storageData" ng-selected="item == type" value="{{item}}" ng-bind="item"></option>
+										</select>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">存储区大小：</label>
+										<input type="text" name="capacity" class="form-control" ng-model="itemData.capacity" validator="number_opt" placeholder="单位:G" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">文件系统：</label>
+										<input type="text" name="fileSystem" class="form-control" ng-model="itemData.fileSystem" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">所属物理机：</label>
+										<input type="text" name="physicalIp" class="form-control" ng-model="itemData.physicalIp" validator="ip_opt" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">剩余容量：</label>
+										<input type="text" name="spareCapacity" class="form-control" ng-model="itemData.spareCapacity" placeholder="单位:G" validator="number_opt" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">存储用户名<span>*</span>：</label>
+										<input type="text" name="username" class="form-control" ng-model="itemData.username" validator="required,account" ng-disabled="isDetail"/>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">存储密码<span>*</span>：</label>
+										<input class="form-control" name="osPassword"  maxlength="18" validator="required,passwords" ng-model="itemData.password" type="{{showPass_os?'text':'password'}}" ng-disabled="isDetail"/>
+										<span class="eye" ng-class="{'eye-show':itemData.password}" ng-click="showPassword('showPass_os')"></span>
+									</div>
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">服务IP地址<span>*</span>：</label>
+										<input type="text" name="serviceIp" class="form-control" ng-model="itemData.serviceIp" validator="required,ip" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4 input-error-info">
+										<label class="control-label">端口信息：</label>
+										<input type="text" name="servicePort" class="form-control" ng-model="itemData.servicePort" validator="port_opt" ng-disabled="isDetail"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12 input-error-info">
+										<label class="control-label m-t-n-70">备注：</label>
+										<textarea class="form-control" name="remark" placeholder="备注" ng-model="itemData.remark" maxlength="256" ng-disabled="isDetail"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-md-12 m-t-md m-b-sm btn-list" ng-hide="isDetail">
+						<div class="col-md-6"><button type="submit" class="btn btn-primary" validation-submit="addForm" ng-disabled="addForm.$invalid" ng-click="save()">确认</button></div>
+						<div class="col-md-6"><button class="btn btn-default" ng-click="goBack()">取消</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

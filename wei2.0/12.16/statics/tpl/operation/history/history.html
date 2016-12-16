@@ -1,0 +1,89 @@
+<div ng-task-main-router-copy="" class="clearfix script-content">
+	<div class="wrapper-md">
+		<div class="panel panel-default" ng-controller="HistoryListCtrl" ng-show="(routerStatus == 1)">
+			<div class="row">
+				<div class="col-md-12 search-box m-b-md">
+					<div class="legend">查询条件</div>
+					<div class="search-content">
+						<div class="form-group">
+							<label class="control-label">任务名称：</label>
+							<input type="text" class="form-control" ng-model="name" placeholder="请输入任务名称"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">创建人：</label>
+							<span style="position: relative" ng-auo-complete="" user-name="creator" user-id="createrId"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">任务状态：</label>
+							<select class="form-control"ng-model="status">
+								<option value="">全部</option>
+								<option ng-repeat="(key,item) in statusModeData" value="{{key}}" ng-bind="item"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label">执行时间：</label>
+							<input ng-model="date" class="form-control w-md" ui-jq="daterangepicker" ui-options="{format: 'YYYY/MM/DD'}" placeholder="请选择时间" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">启动任务：</label>
+							<select class="form-control" ng-model="mode">
+								<option value="">全部</option>
+								<option ng-repeat="(key,item) in startWaysData" value="key" ng-bind="item"></option>
+							</select>
+						</div>
+					</div>
+					<div class="search-btn m-t">
+						<button class="btn btn-primary w-xs m-r" ng-click="search()"><i class="fa fa-search"></i> 查询</button>
+						<button class="btn btn-success w-xs" ng-click="reset()"><i class="fa fa-refresh"></i> 重置</button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-striped b-light m-b-xxs">
+							<thead style="background: #fefefe">
+							<tr>
+								<th class="text-center">任务名称</th>
+								<th class="text-center">启动人</th>
+								<th class="text-center">任务状态</th>
+								<th class="text-center">开始时间</th>
+								<th class="text-center">结束时间</th>
+								<th class="text-center">启动方式</th>
+								<th class="text-center">总耗时（s）</th>
+								<th class="text-center">操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="(key,row) in historyListData">
+								<td class="text-center" ng-bind="row.name"></td>
+								<td class="text-center" ng-bind="row.operator"></td>
+								<td class="text-center" >
+									<button class="btn btn-primary btn-xs disabled" ng-class="{'SUCCESS':'btn-success','FAIL':'btn-danger'}[row.status]" ng-bind="row.status|cn:'taskStatus'"></button>
+								</td>
+								<td class="text-center" ng-bind="row.startTime"></td>
+								<td class="text-center" ng-bind="row.endTime"></td>
+								<td class="text-center" ng-bind="row.mode|cn:'startWay'"></td>
+								<td class="text-center" ng-bind="row.cost"></td>
+								<td class="text-center">
+									<button class="btn btn-sm btn-primary m-r-sm" ng-if="row.taskId" ng-click="goPreviewTask(row.taskId)"><i class="fa fa-mail-forward"></i>重做</button>
+									<button class="btn btn-sm btn-info" ng-click="goTaskDetail(row.id)"><i class="fa fa-info"></i> 详情</button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<div class="col-sm-6">
+								<div class="paginationTables_info">共有<span ng-bind="totalPage"></span>条记录，每页显示<span ng-bind="param.rows"></span>条
+								</div>
+							</div>
+							<div class="col-sm-6 text-right">
+								<pagination boundary-links="true" total-items="totalPage" items-per-page="param.rows" max-size="10" ng-model="param.page" ng-change="getHistoryList(param.page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default task-graph-content" ng-task-preview-detail="" ng-if="(routerStatus == 2)"></div>
+		<div class="panel panel-default" ng-task-execute-detail="" ng-if="(routerStatus == 3)"></div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<div  class="content-byc" ng-controller="DataBaseMainCtrl">
+	<div class="wrapper-md">
+		<tabset class="tab-container">
+			<tab ng-controller="DataBasePhysisCtrl" select="selectTab()" active="isP">
+				<tab-heading>
+					物理数据库
+				</tab-heading>
+				<div class="row panel pad-10"  data-ng-include="'/statics/tpl/assets/database/physis/list.html'">
+				</div>
+			</tab>
+			<tab   ng-controller="DataBaseCloudCtrl" select="selectTab()" active="isCloud">
+				<tab-heading>
+					RDS
+				</tab-heading>
+				<div class="row panel pad-10"data-ng-include="'/statics/tpl/assets/database/rds/list.html'">
+				</div>
+			</tab>
+		</tabset>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+<div ng-controller="NoticeDetailCtrl" class="clearfix detail" >
+	<div class="row wrapper-md">
+		<div class="col-md-12">
+			<button class="btn btn-info m-b pull-right" ng-click="goBack()"><i class="fa fa-reply"></i> 返回</button>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">基本信息</div>
+				<div class="panel-body">
+					<p class="detail-line">
+						<span class="detail-title">策略名称：</span>
+						<span class="detail-content" ng-bind="detailData.name"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">告警级别：</span>
+						<button class="btn btn-xs disabled ng-binding btn-info" ng-class="{'ALL':'btn-primary','REMIND':'btn-info','WARN':'btn-warning','DANGER':'btn-danger'}[detailData.level]" ng-bind="detailData.level|cn:'alarmLevel'">提醒</button>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">创建时间：</span>
+						<span class="detail-content" ng-bind="detailData.gmtCreate"></span>
+					</p>
+				</div>
+		</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">配置信息</div>
+				<div class="panel-body">
+					<p class="detail-line">
+						<span class="detail-title">告警时间：</span>
+						<span class="detail-content" ng-bind="detailData.timeperiod|cn:'noticeTime'"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">延迟时间：</span>
+						<span class="detail-content" ng-bind="detailData.delay|cn:'noticeDelay'"></span>
+					</p>
+					<p class="detail-line">
+						<span class="detail-title">通知方式：</span>
+						<span class="detail-content" ng-bind="detailData.mode|cn:'noticeWay'"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!--<div class="col-md-12">-->
+			<!--<div class="panel panel-default">-->
+				<!--<div class="panel-heading font-bold">人员列表</div>-->
+				<!--<div class="panel-body">-->
+					<!--<table class="table table-striped b-light m-b-xxs">-->
+						<!--<thead style="background: #fefefe">-->
+						<!--<tr>-->
+							<!--<th class="text-center">名称</th>-->
+							<!--<th class="text-center">备注</th>-->
+						<!--</tr>-->
+						<!--</thead>-->
+						<!--<tbody>-->
+						<!--<tr ng-repeat="(key,row) in personData">-->
+							<!--<td class="text-center" ng-bind="row.name"></td>-->
+							<!--<td class="text-center" ng-bind="row.remark"></td>-->
+						<!--</tr>-->
+						<!--</tbody>-->
+					<!--</table>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	</div>
+</div>

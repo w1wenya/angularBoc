@@ -1,0 +1,99 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size" ng-bind="modalName"></p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">应用名称：</label>
+				<div class="control-input">
+					<input class="form-control" name="name" placeholder="应用名称" ng-model="name" validator="required,name" maxlength="64" maxlength-error-message="最多输入64个字符" type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">应用版本：</label>
+				<div class="control-input">
+					<input class="form-control" name="version" placeholder="应用版本" ng-model="version" validator="required" type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">应用类型：</label>
+				<div class="control-input">
+					<select class="form-control" name="type" validator="required" required-error-message="请选择应用类型" ng-model="type">
+						<option value="">--请选择--</option>
+						<option ng-repeat="(key,item) in appTypeData" ng-selected="key == type" value="{{key}}" ng-bind="item"></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">应用标识：</label>
+				<div class="control-input">
+					<input class="form-control" name="uuid" placeholder="如不输入将自动生成" ng-model="uuid" maxlength="64" type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">服务路径：</label>
+				<div class="control-input">
+					<input class="form-control" name="path" placeholder="服务路径" ng-model="path" validator="required,path"type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">应用域名：</label>
+				<div class="control-input">
+					<input class="form-control" name="domain" placeholder="域名" ng-model="domain" validator="required" type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">集成平台：</label>
+				<div class="control-input">
+					<select class="form-control" name="toolId"  ng-model="toolId" ng-change="getCiJob()">
+						<option value="">--请选择--</option>
+						<option ng-repeat="item in toolData" ng-selected="item.id == toolId" value="{{item.id}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">集成任务：</label>
+				<div class="control-input">
+					<select class="form-control" name="ciJob" ng-model="ciJob">
+						<option value="">--请选择--</option>
+						<option ng-repeat="item in ciJobData" ng-selected="item.name == ciJob" value="{{item.name}}" ng-bind="item.name"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">包路径：</label>
+				<div class="control-input">
+					<input class="form-control" name="fullpath" placeholder="包路径" ng-model="fullpath" validator="required,packagepath"  type="text" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">组织机构：</label>
+				<div class="col-lg-10 addcombotree1" style="width: calc(100% - 135px);padding: 0">
+					<div ng-app-combotree=""  id="mycombotree" tree-data="treeData" group-id="groupId" group-name="groupName" class="easyui-combotree control-input"></div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">应用描述：</label>
+				<div class="control-input">
+					<textarea class="form-control" name="remark" placeholder="应用描述" ng-model="remark" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>

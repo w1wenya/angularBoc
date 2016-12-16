@@ -1,0 +1,62 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancle()">&times;</button>
+	<p class="modal-title panel-title-size">解决告警</p>
+</div>
+<div class="modal-body panel-body">
+	<form class="form-horizontal form-validation" name="addCabinetForm">
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">告警名称：</label>
+				<div class="control-input">
+					<span class="form-control"  ng-bind="detailData.name" disabled></span>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">告警级别：</label>
+				<div class="control-input">
+					<span class="form-control"  ng-bind="detailData.level|cn:'alarmLevel'" disabled></span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">告警状态：</label>
+				<div class="control-input">
+					<span class="form-control"  ng-bind="detailData.status|cn:'alarmStatus'" disabled></span>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">监控项：</label>
+				<div class="control-input">
+					<span class="form-control"  ng-bind="detailData.measurement" disabled></span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-6">
+				<label class="control-label">确认人：</label>
+				<div class="control-input">
+					<span class="form-control"  ng-bind="detailData.confirmUser" disabled></span>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<label class="control-label">告警内容：</label>
+				<div class="control-input">
+					<input class="form-control"  ng-model="detailData.content" disabled>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-12">
+				<label class="control-label">解决方法：</label>
+				<div class="control-input">
+					<textarea class="form-control" name="remark" placeholder="解决方法" ng-model="methodSolve" maxlength="256" maxlength-error-message="最多输入256个字符"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" validation-submit="addCabinetForm" ng-disabled="(addCabinetForm.$invalid || isFail)" ng-click="ok()">确认</button>
+	<button class="btn btn-default" ng-click="cancle()">取消</button>
+</div>
